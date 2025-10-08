@@ -1,4 +1,53 @@
+import React from "react";
+import { motion } from "framer-motion";
+
 export function TrustedBy() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
+
+  const headerVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8
+      }
+    }
+  };
+
+  const testimonialVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        delay: 0.4
+      }
+    }
+  };
+
   const partners = [
     { name: "FDRE Defense Hospital", logo: "FDRE" },
     { name: "Tigray Regional Health Bureau", logo: "TRHB" },
@@ -13,20 +62,38 @@ export function TrustedBy() {
   return (
     <section className="py-16 bg-slate-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <motion.div 
+          className="text-center mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={headerVariants}
+        >
           <h2 className="text-3xl font-bold text-slate-900 mb-4">
             Trusted by Leading Healthcare Institutions
           </h2>
           <p className="text-lg text-slate-600">
             Partnering with Ethiopia's most prestigious hospitals and international organizations
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-8 items-center">
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-8 items-center"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {partners.map((partner, index) => (
-            <div 
+            <motion.div 
               key={index}
               className="group p-6 bg-white rounded-xl border border-slate-200 hover:shadow-md transition-all duration-300 hover:border-blue-300"
+              variants={itemVariants}
+              whileHover={{ 
+                y: -5,
+                scale: 1.05,
+                transition: { duration: 0.2 }
+              }}
             >
               <div className="text-center">
                 {/* Logo placeholder - in a real implementation these would be actual logos */}
@@ -37,12 +104,18 @@ export function TrustedBy() {
                   {partner.name}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Testimonial highlight */}
-        <div className="mt-16 bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+        <motion.div 
+          className="mt-16 bg-white p-8 rounded-2xl border border-slate-200 shadow-sm"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={testimonialVariants}
+        >
           <div className="text-center max-w-4xl mx-auto">
             <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <div className="text-3xl text-blue-600">"</div>
@@ -61,7 +134,7 @@ export function TrustedBy() {
               <div className="text-sm text-slate-500 mt-1">45 IVD Units • 36 Health Facilities • 2024</div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

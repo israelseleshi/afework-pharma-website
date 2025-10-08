@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { ArrowRight, Beaker, Scan, Heart, Bed, Pill } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
@@ -6,6 +7,40 @@ import { useRouter } from "./Router";
 
 export function SolutionsOverview() {
   const { navigateTo } = useRouter();
+  
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 60, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.7
+      }
+    }
+  };
+
+  const headerVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8
+      }
+    }
+  };
   
   const solutions = [
     {
@@ -48,7 +83,13 @@ export function SolutionsOverview() {
   return (
     <section id="solutions" className="py-24 bg-gray-50/30">
       <div className="max-w-7xl mx-auto px-8">
-        <div className="text-center mb-12 lg:mb-16">
+        <motion.div 
+          className="text-center mb-12 lg:mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={headerVariants}
+        >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
             Comprehensive Medical Solutions
           </h2>
@@ -56,15 +97,27 @@ export function SolutionsOverview() {
             From diagnostic equipment to complete hospital setups, we provide end-to-end 
             medical technology solutions tailored to Ethiopian healthcare needs.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {solutions.map((solution, index) => {
             const IconComponent = solution.icon;
             return (
-              <div 
+              <motion.div 
                 key={index}
                 className="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl transition-all duration-500 hover:-translate-y-2 cursor-pointer"
+                variants={cardVariants}
+                whileHover={{ 
+                  y: -8,
+                  scale: 1.02,
+                  transition: { duration: 0.3 }
+                }}
                 onClick={() => navigateTo('solution-detail', solution.title)}
               >
                 <div className="relative overflow-hidden">
@@ -113,10 +166,10 @@ export function SolutionsOverview() {
                     <ArrowRight className="w-4 h-4" />
                   </Button>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Featured Brand Partnership */}
         <div className="mt-20 bg-gradient-to-r from-slate-50 to-blue-50 p-8 rounded-2xl border border-slate-200">

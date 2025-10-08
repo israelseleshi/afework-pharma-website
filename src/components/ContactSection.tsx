@@ -1,3 +1,5 @@
+import React from "react";
+import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -6,6 +8,38 @@ import { Phone, Mail, MapPin, Clock, ArrowRight } from "lucide-react";
 import { useState } from "react";
 
 export function ContactSection() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6
+      }
+    }
+  };
+
+  const formVariants = {
+    hidden: { opacity: 0, x: 30 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8
+      }
+    }
+  };
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -29,7 +63,13 @@ export function ContactSection() {
   return (
     <section id="contact" className="py-24 bg-gray-50/50">
       <div className="max-w-7xl mx-auto px-8">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={itemVariants}
+        >
           <h2 className="text-4xl font-bold text-slate-900 mb-4">
             Get in Touch
           </h2>
@@ -37,11 +77,20 @@ export function ContactSection() {
             Whether you need a quote for a new project or technical support for existing 
             equipment, our team is ready to assist you with expert guidance.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <motion.div 
+          className="grid lg:grid-cols-2 gap-12"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {/* Contact Information */}
-          <div className="space-y-8">
+          <motion.div 
+            className="space-y-8"
+            variants={itemVariants}
+          >
             <div>
               <h3 className="text-2xl font-semibold text-slate-900 mb-6">
                 Contact Information
@@ -114,10 +163,13 @@ export function ContactSection() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Contact Form */}
-          <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+          <motion.div 
+            className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm"
+            variants={formVariants}
+          >
             <h3 className="text-2xl font-semibold text-slate-900 mb-6">
               Send us a Message
             </h3>
@@ -226,8 +278,8 @@ export function ContactSection() {
                 please call our hotline directly.
               </p>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

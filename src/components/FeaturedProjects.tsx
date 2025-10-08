@@ -1,9 +1,42 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { ArrowRight, MapPin, Calendar, Users, Award } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 export function FeaturedProjects() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const projectVariants = {
+    hidden: { opacity: 0, y: 80 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8
+      }
+    }
+  };
+
+  const headerVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8
+      }
+    }
+  };
   const projects = [
     {
       title: "CDC-Tigray Regional Health System Strengthening Project",
@@ -50,7 +83,13 @@ export function FeaturedProjects() {
   return (
     <section id="projects" className="py-24 bg-gradient-to-b from-white to-gray-50/30">
       <div className="max-w-7xl mx-auto px-8">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={headerVariants}
+        >
           <h2 className="text-4xl font-bold text-slate-900 mb-4">
             Proven Success in Critical Projects
           </h2>
@@ -58,13 +97,20 @@ export function FeaturedProjects() {
             Our track record speaks for itself. From emergency deployments to comprehensive 
             hospital modernizations, we deliver excellence when it matters most.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="space-y-20">
+        <motion.div 
+          className="space-y-20"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
           {projects.map((project, index) => (
-            <div 
+            <motion.div 
               key={index}
               className={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}
+              variants={projectVariants}
             >
               <div className={`space-y-8 ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
                 <div className="space-y-4">
@@ -132,9 +178,9 @@ export function FeaturedProjects() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
       </div>
     </section>
