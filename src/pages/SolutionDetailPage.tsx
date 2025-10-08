@@ -264,31 +264,6 @@ export function SolutionDetailPage() {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-16 bg-blue-600 text-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl mb-4">Ready to Transform Your Laboratory?</h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Contact our experts to discuss your specific requirements and get a customized solution.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              onClick={() => navigateTo('contact')}
-              variant="outline" 
-              className="border-white text-white hover:bg-white hover:text-blue-600 cursor-pointer"
-            >
-              Get Expert Consultation
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-            <Button 
-              onClick={() => navigateTo('projects')}
-              className="bg-white text-blue-600 hover:bg-gray-100 cursor-pointer"
-            >
-              View Success Stories
-            </Button>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

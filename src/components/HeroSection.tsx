@@ -38,6 +38,7 @@ export function HeroSection() {
     }
   };
 
+
   const statsVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -50,29 +51,11 @@ export function HeroSection() {
   };
 
   return (
-    <section id="home" className="relative min-h-[90vh] flex items-center overflow-hidden bg-white">
-      {/* Full Height Image on Right with Gradient Fade */}
-      <motion.div 
-        className="absolute inset-y-0 right-0 w-[55%] z-0"
-        variants={imageVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <div className="relative w-full h-full">
-          <ImageWithFallback 
-            src="https://images.unsplash.com/photo-1758101512269-660feabf64fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBtZWRpY2FsJTIwZXF1aXBtZW50JTIwaG9zcGl0YWwlMjBsYWJvcmF0b3J5fGVufDF8fHx8MTc1OTgyOTAzNHww&ixlib=rb-4.1.0&q=80&w=1080"
-            alt="Modern medical laboratory equipment in Ethiopian hospital"
-            className="w-full h-full object-cover object-right"
-          />
-          {/* Gradient fade - starts solid white on left (45% from left), fades to transparent on right */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white from-0% via-white/80 via-30% via-white/40 via-60% to-transparent to-100%"></div>
-        </div>
-      </motion.div>
-
+    <section id="home" className="relative min-h-[90vh] flex items-center bg-gradient-to-br from-gray-50/50 via-green-50/20 to-white">
       {/* Content Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-8 py-24 w-full">
+      <div className="max-w-7xl mx-auto px-8 py-24 w-full">
         <motion.div 
-          className="max-w-2xl"
+          className="max-w-4xl mx-auto text-center"
           variants={containerVariants}
           initial="hidden"
           animate="visible"

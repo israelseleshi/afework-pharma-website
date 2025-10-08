@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { motion, useAnimation, useInView } from "framer-motion";
 import { Button } from "../components/ui/button";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { useRouter } from "../components/Router";
@@ -6,6 +7,120 @@ import { ArrowRight, Calendar, MapPin, Users, Award, CheckCircle2 } from "lucide
 
 export function ProjectsPage() {
   const { navigateTo } = useRouter();
+
+  // Animation variants for different sections
+  const pageLoadVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8
+      }
+    }
+  };
+
+  const horizontalRevealVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8
+      }
+    }
+  };
+
+  const imageRevealVariants = {
+    hidden: { opacity: 0, x: 50, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8
+      }
+    }
+  };
+
+  const staggeredCardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6
+      }
+    }
+  };
+
+  const checkmarkVariants = {
+    hidden: { opacity: 0, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.4
+      }
+    }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  // Counter animation component
+  const CounterAnimation = ({ number, count, index }: { number: string, count: number, index: number }) => {
+    const [displayCount, setDisplayCount] = useState(0);
+    const [hasAnimated, setHasAnimated] = useState(false);
+
+    const startAnimation = () => {
+      if (hasAnimated || count === 0) return;
+      setHasAnimated(true);
+      
+      const duration = 1500; // 1.5 seconds
+      const startTime = Date.now();
+      
+      const animate = () => {
+        const now = Date.now();
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function for smooth animation
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        setDisplayCount(Math.floor(easeOut * count));
+        
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        }
+      };
+      animate();
+    };
+
+    return (
+      <motion.div 
+        className="text-green-600" 
+        style={{fontSize: 'clamp(1.5rem, 4vw, 2.25rem)', fontWeight: '600', lineHeight: '1.3'}}
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ 
+          delay: index * 0.1 + 0.3,
+          duration: 0.5
+        }}
+        onViewportEnter={startAnimation}
+      >
+        {count > 0 ? `${displayCount}+` : number}
+      </motion.div>
+    );
+  };
 
   const featuredProjects = [
     {
@@ -83,16 +198,28 @@ export function ProjectsPage() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
+      {/* Hero Section - Staggered Page Load Animation */}
       <section className="py-8 sm:py-12 bg-gradient-to-br from-gray-50 to-green-50/30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-900">
-            Success Stories & Case Studies
-          </h1>
-          <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
-            Discover how we've transformed healthcare delivery across Ethiopia through 
-            innovative medical technology solutions and comprehensive support services.
-          </p>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+          >
+            <motion.h1 
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-900"
+              variants={pageLoadVariants}
+            >
+              Success Stories & Case Studies
+            </motion.h1>
+            <motion.p 
+              className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed"
+              variants={pageLoadVariants}
+            >
+              Discover how we've transformed healthcare delivery across Ethiopia through 
+              innovative medical technology solutions and comprehensive support services.
+            </motion.p>
+          </motion.div>
         </div>
       </section>
 
@@ -101,10 +228,20 @@ export function ProjectsPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="space-y-16 lg:space-y-20">
             {featuredProjects.map((project, index) => (
-              <div key={index} className="space-y-8">
-                {/* Project Header */}
+              <motion.div 
+                key={index} 
+                className="space-y-8"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={containerVariants}
+              >
+                {/* Project Header - Horizontal Reveal */}
                 <div className="grid lg:grid-cols-2 gap-8 items-center">
-                  <div className="space-y-6">
+                  <motion.div 
+                    className="space-y-6"
+                    variants={horizontalRevealVariants}
+                  >
                     <div className="space-y-2">
                       <div className="flex items-start gap-4">
                         {project.logo && (
@@ -135,45 +272,94 @@ export function ProjectsPage() {
                     <p className="text-gray-600">
                       {project.description}
                     </p>
-                  </div>
+                  </motion.div>
                   
-                  <div className="relative">
-                    <ImageWithFallback 
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-lg"
-                    />
-                  </div>
+                  <motion.div 
+                    className="relative"
+                    variants={imageRevealVariants}
+                  >
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <ImageWithFallback 
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-lg"
+                      />
+                    </motion.div>
+                  </motion.div>
                 </div>
 
                 {/* Project Details */}
-                <div className="grid lg:grid-cols-2 gap-8">
-                  <div className="space-y-6">
+                <motion.div 
+                  className="grid lg:grid-cols-2 gap-8"
+                  variants={containerVariants}
+                >
+                  <motion.div 
+                    className="space-y-6"
+                    variants={pageLoadVariants}
+                  >
                     <h3 className="text-gray-900">Project Scope</h3>
                     <ul className="space-y-3">
                       {project.scope.map((item, itemIndex) => (
-                        <li key={itemIndex} className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                        <motion.li 
+                          key={itemIndex} 
+                          className="flex items-start gap-3"
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          custom={itemIndex}
+                          variants={checkmarkVariants}
+                          transition={{ delay: itemIndex * 0.1 }}
+                        >
+                          <motion.div
+                            initial={{ scale: 0, rotate: -180 }}
+                            whileInView={{ scale: 1, rotate: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ 
+                              delay: itemIndex * 0.1 + 0.2,
+                              duration: 0.5,
+                              type: "spring",
+                              stiffness: 200
+                            }}
+                          >
+                            <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                          </motion.div>
                           <span className="text-gray-600 text-sm sm:text-base">{item}</span>
-                        </li>
+                        </motion.li>
                       ))}
                     </ul>
-                  </div>
+                  </motion.div>
                   
-                  <div className="space-y-6">
+                  <motion.div 
+                    className="space-y-6"
+                    variants={pageLoadVariants}
+                  >
                     <h3 className="text-gray-900">Impact & Results</h3>
-                    <div className="bg-green-50 p-4 sm:p-6 rounded-xl">
+                    <motion.div 
+                      className="bg-green-50 p-4 sm:p-6 rounded-xl"
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.2 }}
+                    >
                       <div className="flex items-center gap-3 mb-3">
                         <Award className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
                         <span className="text-green-900 text-sm sm:text-base">Key Achievement</span>
                       </div>
                       <p className="text-green-800 text-sm sm:text-base">{project.impact}</p>
-                    </div>
-                  </div>
-                </div>
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
 
                 {/* Testimonial */}
-                <div className="bg-gray-50 p-6 sm:p-8 rounded-2xl">
+                <motion.div 
+                  className="bg-gray-50 p-6 sm:p-8 rounded-2xl"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.5 }}
+                  variants={pageLoadVariants}
+                  transition={{ delay: 0.3 }}
+                >
                   <blockquote className="text-gray-700 italic mb-4">
                     "{project.testimonial.quote}"
                   </blockquote>
@@ -184,12 +370,12 @@ export function ProjectsPage() {
                       <div className="text-gray-600 text-xs sm:text-sm">{project.testimonial.position}</div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
 
                 {index < featuredProjects.length - 1 && (
                   <div className="border-b border-gray-200"></div>
                 )}
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -198,16 +384,37 @@ export function ProjectsPage() {
       {/* Additional Projects */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
+          <motion.div 
+            className="text-center mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={pageLoadVariants}
+          >
             <h2 className="text-gray-900 mb-4">Additional Success Stories</h2>
             <p className="text-gray-600">
               More examples of our commitment to advancing Ethiopian healthcare
             </p>
-          </div>
+          </motion.div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <motion.div 
+            className="grid md:grid-cols-3 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             {additionalProjects.map((project, index) => (
-              <div key={index} className="bg-white p-6 rounded-xl border border-gray-200">
+              <motion.div 
+                key={index} 
+                className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow duration-300"
+                variants={staggeredCardVariants}
+                whileHover={{ 
+                  y: -5,
+                  scale: 1.02,
+                  transition: { duration: 0.2 }
+                }}
+              >
                 <h3 className="text-gray-900 mb-2">{project.title}</h3>
                 <p className="text-green-600 text-sm mb-3">{project.client}</p>
                 
@@ -230,41 +437,85 @@ export function ProjectsPage() {
                     <span className="text-gray-700">{project.impact}</span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Statistics */}
+      {/* Statistics - Animated Counters */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
+          <motion.div 
+            className="text-center mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={pageLoadVariants}
+          >
             <h2 className="text-gray-900 mb-4">Our Impact by Numbers</h2>
             <p className="text-gray-600">
               Measurable results across Ethiopia's healthcare landscape
             </p>
-          </div>
+          </motion.div>
           
-          <div className="grid md:grid-cols-4 gap-8 text-center">
+          <motion.div 
+            className="grid md:grid-cols-4 gap-8 text-center"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             {[
-              { number: "45+", label: "IVD Units Deployed", icon: Users },
-              { number: "36+", label: "Healthcare Facilities", icon: MapPin },
-              { number: "5+", label: "Years Experience", icon: Calendar },
-              { number: "24/7", label: "Technical Support", icon: Award }
+              { number: "45+", label: "IVD Units Deployed", icon: Users, count: 45 },
+              { number: "36+", label: "Healthcare Facilities", icon: MapPin, count: 36 },
+              { number: "5+", label: "Years Experience", icon: Calendar, count: 5 },
+              { number: "24/7", label: "Technical Support", icon: Award, count: 0 }
             ].map((stat, index) => {
               const IconComponent = stat.icon;
               return (
-                <div key={index} className="space-y-4">
-                  <div className="w-16 h-16 border-2 border-green-200 rounded-xl flex items-center justify-center mx-auto bg-green-50">
+                <motion.div 
+                  key={index} 
+                  className="space-y-4"
+                  variants={staggeredCardVariants}
+                >
+                  <motion.div 
+                    className="w-16 h-16 border-2 border-green-200 rounded-xl flex items-center justify-center mx-auto bg-green-50"
+                    initial={{ scale: 0, rotate: -180 }}
+                    whileInView={{ scale: 1, rotate: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      delay: index * 0.1,
+                      duration: 0.6,
+                      type: "spring",
+                      stiffness: 200
+                    }}
+                  >
                     <IconComponent className="w-8 h-8 text-green-600" />
-                  </div>
-                  <div className="text-green-600" style={{fontSize: 'clamp(1.5rem, 4vw, 2.25rem)', fontWeight: '600', lineHeight: '1.3'}}>{stat.number}</div>
-                  <div className="text-gray-600">{stat.label}</div>
-                </div>
+                  </motion.div>
+                  
+                  <CounterAnimation 
+                    number={stat.number}
+                    count={stat.count}
+                    index={index}
+                  />
+                  
+                  <motion.div 
+                    className="text-gray-600"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      delay: index * 0.1 + 0.5,
+                      duration: 0.4
+                    }}
+                  >
+                    {stat.label}
+                  </motion.div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 

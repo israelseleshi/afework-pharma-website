@@ -84,14 +84,14 @@ export function Footer() {
               variants={socialVariants}
             >
               {[
-                { Icon: Linkedin, href: "#" },
-                { Icon: Facebook, href: "#" },
-                { Icon: Twitter, href: "#" }
-              ].map(({ Icon, href }, index) => (
+                { Icon: Linkedin, href: "#", color: "hover:text-blue-600" },
+                { Icon: Facebook, href: "#", color: "hover:text-blue-500" },
+                { Icon: Twitter, href: "#", color: "hover:text-sky-400" }
+              ].map(({ Icon, href, color }, index) => (
                 <motion.a 
                   key={index}
                   href={href} 
-                  className="text-gray-600 hover:text-green-600 transition-colors"
+                  className={`text-gray-600 ${color} transition-colors`}
                   whileHover={{ scale: 1.2, y: -2 }}
                   whileTap={{ scale: 0.9 }}
                 >
@@ -152,22 +152,6 @@ export function Footer() {
               </div>
             </div>
 
-            <div>
-              <h5 className="font-medium mb-3 text-gray-900">Newsletter</h5>
-              <p className="text-sm text-gray-500 mb-3">
-                Get updates on new products and industry insights.
-              </p>
-              <div className="flex gap-2">
-                <Input 
-                  type="email" 
-                  placeholder="Your email"
-                  className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 focus:border-green-600 focus:ring-green-600"
-                />
-                <Button size="sm" className="bg-green-600 hover:bg-green-700">
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
           </motion.div>
         </motion.div>
       </div>

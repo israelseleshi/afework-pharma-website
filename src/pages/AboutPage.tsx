@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { useRouter } from "../components/Router";
@@ -6,6 +7,122 @@ import { Award, Users, MapPin, Clock, ArrowRight, Trophy, CheckCircle, TrendingU
 
 export function AboutPage() {
   const { navigateTo } = useRouter();
+
+  // Animation variants for narrative unveiling
+  const heroVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8
+      }
+    }
+  };
+
+  const kenBurnsVariants = {
+    hidden: { opacity: 0, scale: 1 },
+    visible: {
+      opacity: 1,
+      scale: 1.05,
+      transition: {
+        opacity: { duration: 0.8 },
+        scale: { duration: 10 }
+      }
+    }
+  };
+
+  const missionVisionVariants = {
+    hiddenLeft: { opacity: 0, x: -50 },
+    hiddenRight: { opacity: 0, x: 50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8
+      }
+    }
+  };
+
+  const achievementIconVariants = {
+    hidden: { opacity: 0, scale: 0, rotate: -180 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      rotate: 0,
+      transition: {
+        duration: 0.6
+      }
+    }
+  };
+
+  const achievementTextVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        delay: 0.2
+      }
+    }
+  };
+
+  const timelineVariants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8
+      }
+    }
+  };
+
+  const timelineContentVariants = {
+    hidden: { opacity: 0, x: 100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8
+      }
+    }
+  };
+
+  const achievementTagVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.4,
+        delay: 0.5
+      }
+    }
+  };
+
+  const leadershipCardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6
+      }
+    }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1
+      }
+    }
+  };
 
   const achievements = [
     {
@@ -63,30 +180,46 @@ export function AboutPage() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
+      {/* Hero Section - Narrative Unveiling */}
       <section className="py-24 bg-gradient-to-br from-gray-50/50 to-green-50/20">
         <div className="max-w-7xl mx-auto px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
+            <motion.div 
+              className="space-y-8"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
               <div>
-                <h1 className="text-5xl mb-6 text-gray-900">
+                <motion.h1 
+                  className="text-5xl mb-6 text-gray-900"
+                  variants={heroVariants}
+                >
                   Advancing Healthcare Through Innovation
-                </h1>
-                <p className="text-xl text-gray-600 leading-relaxed">
+                </motion.h1>
+                <motion.p 
+                  className="text-xl text-gray-600 leading-relaxed"
+                  variants={heroVariants}
+                >
                   Since 2019, Afework Pharma has been Ethiopia's trusted partner in medical technology, 
                   delivering world-class equipment and comprehensive support services to healthcare 
                   institutions nationwide.
-                </p>
+                </motion.p>
               </div>
-            </div>
+            </motion.div>
             
-            <div className="relative">
+            <motion.div 
+              className="relative overflow-hidden rounded-2xl"
+              initial="hidden"
+              animate="visible"
+              variants={kenBurnsVariants}
+            >
               <ImageWithFallback 
                 src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGVhbSUyMGhvc3BpdGFsJTIwZXRoaW9waWF8ZW58MXx8fHwxNzU5ODI5MjEwfDA&ixlib=rb-4.1.0&q=80&w=1080"
                 alt="Afework Pharma team in Ethiopian hospital"
-                className="w-full h-96 object-cover rounded-2xl shadow-lg"
+                className="w-full h-96 object-cover shadow-lg"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -95,23 +228,35 @@ export function AboutPage() {
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12">
-            <div className="space-y-6">
+            <motion.div 
+              className="space-y-6"
+              initial="hiddenLeft"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={missionVisionVariants}
+            >
               <h2 className="text-3xl text-gray-900">Our Mission</h2>
               <p className="text-gray-600 leading-relaxed">
                 To transform healthcare delivery in Ethiopia by providing state-of-the-art medical 
                 equipment, comprehensive training, and unwavering technical support that empowers 
                 healthcare professionals to deliver exceptional patient care.
               </p>
-            </div>
+            </motion.div>
             
-            <div className="space-y-6">
+            <motion.div 
+              className="space-y-6"
+              initial="hiddenRight"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={missionVisionVariants}
+            >
               <h2 className="text-3xl text-gray-900">Our Vision</h2>
               <p className="text-gray-600 leading-relaxed">
                 To be the leading catalyst in Ethiopia's healthcare transformation, bridging the 
                 gap between global medical innovation and local healthcare needs, ensuring every 
                 Ethiopian has access to world-class medical care.
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -119,67 +264,119 @@ export function AboutPage() {
       {/* Key Achievements */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
+          <motion.div 
+            className="text-center mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={heroVariants}
+          >
             <h2 className="text-3xl text-gray-900 mb-4">Key Achievements</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Our track record speaks for itself - delivering excellence across Ethiopia's healthcare landscape
             </p>
-          </div>
+          </motion.div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div 
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             {achievements.map((achievement, index) => {
               const IconComponent = achievement.icon;
               return (
-                <div key={index} className="text-center space-y-4">
-                  <div className="w-16 h-16 border-2 border-gray-200 rounded-xl flex items-center justify-center mx-auto">
+                <motion.div 
+                  key={index} 
+                  className="text-center space-y-4"
+                  variants={achievementTextVariants}
+                >
+                  <motion.div 
+                    className="w-16 h-16 border-2 border-gray-200 rounded-xl flex items-center justify-center mx-auto"
+                    variants={achievementIconVariants}
+                  >
                     <IconComponent className="w-8 h-8 text-green-600" />
-                  </div>
+                  </motion.div>
                   <h3 className="text-lg text-gray-900">{achievement.title}</h3>
                   <p className="text-gray-600">{achievement.description}</p>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Company Timeline */}
+      {/* Company Timeline - The Star of the Show */}
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-12">
+          <motion.div 
+            className="text-center mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={heroVariants}
+          >
             <h2 className="text-3xl text-gray-900 mb-4">Our Journey</h2>
             <p className="text-xl text-gray-600">
               Building Ethiopia's healthcare infrastructure one project at a time
             </p>
-          </div>
+          </motion.div>
           
           <div className="space-y-8">
             {milestones.map((milestone, index) => {
               const IconComponent = milestone.icon;
               return (
-                <div key={index} className="flex gap-8 items-start">
-                  <div className="flex-shrink-0 w-20 text-center">
+                <motion.div 
+                  key={index} 
+                  className="flex gap-8 items-start"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                  variants={containerVariants}
+                >
+                  <motion.div 
+                    className="flex-shrink-0 w-20 text-center"
+                    variants={timelineVariants}
+                  >
                     <div className="text-2xl font-bold text-green-600 mb-2">{milestone.year}</div>
                     <div className="w-12 h-12 bg-green-100 rounded-full mx-auto flex items-center justify-center mb-2">
                       <IconComponent className="w-6 h-6 text-green-600" />
                     </div>
                     {index < milestones.length - 1 && (
-                      <div className="w-px h-16 bg-gray-200 mx-auto mt-4"></div>
+                      <motion.div 
+                        className="w-px h-16 bg-gray-200 mx-auto mt-4"
+                        initial={{ scaleY: 0 }}
+                        whileInView={{ scaleY: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.5 }}
+                        style={{ originY: 0 }}
+                      />
                     )}
-                  </div>
-                  <div className="flex-1 pb-8">
-                    <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-md transition-shadow">
+                  </motion.div>
+                  <motion.div 
+                    className="flex-1 pb-8"
+                    variants={timelineContentVariants}
+                  >
+                    <motion.div 
+                      className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-md transition-shadow"
+                      whileHover={{ scale: 1.02, y: -2 }}
+                      transition={{ duration: 0.2 }}
+                    >
                       <h3 className="text-xl font-bold text-gray-900 mb-2">{milestone.title}</h3>
                       <p className="text-gray-600 mb-3">{milestone.description}</p>
                       {milestone.achievement && (
-                        <div className="flex items-center gap-2 mt-3 p-2 bg-green-50 rounded-lg border border-green-200">
+                        <motion.div 
+                          className="flex items-center gap-2 mt-3 p-2 bg-green-50 rounded-lg border border-green-200"
+                          variants={achievementTagVariants}
+                        >
                           <Trophy className="w-4 h-4 text-green-600" />
                           <span className="text-sm font-medium text-green-700">{milestone.achievement}</span>
-                        </div>
+                        </motion.div>
                       )}
-                    </div>
-                  </div>
-                </div>
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
               );
             })}
           </div>
@@ -189,14 +386,26 @@ export function AboutPage() {
       {/* Leadership Team */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
+          <motion.div 
+            className="text-center mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={heroVariants}
+          >
             <h2 className="text-3xl text-gray-900 mb-4">Leadership Team</h2>
             <p className="text-xl text-gray-600">
               Experienced professionals dedicated to advancing Ethiopian healthcare
             </p>
-          </div>
+          </motion.div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <motion.div 
+            className="grid md:grid-cols-3 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             {[
               {
                 name: "Mr. Afework Woldesilassie",
@@ -220,15 +429,28 @@ export function AboutPage() {
                 featured: false
               }
             ].map((member, index) => (
-              <div key={index} className={`bg-white p-6 rounded-xl border transition-all duration-300 hover:shadow-lg h-full flex flex-col ${member.featured ? 'border-green-200 shadow-md' : 'border-gray-200'}`}>
+              <motion.div 
+                key={index} 
+                className={`bg-white p-6 rounded-xl border transition-all duration-300 hover:shadow-lg h-full flex flex-col ${member.featured ? 'border-green-200 shadow-md' : 'border-gray-200'}`}
+                variants={leadershipCardVariants}
+                whileHover={{ 
+                  y: -8,
+                  scale: 1.02,
+                  transition: { duration: 0.2 }
+                }}
+              >
                 <div className="relative mb-4 flex-shrink-0">
-                  <div className="w-20 h-20 mx-auto rounded-full overflow-hidden border-3 border-white shadow-lg">
+                  <motion.div 
+                    className="w-20 h-20 mx-auto rounded-full overflow-hidden border-3 border-white shadow-lg"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.2 }}
+                  >
                     <ImageWithFallback 
                       src={member.image}
                       alt={`${member.name} - ${member.position}`}
                       className="w-full h-full object-cover"
                     />
-                  </div>
+                  </motion.div>
                   {member.featured && (
                     <div className="absolute -top-1 -right-1 bg-green-600 text-white px-2 py-1 rounded-full text-xs font-medium">
                       Founder
@@ -240,9 +462,9 @@ export function AboutPage() {
                   <p className="text-green-600 font-medium text-center mb-3 text-sm">{member.position}</p>
                   <p className="text-gray-600 text-center text-xs leading-relaxed flex-grow">{member.bio}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 

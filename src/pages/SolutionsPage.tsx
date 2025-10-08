@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { useRouter } from "../components/Router";
@@ -6,6 +7,61 @@ import { ArrowRight, Beaker, Scan, Heart, Bed, Pill, Check } from "lucide-react"
 
 export function SolutionsPage() {
   const { navigateTo } = useRouter();
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8
+      }
+    }
+  };
+
+  const solutionVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8
+      }
+    }
+  };
+
+  const imageVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.6
+      }
+    }
+  };
+
+  const serviceVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6
+      }
+    }
+  };
 
   const solutions = [
     {
@@ -99,13 +155,25 @@ export function SolutionsPage() {
       {/* Hero Section */}
       <section className="py-8 sm:py-12 bg-gradient-to-br from-gray-50 to-green-50/30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-900">
-            Comprehensive Medical Solutions
-          </h1>
-          <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
-            From diagnostic equipment to complete hospital infrastructure, we provide 
-            end-to-end medical technology solutions tailored to Ethiopian healthcare needs.
-          </p>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+          >
+            <motion.h1 
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-900"
+              variants={itemVariants}
+            >
+              Comprehensive Medical Solutions
+            </motion.h1>
+            <motion.p 
+              className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed"
+              variants={itemVariants}
+            >
+              From diagnostic equipment to complete hospital infrastructure, we provide 
+              end-to-end medical technology solutions tailored to Ethiopian healthcare needs.
+            </motion.p>
+          </motion.div>
         </div>
       </section>
 
@@ -119,8 +187,17 @@ export function SolutionsPage() {
               
               return (
                 <React.Fragment key={index}>
-                  <div className={`grid lg:grid-cols-2 gap-8 lg:gap-12 items-center ${isReverse ? 'lg:grid-flow-col-reverse' : ''}`}>
-                    <div className="space-y-6">
+                  <motion.div 
+                    className={`grid lg:grid-cols-2 gap-8 lg:gap-12 items-center ${isReverse ? 'lg:grid-flow-col-reverse' : ''}`}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                    variants={containerVariants}
+                  >
+                    <motion.div 
+                      className="space-y-6"
+                      variants={solutionVariants}
+                    >
                       <div className="flex items-center gap-4">
                         <div className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-gray-200 rounded-xl flex items-center justify-center flex-shrink-0">
                           <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
@@ -164,16 +241,19 @@ export function SolutionsPage() {
                       Learn More
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>
-                  </div>
+                  </motion.div>
                   
-                  <div className="relative">
+                  <motion.div 
+                    className="relative"
+                    variants={imageVariants}
+                  >
                     <ImageWithFallback 
                       src={solution.image}
                       alt={solution.title}
                       className="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-lg"
                     />
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
                 
                 {/* Creative Separator */}
                 {index < solutions.length - 1 && (
@@ -200,30 +280,60 @@ export function SolutionsPage() {
       {/* Services Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
+          <motion.div 
+            className="text-center mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={itemVariants}
+          >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Comprehensive Services</h2>
             <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Beyond equipment supply, we provide complete support services to ensure 
               your success at every stage of your healthcare journey.
             </p>
-          </div>
+          </motion.div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div 
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             {services.map((service, index) => (
-              <div key={index} className="bg-white p-6 rounded-xl border border-gray-200">
+              <motion.div 
+                key={index} 
+                className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow duration-300"
+                variants={serviceVariants}
+                whileHover={{ 
+                  y: -5,
+                  scale: 1.02,
+                  transition: { duration: 0.2 }
+                }}
+              >
                 <h3 className="text-lg text-gray-900 mb-3">{service.title}</h3>
                 <p className="text-gray-600">{service.description}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Certification & Compliance */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
+          <motion.div 
+            className="grid lg:grid-cols-2 gap-12 items-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+          >
+            <motion.div 
+              className="space-y-6"
+              variants={solutionVariants}
+            >
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Quality & Compliance</h2>
               <p className="text-gray-600 leading-relaxed text-lg">
                 All our medical equipment meets international quality standards and 
@@ -231,17 +341,31 @@ export function SolutionsPage() {
                 and ensure full compliance with Ethiopian and international regulations.
               </p>
               
-              <div className="grid grid-cols-3 gap-6">
+              <motion.div 
+                className="grid grid-cols-3 gap-6"
+                variants={containerVariants}
+              >
                 {['ISO 13485', 'CE Marking', 'FDA Approved'].map((cert, index) => (
-                  <div key={index} className="text-center p-4 border border-gray-200 rounded-lg">
+                  <motion.div 
+                    key={index} 
+                    className="text-center p-4 border border-gray-200 rounded-lg hover:border-green-300 transition-colors duration-300"
+                    variants={serviceVariants}
+                    whileHover={{ 
+                      scale: 1.05,
+                      transition: { duration: 0.2 }
+                    }}
+                  >
                     <div className="text-lg text-green-600 mb-1">{cert}</div>
                     <div className="text-sm text-gray-600">Certified</div>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
             
-            <div className="relative">
+            <motion.div 
+              className="relative"
+              variants={imageVariants}
+            >
               {/* Creative certification badges layout */}
               <div className="grid grid-cols-2 gap-8">
                 {/* FDA Approved Badge */}
@@ -275,8 +399,8 @@ export function SolutionsPage() {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
