@@ -68,7 +68,7 @@ export function SolutionsPage() {
       icon: Beaker,
       title: "Diagnostic & Laboratory Solutions",
       description: "Complete laboratory ecosystems featuring automated chemistry analyzers, hematology systems, and comprehensive IVD solutions tailored for Ethiopian healthcare facilities.",
-      image: "https://images.unsplash.com/photo-1758685734156-3c5d35bae1d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGVtaXN0cnklMjBhbmFseXplciUyMGxhYm9yYXRvcnklMjBlcXVpcG1lbnR8ZW58MXx8fHwxNzU5ODI5MDQ1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      image: "/diagnostic-&-laboratory-solutions.jpg",
       products: ["Mindray BS-240 Chemistry Analyzers", "BC-5150 Hematology Systems", "Digital Microscopes", "Lab Furniture", "Quality Control Systems"],
       benefits: [
         "Increase Patient Throughput with Automated Workflows",
@@ -81,7 +81,7 @@ export function SolutionsPage() {
       icon: Scan,
       title: "Diagnostic Imaging & Radiology",
       description: "Advanced imaging solutions from digital radiography to high-end MRI systems, addressing Ethiopia's growing need for accurate diagnostic imaging capabilities.",
-      image: "https://images.unsplash.com/photo-1587010580103-fd86b8ea14ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxNUkklMjBtYWNoaW5lJTIwbWVkaWNhbCUyMGltYWdpbmd8ZW58MXx8fHwxNzU5ODI5MTU3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      image: "/diagnostic-imaging-&-radiology.jpg",
       products: ["Digital X-Ray Systems", "Ultrasound Machines", "CT Scanners", "MRI Systems", "PACS Solutions"],
       benefits: [
         "Eliminate Film Costs with Complete Digital Workflow",
@@ -94,7 +94,7 @@ export function SolutionsPage() {
       icon: Heart,
       title: "Critical Care & Operation Theatre",
       description: "Life-saving equipment for intensive care units and operating rooms, ensuring optimal patient outcomes during Ethiopia's most critical medical procedures.",
-      image: "https://images.unsplash.com/photo-1728474372689-c3072b79806e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxvcGVyYXRpbmclMjByb29tJTIwc3VyZ2ljYWwlMjBlcXVpcG1lbnR8ZW58MXx8fHwxNzU5ODI5MTYyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      image: "/hospital-clinic-furniture.png",
       products: ["ICU Ventilators", "Multi-Parameter Monitors", "Surgical Tables", "Anesthesia Machines", "OR Integration Systems"],
       benefits: [
         "Save More Lives with Advanced Life-Support Technology",
@@ -107,7 +107,7 @@ export function SolutionsPage() {
       icon: Bed,
       title: "Hospital Furniture & Patient Care",
       description: "Ergonomic hospital furniture and patient care equipment designed to improve patient comfort while enhancing healthcare worker efficiency in Ethiopian hospitals.",
-      image: "https://images.unsplash.com/photo-1613377512409-59c33c10c821?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob3NwaXRhbCUyMGJlZCUyMG1lZGljYWwlMjBmdXJuaXR1cmV8ZW58MXx8fHwxNzU5ODI5MTU5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      image: "/hospital-furniture-&-patient-care.jpg",
       products: ["Electric Hospital Beds", "Patient Transfer Chairs", "Medical Trolleys", "Storage Solutions", "Waiting Area Furniture"],
       benefits: [
         "Improve Patient Recovery with Enhanced Comfort Features",
@@ -153,7 +153,7 @@ export function SolutionsPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-8 sm:py-12 bg-gradient-to-br from-gray-50 to-green-50/30">
+      <section className="py-8 sm:py-12" style={{backgroundColor: '#ecfdf5'}}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
           <motion.div
             initial="hidden"
@@ -178,31 +178,39 @@ export function SolutionsPage() {
       </section>
 
       {/* Solutions Grid */}
-      <section className="py-16 bg-white">
+      <section className="py-16" style={{backgroundColor: '#f0fdf4'}}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="space-y-12 lg:space-y-16">
             {solutions.map((solution, index) => {
               const IconComponent = solution.icon;
-              const isReverse = index % 2 === 1;
+              // Creative design: Image on right for "Diagnostic Imaging & Radiology" and "Hospital Furniture & Patient Care"
+              const imageOnRight = solution.title === "Diagnostic Imaging & Radiology" || 
+                                 solution.title === "Hospital Furniture & Patient Care";
               
               return (
                 <React.Fragment key={index}>
                   <motion.div 
-                    className={`grid lg:grid-cols-2 gap-8 lg:gap-12 items-center ${isReverse ? 'lg:grid-flow-col-reverse' : ''}`}
+                    className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.3 }}
                     variants={containerVariants}
                   >
+                    {/* Content - Order based on imageOnRight */}
                     <motion.div 
-                      className="space-y-6"
+                      className={`space-y-6 ${imageOnRight ? 'lg:order-1' : 'lg:order-2'}`}
                       variants={solutionVariants}
                     >
                       <div className="flex items-center gap-4">
                         <div className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-gray-200 rounded-xl flex items-center justify-center flex-shrink-0">
                           <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
                         </div>
-                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">{solution.title}</h2>
+                        <button 
+                          onClick={() => navigateTo('solution-detail', solution.title)}
+                          className="text-left"
+                        >
+                          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 hover:text-green-600 transition-colors cursor-pointer">{solution.title}</h2>
+                        </button>
                       </div>
                     
                     <p className="text-gray-600">
@@ -236,23 +244,27 @@ export function SolutionsPage() {
                     <Button 
                       onClick={() => navigateTo('solution-detail', solution.title)}
                       variant="outline" 
-                      className="w-full sm:w-auto"
+                      className="w-full sm:w-auto border-green-600 text-green-600 hover:bg-green-50"
                     >
                       Learn More
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>
                   </motion.div>
-                  
-                  <motion.div 
-                    className="relative"
-                    variants={imageVariants}
-                  >
-                    <ImageWithFallback 
-                      src={solution.image}
-                      alt={solution.title}
-                      className="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-lg"
-                    />
-                  </motion.div>
+
+                    {/* Image - Order based on imageOnRight */}
+                    <motion.div 
+                      className={`relative group rounded-2xl shadow-lg ${imageOnRight ? 'lg:order-2' : 'lg:order-1'}`}
+                      variants={imageVariants}
+                    >
+                      <div className="relative overflow-hidden rounded-2xl">
+                        <ImageWithFallback 
+                          src={solution.image}
+                          alt={solution.title}
+                          className="w-full h-64 sm:h-80 lg:h-96 object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-green-600/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      </div>
+                    </motion.div>
                 </motion.div>
                 
                 {/* Creative Separator */}
@@ -278,7 +290,7 @@ export function SolutionsPage() {
       </section>
 
       {/* Services Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16" style={{backgroundColor: '#f7fee7'}}>
         <div className="max-w-6xl mx-auto px-6">
           <motion.div 
             className="text-center mb-12"
@@ -321,7 +333,7 @@ export function SolutionsPage() {
       </section>
 
       {/* Certification & Compliance */}
-      <section className="py-16 bg-white">
+      <section className="py-16" style={{backgroundColor: '#f8fafc'}}>
         <div className="max-w-6xl mx-auto px-6">
           <motion.div 
             className="grid lg:grid-cols-2 gap-12 items-center"
@@ -388,7 +400,7 @@ export function SolutionsPage() {
               </div>
               
               {/* Additional badge with text */}
-              <div className="mt-6 bg-gradient-to-r from-green-50 to-green-100 p-6 rounded-xl border border-green-200">
+              <div className="mt-6 p-6 rounded-xl border" style={{backgroundColor: '#dcfce7', borderColor: '#bbf7d0'}}>
                 <div className="flex items-center justify-center gap-3">
                   <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
                     <Check className="w-6 h-6 text-white" />

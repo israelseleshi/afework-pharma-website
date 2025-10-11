@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - Afework Pharma</title>
+    <meta name="description" content="The page you're looking for doesn't exist. Return to Afework Pharma's homepage to explore our medical equipment solutions.">
+    <link rel="icon" type="image/png" href="/afework-pharma-logo.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1f2937;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .error-code {
+            font-size: 6rem;
+            font-weight: 800;
+            color: #10b981;
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+        
+        .error-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+        
+        .error-message {
+            font-size: 1.1rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: #10b981;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+        
+        .btn-secondary:hover {
+            background: #e5e7eb;
+            transform: translateY(-2px);
+        }
+        
+        .features {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .features h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            text-align: left;
+        }
+        
+        .feature-item {
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+        }
+        
+        .feature-item h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-item p {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+        
+        @media (max-width: 640px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .error-code {
+                font-size: 4rem;
+            }
+            
+            .error-title {
+                font-size: 1.5rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+            
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="/afework-pharma-logo.png" alt="Afework Pharma Logo">
+        </div>
+        
+        <div class="error-code">404</div>
+        <h1 class="error-title">Page Not Found</h1>
+        <p class="error-message">
+            We couldn't find the page you're looking for. It might have been moved, deleted, or you entered the wrong URL.
+        </p>
+        
+        <div class="buttons">
+            <a href="/" class="btn btn-primary">
+                🏠 Return Home
+            </a>
+            <a href="/solutions" class="btn btn-secondary">
+                🔬 View Solutions
+            </a>
+            <a href="/contact" class="btn btn-secondary">
+                📞 Contact Us
+            </a>
+        </div>
+        
+        <div class="features">
+            <h3>Explore Our Medical Solutions</h3>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h4>Laboratory Equipment</h4>
+                    <p>Advanced diagnostic and laboratory solutions for healthcare facilities</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Medical Imaging</h4>
+                    <p>State-of-the-art radiology and diagnostic imaging equipment</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Critical Care</h4>
+                    <p>Life-saving ICU and operation theatre equipment</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Hospital Furniture</h4>
+                    <p>Ergonomic and durable furniture for patient care</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Track 404 errors for analytics (if Google Analytics is implemented)
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: '404 Error',
+                page_location: window.location.href
+            });
+        }
+        
+        // Auto-redirect after 30 seconds (optional)
+        // setTimeout(() => {
+        //     window.location.href = '/';
+        // }, 30000);
+    </script>
+</body>
+</html>

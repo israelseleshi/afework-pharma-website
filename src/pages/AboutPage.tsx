@@ -181,7 +181,7 @@ export function AboutPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section - Narrative Unveiling */}
-      <section className="py-24 bg-gradient-to-br from-gray-50/50 to-green-50/20">
+      <section className="py-24" style={{backgroundColor: '#ecfdf5'}}>
         <div className="max-w-7xl mx-auto px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div 
@@ -215,7 +215,7 @@ export function AboutPage() {
               variants={kenBurnsVariants}
             >
               <ImageWithFallback 
-                src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGVhbSUyMGhvc3BpdGFsJTIwZXRoaW9waWF8ZW58MXx8fHwxNzU5ODI5MjEwfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                src="/afewrork-team-image.jpg"
                 alt="Afework Pharma team in Ethiopian hospital"
                 className="w-full h-96 object-cover shadow-lg"
               />
@@ -225,7 +225,7 @@ export function AboutPage() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-16 bg-white">
+      <section className="py-16" style={{backgroundColor: '#f0fdf4'}}>
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12">
             <motion.div 
@@ -262,7 +262,7 @@ export function AboutPage() {
       </section>
 
       {/* Key Achievements */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16" style={{backgroundColor: '#f7fee7'}}>
         <div className="max-w-6xl mx-auto px-6">
           <motion.div 
             className="text-center mb-12"
@@ -278,7 +278,7 @@ export function AboutPage() {
           </motion.div>
           
           <motion.div 
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+            className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -289,17 +289,17 @@ export function AboutPage() {
               return (
                 <motion.div 
                   key={index} 
-                  className="text-center space-y-4"
+                  className="text-center space-y-3 sm:space-y-4"
                   variants={achievementTextVariants}
                 >
                   <motion.div 
-                    className="w-16 h-16 border-2 border-gray-200 rounded-xl flex items-center justify-center mx-auto"
+                    className="w-12 h-12 sm:w-16 sm:h-16 border-2 border-gray-200 rounded-xl flex items-center justify-center mx-auto"
                     variants={achievementIconVariants}
                   >
-                    <IconComponent className="w-8 h-8 text-green-600" />
+                    <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" />
                   </motion.div>
-                  <h3 className="text-lg text-gray-900">{achievement.title}</h3>
-                  <p className="text-gray-600">{achievement.description}</p>
+                  <h3 className="text-base sm:text-lg text-gray-900">{achievement.title}</h3>
+                  <p className="text-sm sm:text-base text-gray-600">{achievement.description}</p>
                 </motion.div>
               );
             })}
@@ -308,7 +308,7 @@ export function AboutPage() {
       </section>
 
       {/* Company Timeline - The Star of the Show */}
-      <section className="py-16 bg-white">
+      <section className="py-16" style={{backgroundColor: '#f8fafc'}}>
         <div className="max-w-4xl mx-auto px-6">
           <motion.div 
             className="text-center mb-12"
@@ -358,23 +358,19 @@ export function AboutPage() {
                     className="flex-1 pb-8"
                     variants={timelineContentVariants}
                   >
-                    <motion.div 
-                      className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-md transition-shadow"
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      transition={{ duration: 0.2 }}
-                    >
+                    <div className="pl-4">
                       <h3 className="text-xl font-bold text-gray-900 mb-2">{milestone.title}</h3>
                       <p className="text-gray-600 mb-3">{milestone.description}</p>
                       {milestone.achievement && (
                         <motion.div 
-                          className="flex items-center gap-2 mt-3 p-2 bg-green-50 rounded-lg border border-green-200"
+                          className="flex items-center gap-2 mt-3"
                           variants={achievementTagVariants}
                         >
                           <Trophy className="w-4 h-4 text-green-600" />
                           <span className="text-sm font-medium text-green-700">{milestone.achievement}</span>
                         </motion.div>
                       )}
-                    </motion.div>
+                    </div>
                   </motion.div>
                 </motion.div>
               );
@@ -384,7 +380,7 @@ export function AboutPage() {
       </section>
 
       {/* Leadership Team */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16" style={{backgroundColor: '#f1f5f9'}}>
         <div className="max-w-6xl mx-auto px-6">
           <motion.div 
             className="text-center mb-12"
@@ -418,7 +414,7 @@ export function AboutPage() {
                 name: "Dr. Meron Getachew",
                 position: "Technical Director", 
                 bio: "Biomedical engineer with 10+ years of experience in medical equipment installation, maintenance, and quality assurance. Leads our technical team in ensuring optimal equipment performance across all deployments.",
-                image: "https://images.unsplash.com/photo-1594824475317-87daa4d6c825?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB3b21hbiUyMGRvY3RvcnxlbnwxfHx8fDE3NTk4MjkzMDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+                image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB3b21hbiUyMGVuZ2luZWVyJTIwYWZyaWNhbnxlbnwxfHx8fDE3NTk4MjkzMDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
                 featured: false
               },
               {

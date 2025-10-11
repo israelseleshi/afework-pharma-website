@@ -1,0 +1,22 @@
+# Afework Pharma Website - Routing Configuration
+# Simple .htaccess for React/Vite SPA routing
+
+# Enable URL rewriting
+RewriteEngine On
+
+# Exclude Google verification files from rewriting
+RewriteCond %{REQUEST_FILENAME} ^.*google.*\.html$ [NC]
+RewriteRule ^.*$ - [L]
+
+# Exclude robots.txt and sitemap.xml from rewriting
+RewriteCond %{REQUEST_FILENAME} ^.*(robots\.txt|sitemap\.xml|404\.html)$ [NC]
+RewriteRule ^.*$ - [L]
+
+# Handle client-side routing for Single Page Application
+# If the requested file/directory doesn't exist, serve index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^.*$ /index.html [L,QSA]
+
+# Optional: Set default charset
+AddDefaultCharset UTF-8

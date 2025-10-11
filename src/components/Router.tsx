@@ -1,6 +1,6 @@
 import React, { useState, createContext, useContext, ReactNode, useEffect } from 'react';
 
-type Page = 'home' | 'about' | 'solutions' | 'projects' | 'contact' | 'solution-detail';
+type Page = 'home' | 'about' | 'solutions' | 'projects' | 'contact' | 'solution-detail' | 'admin-login' | 'admin-dashboard';
 
 interface RouterContextType {
   currentPage: Page;
@@ -18,7 +18,7 @@ export function Router({ children }: { children: ReactNode }) {
   useEffect(() => {
     const path = window.location.pathname;
     const page = path.slice(1) as Page;
-    if (['home', 'about', 'solutions', 'projects', 'contact', 'solution-detail'].includes(page)) {
+    if (['home', 'about', 'solutions', 'projects', 'contact', 'solution-detail', 'admin-login', 'admin-dashboard'].includes(page)) {
       setCurrentPage(page || 'home');
     }
     
@@ -35,7 +35,7 @@ export function Router({ children }: { children: ReactNode }) {
     const handlePopState = () => {
       const path = window.location.pathname;
       const page = path.slice(1) as Page;
-      if (['home', 'about', 'solutions', 'projects', 'contact', 'solution-detail'].includes(page)) {
+      if (['home', 'about', 'solutions', 'projects', 'contact', 'solution-detail', 'admin-login', 'admin-dashboard'].includes(page)) {
         setCurrentPage(page || 'home');
       }
       

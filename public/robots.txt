@@ -1,0 +1,25 @@
+# Robots.txt for Afework Pharma Website
+# This file tells search engine crawlers which pages they can access
+
+User-agent: *
+Allow: /
+
+# Disallow crawling of admin or sensitive areas (if any)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.afeworkpharmaet.com/sitemap.xml
+
+# Crawl delay (optional - helps prevent server overload)
+Crawl-delay: 1

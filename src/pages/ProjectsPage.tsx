@@ -142,7 +142,8 @@ export function ProjectsPage() {
       testimonial: {
         quote: "Afework Pharma delivered exceptional service with their turnkey supply, installation, and training across our 36 facilities. The project was completed ahead of schedule with outstanding technical support.",
         author: "Dr. Gebrehiwot Tesfay",
-        position: "Director, Tigray Regional Health Bureau"
+        position: "Director, Tigray Regional Health Bureau",
+        avatar: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBtYW4lMjBkb2N0b3IlMjBhZnJpY2FufGVufDF8fHx8MTc1OTgyOTMwNXww&ixlib=rb-4.1.0&q=80&w=1080"
       }
     },
     {
@@ -150,7 +151,7 @@ export function ProjectsPage() {
       client: "Federal Democratic Republic of Ethiopia Defense Hospital",
       year: "2023-2024",
       location: "Bishoftu, Ethiopia",
-      image: "https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwZXF1aXBtZW50JTIwbGFib3JhdG9yeXxlbnwxfHx8fDE3NTk4NDkzOTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      image: "/fdre-defense-referral-hospital.jpg",
       logo: "/fdre-defense-logo.png",
       description: "Installation and commissioning of advanced laboratory suite with comprehensive reagent supply chain management.",
       scope: [
@@ -164,7 +165,8 @@ export function ProjectsPage() {
       testimonial: {
         quote: "Afework Pharma provided exceptional installation and commissioning services with comprehensive training support. Their ongoing reagent supply management has been exemplary.",
         author: "Colonel Dr. Mulugeta Assefa", 
-        position: "Chief Medical Director, FDRE Defense Hospital"
+        position: "Chief Medical Director, FDRE Defense Hospital",
+        avatar: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBtYW4lMjBkb2N0b3IlMjBhZnJpY2FufGVufDF8fHx8MTc1OTgyOTMxMHww&ixlib=rb-4.1.0&q=80&w=1080"
       }
     }
   ];
@@ -199,7 +201,7 @@ export function ProjectsPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section - Staggered Page Load Animation */}
-      <section className="py-8 sm:py-12 bg-gradient-to-br from-gray-50 to-green-50/30">
+      <section className="py-8 sm:py-12" style={{backgroundColor: '#ecfdf5'}}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
           <motion.div
             initial="hidden"
@@ -224,7 +226,7 @@ export function ProjectsPage() {
       </section>
 
       {/* Featured Projects */}
-      <section className="py-16 bg-white">
+      <section className="py-16" style={{backgroundColor: '#f0fdf4'}}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="space-y-16 lg:space-y-20">
             {featuredProjects.map((project, index) => (
@@ -353,7 +355,7 @@ export function ProjectsPage() {
 
                 {/* Testimonial */}
                 <motion.div 
-                  className="bg-gray-50 p-6 sm:p-8 rounded-2xl"
+                  className="p-6 sm:p-8 rounded-2xl" style={{backgroundColor: '#f1f5f9'}}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.5 }}
@@ -364,9 +366,15 @@ export function ProjectsPage() {
                     "{project.testimonial.quote}"
                   </blockquote>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-300 rounded-full flex-shrink-0"></div>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0 border-2 border-green-200">
+                      <ImageWithFallback 
+                        src={project.testimonial.avatar}
+                        alt={project.testimonial.author}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                     <div>
-                      <div className="text-gray-900 text-sm sm:text-base">{project.testimonial.author}</div>
+                      <div className="text-gray-900 text-sm sm:text-base font-semibold">{project.testimonial.author}</div>
                       <div className="text-gray-600 text-xs sm:text-sm">{project.testimonial.position}</div>
                     </div>
                   </div>
@@ -382,7 +390,7 @@ export function ProjectsPage() {
       </section>
 
       {/* Additional Projects */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16" style={{backgroundColor: '#f7fee7'}}>
         <div className="max-w-6xl mx-auto px-6">
           <motion.div 
             className="text-center mb-12"
@@ -444,7 +452,7 @@ export function ProjectsPage() {
       </section>
 
       {/* Statistics - Animated Counters */}
-      <section className="py-16 bg-white">
+      <section className="py-16" style={{backgroundColor: '#f8fafc'}}>
         <div className="max-w-6xl mx-auto px-6">
           <motion.div 
             className="text-center mb-12"
