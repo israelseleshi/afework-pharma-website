@@ -16,8 +16,21 @@ import {
   BarChart3,
   Clock,
   CheckCircle,
-  AlertCircle
+  AlertCircle,
+  Menu,
+  X,
+  ChevronDown,
+  ChevronRight
 } from 'lucide-react';
+
+// Import dashboard components
+import { HeroEditor } from './dashboard/HeroEditor';
+import { SolutionsEditor } from './dashboard/SolutionsEditor';
+import { ProjectsEditor } from './dashboard/ProjectsEditor';
+import { AboutEditor } from './dashboard/AboutEditor';
+import { ContactEditor } from './dashboard/ContactEditor';
+import { MediaEditor } from './dashboard/MediaEditor';
+import { SettingsEditor } from './dashboard/SettingsEditor';
 
 interface AdminUser {
   id: number;
@@ -27,6 +40,10 @@ interface AdminUser {
 export function AdminDashboard() {
   const [user, setUser] = useState<AdminUser | null>(null);
   const [loading, setLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [currentSection, setCurrentSection] = useState('dashboard');
+  const [contentExpanded, setContentExpanded] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     // Check if user is logged in
@@ -48,89 +65,28 @@ export function AdminDashboard() {
     }
   }, []);
 
+  // Handle responsive behavior
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 1024;
+      setIsMobile(mobile);
+      // Start with sidebar open on desktop, closed on mobile
+      if (!mobile) {
+        setSidebarOpen(true);
+      } else {
+        setSidebarOpen(false);
+      }
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []); // Remove sidebarOpen dependency to prevent infinite loop
+
   const handleLogout = () => {
     localStorage.removeItem('admin_token');
     localStorage.removeItem('admin_user');
     window.location.href = '/admin/login';
-  };
-
-  const dashboardItems = [
-    {
-      title: 'Hero Section',
-      description: 'Edit main headline, subheadline, and statistics',
-      icon: BarChart3,
-      href: '/admin/hero',
-      color: 'bg-blue-500'
-    },
-    {
-      title: 'Value Propositions',
-      description: 'Manage the 4 key value cards',
-      icon: CheckCircle,
-      href: '/admin/values',
-      color: 'bg-green-500'
-    },
-    {
-      title: 'Solutions',
-      description: 'Edit medical solutions and products',
-      icon: Briefcase,
-      href: '/admin/solutions',
-      color: 'bg-purple-500'
-    },
-    {
-      title: 'Projects',
-      description: 'Manage featured projects and case studies',
-      icon: FileText,
-      href: '/admin/projects',
-      color: 'bg-orange-500'
-    },
-    {
-      title: 'About Page',
-      description: 'Edit mission, vision, timeline, and team',
-      icon: Info,
-      href: '/admin/about',
-      color: 'bg-teal-500'
-    },
-    {
-      title: 'Contact Info',
-      description: 'Update contact details and departments',
-      icon: Phone,
-      href: '/admin/contact',
-      color: 'bg-red-500'
-    },
-    {
-      title: 'Media Library',
-      description: 'Upload and manage images',
-      icon: Image,
-      href: '/admin/media',
-      color: 'bg-pink-500'
-    },
-    {
-      title: 'Settings',
-      description: 'Admin settings and preferences',
-      icon: Settings,
-      href: '/admin/settings',
-      color: 'bg-gray-500'
-    }
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 }
-    }
   };
 
   if (loading) {
@@ -146,196 +102,304 @@ export function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <motion.header 
-        className="bg-white shadow-sm border-b"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
-                <LayoutDashboard className="w-5 h-5 text-white" />
+    <div className="flex h-screen bg-gray-50">
+      {/* Sidebar */}
+      <div className={`${
+        sidebarOpen ? 'w-64' : 'w-16'
+      } bg-white shadow-lg transition-all duration-500 ease-in-out flex flex-col fixed left-0 top-0 h-screen z-30`}>
+        {/* Sidebar Header */}
+        <div className="p-4 border-b flex-shrink-0">
+          <div className="flex items-center justify-between">
+            <div className={`transition-all duration-500 ease-in-out ${sidebarOpen ? 'opacity-100 w-auto' : 'opacity-0 w-0'} overflow-hidden`}>
+              <h1 className="text-lg font-bold text-gray-900 whitespace-nowrap">Afework CMS</h1>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-2 hover:bg-gray-100"
+            >
+              {sidebarOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            </Button>
+          </div>
+        </div>
+        
+        {/* Navigation */}
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+          <button
+            onClick={() => setCurrentSection('dashboard')}
+            className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${
+              currentSection === 'dashboard' ? 'bg-emerald-100 text-emerald-700' : 'hover:bg-gray-100'
+            }`}
+          >
+            <LayoutDashboard className="w-5 h-5 flex-shrink-0" />
+            <span className={`transition-all duration-500 ease-in-out ${sidebarOpen ? 'opacity-100 w-auto ml-3' : 'opacity-0 w-0 ml-0'} overflow-hidden whitespace-nowrap`}>
+              Dashboard
+            </span>
+          </button>
+          
+          {/* Content Management Section */}
+          <div>
+            <button
+              onClick={() => setContentExpanded(!contentExpanded)}
+              className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              <FileText className="w-5 h-5 flex-shrink-0" />
+              <div className={`transition-all duration-500 ease-in-out ${sidebarOpen ? 'opacity-100 w-auto ml-3' : 'opacity-0 w-0 ml-0'} overflow-hidden flex items-center justify-between flex-1`}>
+                <span className="whitespace-nowrap">Content</span>
+                {contentExpanded ? <ChevronDown className="w-4 h-4 ml-2" /> : <ChevronRight className="w-4 h-4 ml-2" />}
               </div>
-              <h1 className="text-xl font-bold text-gray-900">Afework Pharma CMS</h1>
+            </button>
+            
+            {contentExpanded && sidebarOpen && (
+              <div className="ml-4 space-y-1">
+                <button
+                  onClick={() => setCurrentSection('hero')}
+                  className={`w-full flex items-center gap-3 p-2 rounded-lg transition-colors ${
+                    currentSection === 'hero' ? 'bg-emerald-100 text-emerald-700' : 'hover:bg-gray-100'
+                  }`}
+                >
+                  <BarChart3 className="w-4 h-4" />
+                  <span>Hero Section</span>
+                </button>
+                
+                <button
+                  onClick={() => setCurrentSection('solutions')}
+                  className={`w-full flex items-center gap-3 p-2 rounded-lg transition-colors ${
+                    currentSection === 'solutions' ? 'bg-emerald-100 text-emerald-700' : 'hover:bg-gray-100'
+                  }`}
+                >
+                  <Briefcase className="w-4 h-4" />
+                  <span>Solutions</span>
+                </button>
+                
+                <button
+                  onClick={() => setCurrentSection('projects')}
+                  className={`w-full flex items-center gap-3 p-2 rounded-lg transition-colors ${
+                    currentSection === 'projects' ? 'bg-emerald-100 text-emerald-700' : 'hover:bg-gray-100'
+                  }`}
+                >
+                  <FileText className="w-4 h-4" />
+                  <span>Projects</span>
+                </button>
+                
+                <button
+                  onClick={() => setCurrentSection('about')}
+                  className={`w-full flex items-center gap-3 p-2 rounded-lg transition-colors ${
+                    currentSection === 'about' ? 'bg-emerald-100 text-emerald-700' : 'hover:bg-gray-100'
+                  }`}
+                >
+                  <Info className="w-4 h-4" />
+                  <span>About</span>
+                </button>
+                
+                <button
+                  onClick={() => setCurrentSection('contact')}
+                  className={`w-full flex items-center gap-3 p-2 rounded-lg transition-colors ${
+                    currentSection === 'contact' ? 'bg-emerald-100 text-emerald-700' : 'hover:bg-gray-100'
+                  }`}
+                >
+                  <Phone className="w-4 h-4" />
+                  <span>Contact</span>
+                </button>
+              </div>
+            )}
+          </div>
+          
+          <button
+            onClick={() => setCurrentSection('media')}
+            className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${
+              currentSection === 'media' ? 'bg-emerald-100 text-emerald-700' : 'hover:bg-gray-100'
+            }`}
+          >
+            <Image className="w-5 h-5 flex-shrink-0" />
+            <span className={`transition-all duration-500 ease-in-out ${sidebarOpen ? 'opacity-100 w-auto ml-3' : 'opacity-0 w-0 ml-0'} overflow-hidden whitespace-nowrap`}>
+              Media
+            </span>
+          </button>
+          
+          <button
+            onClick={() => setCurrentSection('settings')}
+            className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${
+              currentSection === 'settings' ? 'bg-emerald-100 text-emerald-700' : 'hover:bg-gray-100'
+            }`}
+          >
+            <Settings className="w-5 h-5 flex-shrink-0" />
+            <span className={`transition-all duration-500 ease-in-out ${sidebarOpen ? 'opacity-100 w-auto ml-3' : 'opacity-0 w-0 ml-0'} overflow-hidden whitespace-nowrap`}>
+              Settings
+            </span>
+          </button>
+        </nav>
+        
+        {/* User Section */}
+        <div className="p-4 border-t flex-shrink-0">
+          {sidebarOpen ? (
+            <div className="space-y-2">
+              <div className="flex items-center gap-3 p-2 rounded-lg bg-gray-50">
+                <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                  <Users className="w-4 h-4 text-emerald-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-gray-900 truncate">{user?.username}</p>
+                  <p className="text-xs text-gray-500">Administrator</p>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="flex justify-center">
+              <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                <Users className="w-4 h-4 text-emerald-600" />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      
+      {/* Main Content Area */}
+      <div className={`${sidebarOpen ? 'ml-64' : 'ml-16'} transition-all duration-500 ease-in-out flex-1 flex flex-col h-full`}>
+        {/* Fixed Top Header */}
+        <header className="bg-white shadow-sm border-b p-4 flex-shrink-0">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              {/* Mobile menu button */}
+              {isMobile && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
+                  className="p-2 hover:bg-gray-100"
+                >
+                  <Menu className="w-4 h-4" />
+                </Button>
+              )}
+              <h1 className="text-xl font-semibold text-gray-900">
+                {currentSection === 'dashboard' && 'Dashboard Overview'}
+                {currentSection === 'hero' && 'Hero Section'}
+                {currentSection === 'solutions' && 'Solutions Management'}
+                {currentSection === 'projects' && 'Projects Management'}
+                {currentSection === 'about' && 'About Page'}
+                {currentSection === 'contact' && 'Contact Information'}
+                {currentSection === 'media' && 'Media Library'}
+                {currentSection === 'settings' && 'Settings'}
+              </h1>
             </div>
             
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-600">Welcome, {user?.username}</span>
-              <Button
-                onClick={handleLogout}
-                variant="outline"
-                size="sm"
-                className="flex items-center gap-2"
-              >
+            {/* Header Actions */}
+            <div className="flex items-center gap-3">
+              <div className="text-sm text-gray-600">
+                Welcome, <span className="font-medium">{user?.username}</span>
+              </div>
+              <Button variant="outline" size="sm" onClick={handleLogout} className="gap-2">
                 <LogOut className="w-4 h-4" />
-                Logout
+                <span className="hidden sm:inline">Logout</span>
               </Button>
             </div>
           </div>
-        </div>
-      </motion.header>
-
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Welcome Section */}
-          <motion.div variants={itemVariants} className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Dashboard Overview</h2>
-            <p className="text-gray-600">Manage your website content and media from this central location.</p>
-          </motion.div>
-
-          {/* Quick Stats */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <FileText className="w-5 h-5 text-blue-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Content Sections</p>
-                    <p className="text-2xl font-bold text-gray-900">28</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                    <Image className="w-5 h-5 text-green-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Media Files</p>
-                    <p className="text-2xl font-bold text-gray-900">0</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                    <Clock className="w-5 h-5 text-purple-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Last Updated</p>
-                    <p className="text-sm font-medium text-gray-900">Just now</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
-                    <CheckCircle className="w-5 h-5 text-orange-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Status</p>
-                    <p className="text-sm font-medium text-green-600">Online</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          {/* Content Management Grid */}
-          <motion.div variants={itemVariants}>
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Content Management</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {dashboardItems.map((item, index) => {
-                const IconComponent = item.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    variants={itemVariants}
-                    whileHover={{ y: -4, scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Card className="h-full cursor-pointer hover:shadow-lg transition-all duration-200 border-0 shadow-md">
-                      <CardContent className="p-6">
-                        <div className="flex items-start gap-4">
-                          <div className={`w-12 h-12 ${item.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
-                            <IconComponent className="w-6 h-6 text-white" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <h4 className="font-semibold text-gray-900 mb-1">{item.title}</h4>
-                            <p className="text-sm text-gray-600 line-clamp-2">{item.description}</p>
-                          </div>
-                        </div>
-                        <div className="mt-4">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="w-full"
-                            onClick={() => {
-                              // For now, just show an alert
-                              alert(`${item.title} editor coming soon!`);
-                            }}
-                          >
-                            <Edit3 className="w-4 h-4 mr-2" />
-                            Edit
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                );
-              })}
+        </header>
+        
+        {/* Scrollable Content Area */}
+        <main className="flex-1 p-6 overflow-y-auto">
+          <div className="max-w-7xl mx-auto">
+          {currentSection === 'dashboard' && (
+            <div>
+              <p className="text-gray-600 mb-6">Manage your website content and media from this central location.</p>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <FileText className="w-5 h-5 text-blue-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-600">Content Sections</p>
+                        <p className="text-2xl font-bold text-gray-900">28</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                        <CheckCircle className="w-5 h-5 text-green-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-600">Status</p>
+                        <p className="text-sm font-medium text-green-600">Online</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <Clock className="w-5 h-5 text-purple-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-600">Last Updated</p>
+                        <p className="text-sm font-medium text-gray-900">Just now</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                        <Image className="w-5 h-5 text-orange-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-600">Media Files</p>
+                        <p className="text-2xl font-bold text-gray-900">0</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
-          </motion.div>
-
-          {/* Recent Activity */}
-          <motion.div variants={itemVariants} className="mt-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Clock className="w-5 h-5" />
-                  Recent Activity
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                      <CheckCircle className="w-4 h-4 text-green-600" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium text-gray-900">CMS initialized</p>
-                      <p className="text-xs text-gray-500">Database seeded with initial content</p>
-                    </div>
-                    <span className="text-xs text-gray-400">Just now</span>
-                  </div>
-                  
-                  <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                      <Users className="w-4 h-4 text-blue-600" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium text-gray-900">Admin user created</p>
-                      <p className="text-xs text-gray-500">Default admin account set up</p>
-                    </div>
-                    <span className="text-xs text-gray-400">Just now</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </motion.div>
-      </main>
+          )}
+          
+          {currentSection === 'hero' && <HeroEditor />}
+          {currentSection === 'solutions' && <SolutionsEditor />}
+          {currentSection === 'projects' && <ProjectsEditor />}
+          {currentSection === 'about' && <AboutEditor />}
+          {currentSection === 'contact' && <ContactEditor />}
+          {currentSection === 'media' && <MediaEditor />}
+          {currentSection === 'settings' && <SettingsEditor />}
+          
+          {currentSection !== 'dashboard' && 
+           currentSection !== 'hero' && 
+           currentSection !== 'solutions' && 
+           currentSection !== 'projects' && 
+           currentSection !== 'about' && 
+           currentSection !== 'contact' && 
+           currentSection !== 'media' && 
+           currentSection !== 'settings' && (
+            <div className="text-center py-12">
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Edit3 className="w-8 h-8 text-gray-400" />
+              </div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
+                {currentSection.charAt(0).toUpperCase() + currentSection.slice(1)} Editor
+              </h3>
+              <p className="text-gray-600">This section is coming soon!</p>
+            </div>
+          )}
+          </div>
+        </main>
+      </div>
+      
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && isMobile && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
     </div>
   );
 }
-

@@ -56,5 +56,19 @@
     server: {
       port: 5173,
       open: true,
+      proxy: {
+        // Proxy API calls to backend server
+        '/api': {
+          target: 'http://localhost:3000',
+          changeOrigin: true,
+          secure: false,
+        },
+        // Proxy contact form handler
+        '/send-message': {
+          target: 'http://localhost:3000',
+          changeOrigin: true,
+          secure: false,
+        }
+      }
     },
   });

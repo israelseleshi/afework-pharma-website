@@ -16,28 +16,27 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
       {/* Main navigation */}
-      <div className="max-w-7xl mx-auto px-8 py-3">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center">
-            <button 
-              onClick={() => handleNavigation('home')}
-              className="flex items-center group"
-            >
-              <div className="mr-2">
-                <ImageWithFallback 
-                  src="/afework-pharma-logo.png"
-                  alt="Afework Pharma Logo"
-                  className="h-10 w-auto object-contain group-hover:opacity-80 transition-opacity"
-                />
-              </div>
-              <div>
-                <h1 className="text-xl text-gray-900 group-hover:text-green-600 transition-colors">Afework Pharma</h1>
-                <p className="text-sm text-gray-500">Medical Solutions</p>
-              </div>
-            </button>
-          </div>
+      <div className="max-w-7xl mx-auto pl-4 pr-8 py-3">
+        <div className="flex items-center justify-between">
+          {/* Logo and Title - Far Left */}
+          <button 
+            onClick={() => handleNavigation('home')}
+            className="flex items-center group -ml-2"
+          >
+            <div className="mr-2">
+              <ImageWithFallback 
+                src="/afework-pharma-logo.png"
+                alt="Afework Pharma Logo"
+                className="h-10 w-auto object-contain group-hover:opacity-80 transition-opacity"
+              />
+            </div>
+            <div>
+              <h1 className="text-xl text-gray-900 group-hover:text-green-600 transition-colors">Afework Pharma</h1>
+              <p className="text-sm text-gray-500">Medical Solutions</p>
+            </div>
+          </button>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Far Right */}
           <nav className="hidden lg:flex items-center space-x-8">
             <button 
               onClick={() => handleNavigation('home')} 
@@ -76,25 +75,23 @@ export function Header() {
             </button>
           </nav>
 
-          <div className="flex items-center gap-4">
-            {/* Mobile menu button with animation */}
-            <motion.button 
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors duration-200"
-              whileTap={{ scale: 0.95 }}
+          {/* Mobile menu button - Far Right on Mobile */}
+          <motion.button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors duration-200"
+            whileTap={{ scale: 0.95 }}
+          >
+            <motion.div
+              animate={{ rotate: isMenuOpen ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
             >
-              <motion.div
-                animate={{ rotate: isMenuOpen ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                {isMenuOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
-              </motion.div>
-            </motion.button>
-          </div>
+              {isMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </motion.div>
+          </motion.button>
         </div>
 
         {/* Mobile Navigation with Animation */}
