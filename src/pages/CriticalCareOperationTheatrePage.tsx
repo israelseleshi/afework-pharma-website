@@ -90,7 +90,7 @@ export function CriticalCareOperationTheatrePage() {
             
             <div className="relative">
               <ImageWithFallback 
-                src="/critical-care-&-operation-theatre.jpg"
+                src="/assets/images/critical-care-&-operation-theatre.jpg"
                 alt="Critical Care & Operation Theatre Equipment"
                 className="w-full h-96 object-cover rounded-2xl shadow-lg"
               />
@@ -333,17 +333,17 @@ export function CriticalCareOperationTheatrePage() {
               {
                 title: "Diagnostic & Laboratory Solutions",
                 description: "Complete IVD systems for accurate diagnostics",
-                image: "/diagnostic-&-laboratory-solutions.jpg"
+                image: "/assets/images/diagnostic-&-laboratory-solutions.jpg"
               },
               {
                 title: "Diagnostic Imaging & Radiology",
                 description: "Advanced imaging solutions for comprehensive diagnostics",
-                image: "/diagnostic-imaging-&-radiology.jpg"
+                image: "/assets/images/diagnostic-imaging-&-radiology.jpg"
               },
               {
                 title: "Hospital Furniture & Patient Care",
                 description: "Ergonomic furniture for optimal patient comfort",
-                image: "/hospital-furniture-&-patient-care.jpg"
+                image: "/assets/images/hospital-furniture-&-patient-care.jpg"
               }
             ].map((solution, index) => (
               <div 

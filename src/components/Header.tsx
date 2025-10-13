@@ -25,14 +25,14 @@ export function Header() {
           >
             <div className="mr-2">
               <ImageWithFallback 
-                src="/afework-pharma-logo.png"
+                src="/assets/logos/afework-pharma-logo.png"
                 alt="Afework Pharma Logo"
-                className="h-10 w-auto object-contain group-hover:opacity-80 transition-opacity"
+                className="h-12 w-auto object-contain group-hover:opacity-80 transition-opacity"
               />
             </div>
             <div>
-              <h1 className="text-xl text-gray-900 group-hover:text-green-600 transition-colors">Afework Pharma</h1>
-              <p className="text-sm text-gray-500">Medical Solutions</p>
+              <h1 className="text-lg text-gray-900 group-hover:text-green-600 transition-colors">Afework Pharma</h1>
+              <p className="text-xs text-gray-500">Medical Solutions</p>
             </div>
           </button>
 

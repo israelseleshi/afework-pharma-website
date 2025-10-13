@@ -42,7 +42,11 @@ export function HeroEditor() {
 
   const fetchContent = async () => {
     try {
-      const response = await fetch('/api/content/all');
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? '/api/content/all'
+        : 'http://localhost:3001/api/content/all';
+        
+      const response = await fetch(apiUrl);
       if (response.ok) {
         const data = await response.json();
         if (data.success) {
@@ -106,7 +110,11 @@ export function HeroEditor() {
         { section_key: 'hero_stats', content_type: 'json', content_value: JSON.stringify(statsArray) }
       ];
 
-      const response = await fetch('/api/content/batch', {
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? '/api/content/batch'
+        : 'http://localhost:3001/api/content/batch';
+        
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

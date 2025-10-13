@@ -13,7 +13,7 @@ export function SolutionDetailPage() {
       title: "Diagnostic & Laboratory Solutions",
       subtitle: "Complete IVD Ecosystem for Accurate Diagnostics",
       description: "Our comprehensive laboratory solutions combine cutting-edge technology with proven reliability to deliver accurate diagnostic results. From automated chemistry analyzers to complete laboratory information systems, we provide everything needed for modern medical diagnostics.",
-      image: "/diagnostic-&-laboratory-solutions.jpg",
+      image: "/assets/images/diagnostic-&-laboratory-solutions.jpg",
       keyFeatures: [
         "Automated chemistry analyzers with 400+ test menu",
         "Complete hematology systems with 5-part differential",
@@ -43,7 +43,7 @@ export function SolutionDetailPage() {
       title: "Diagnostic Imaging & Radiology",
       subtitle: "Advanced Imaging Solutions for Comprehensive Diagnostics",
       description: "Transform your diagnostic capabilities with our state-of-the-art imaging solutions. From digital radiography to advanced MRI systems, we provide comprehensive imaging technology that delivers exceptional image quality, enhanced workflow efficiency, and improved patient outcomes across Ethiopian healthcare facilities.",
-      image: "/diagnostic-imaging-&-radiology.jpg",
+      image: "/assets/images/diagnostic-imaging-&-radiology.jpg",
       keyFeatures: [
         "Digital X-Ray systems with direct radiography (DR) technology",
         "High-resolution ultrasound machines with 4D imaging capabilities",
@@ -79,7 +79,7 @@ export function SolutionDetailPage() {
       title: "Critical Care & Operation Theatre",
       subtitle: "Life-Saving Equipment for Critical Medical Procedures",
       description: "Equip your intensive care units and operating rooms with advanced life-support technology and precision surgical equipment. Our comprehensive critical care solutions ensure optimal patient outcomes during Ethiopia's most critical medical procedures, combining reliability with cutting-edge innovation.",
-      image: "/critical-care-&-operation-theatre.jpg",
+      image: "/assets/images/critical-care-&-operation-theatre.jpg",
       keyFeatures: [
         "Advanced ICU ventilators with multiple ventilation modes",
         "Multi-parameter patient monitors with real-time analytics",
@@ -115,7 +115,7 @@ export function SolutionDetailPage() {
       title: "Hospital Furniture & Patient Care",
       subtitle: "Ergonomic Solutions for Enhanced Patient Comfort and Care",
       description: "Transform your healthcare facility with ergonomic hospital furniture designed to improve patient comfort while enhancing healthcare worker efficiency. Our comprehensive patient care solutions combine functionality with durability, creating healing environments that support both patients and medical staff.",
-      image: "/hospital-furniture-&-patient-care.jpg",
+      image: "/assets/images/hospital-furniture-&-patient-care.jpg",
       keyFeatures: [
         "Electric hospital beds with advanced positioning controls",
         "Patient transfer chairs with safety and comfort features",

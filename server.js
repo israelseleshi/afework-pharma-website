@@ -10,6 +10,7 @@ import multer from 'multer';
 import rateLimit from 'express-rate-limit';
 import Joi from 'joi';
 import dotenv from 'dotenv';
+import helmet from 'helmet';
 
 // Load environment variables
 dotenv.config();
@@ -23,7 +24,7 @@ const app = express();
 const dbConfig = {
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'afeworcn_afework_admin',
-    password: process.env.DB_PASS || process.env.DB_PASSWORD,
+    password: process.env.DB_PASSWORD || 'mQ+3HMm2(g)q.R758J!;Lb',
     database: process.env.DB_NAME || 'afeworcn_afework_content',
     waitForConnections: true,
     connectionLimit: 10,
@@ -34,7 +35,8 @@ console.log('🔧 Database configuration:', {
     host: dbConfig.host,
     user: dbConfig.user,
     database: dbConfig.database,
-    environment: process.env.NODE_ENV || 'production'
+    password: dbConfig.password ? '***hidden***' : 'NOT SET',
+    environment: process.env.NODE_ENV || 'development'
 });
 
 let db;
@@ -68,75 +70,227 @@ let contentStore = {
     }
 };
 
-// JWT Secret
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+// JWT Secret - Use environment variable or fallback for development
+const JWT_SECRET = process.env.JWT_SECRET || 'AfeworkPharma2024!DevJWT$ecret#Key@MedicalSolutions&Ethiopia*Secure';
 
-// Middleware
-app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-        ? ['https://www.afeworkpharmaet.com', 'https://afeworkpharmaet.com']
-        : ['http://localhost:3000', 'http://localhost:5173'],
+// Security middleware
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+            fontSrc: ["'self'", "https://fonts.gstatic.com"],
+            imgSrc: ["'self'", "data:", "https:"],
+            scriptSrc: ["'self'"],
+            connectSrc: ["'self'"],
+            frameSrc: ["'none'"],
+            objectSrc: ["'none'"],
+            upgradeInsecureRequests: []
+        }
+    },
+    crossOriginEmbedderPolicy: false
+}));
+
+// CORS configuration
+const corsOptions = {
+    origin: process.env.CORS_ORIGINS 
+        ? process.env.CORS_ORIGINS.split(',')
+        : (process.env.NODE_ENV === 'production' 
+            ? ['https://www.afeworkpharmaet.com', 'https://afeworkpharmaet.com']
+            : ['http://localhost:3000', 'http://localhost:5173']),
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 
-// Rate limiting for login
+// Body parsing middleware
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({ limit: '10mb' }));
+
+// Enhanced rate limiting
 const loginLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
+    windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes
     max: 5, // limit each IP to 5 requests per windowMs
-    message: 'Too many login attempts, please try again later.',
+    message: { success: false, message: 'Too many login attempts, please try again later.' },
     standardHeaders: true,
     legacyHeaders: false,
+    skipSuccessfulRequests: true
 });
 
-// File upload configuration
+// General API rate limiting
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100,
+    message: { success: false, message: 'Too many requests, please try again later.' },
+    standardHeaders: true,
+    legacyHeaders: false
+});
+
+// Admin routes rate limiting
+const adminLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 50, // More restrictive for admin routes
+    message: { success: false, message: 'Too many admin requests, please try again later.' },
+    standardHeaders: true,
+    legacyHeaders: false
+});
+
+// Enhanced file upload configuration with security
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'public/uploads/');
+        // Create secure upload directory outside public access
+        const uploadDir = 'uploads/secure/';
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir, { recursive: true });
+        }
+        cb(null, uploadDir);
     },
     filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+        // Generate secure filename with timestamp and random string
+        const timestamp = Date.now();
+        const randomString = Math.random().toString(36).substring(2, 15);
+        const sanitizedName = file.originalname.replace(/[^a-zA-Z0-9.-]/g, '_');
+        const extension = path.extname(sanitizedName);
+        const secureFilename = `${timestamp}-${randomString}${extension}`;
+        cb(null, secureFilename);
     }
 });
 
 const upload = multer({
     storage: storage,
     limits: {
-        fileSize: 5 * 1024 * 1024, // 5MB limit
+        fileSize: parseInt(process.env.MAX_FILE_SIZE) || 5 * 1024 * 1024, // 5MB limit
+        files: 5, // Maximum 5 files per request
     },
     fileFilter: (req, file, cb) => {
-        const allowedTypes = /jpeg|jpg|png|gif|webp/;
-        const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-        const mimetype = allowedTypes.test(file.mimetype);
+        // Enhanced file type validation
+        const allowedTypes = process.env.ALLOWED_FILE_TYPES 
+            ? process.env.ALLOWED_FILE_TYPES.split(',')
+            : ['jpeg', 'jpg', 'png', 'gif', 'webp', 'pdf', 'doc', 'docx'];
         
-        if (mimetype && extname) {
+        const fileExtension = path.extname(file.originalname).toLowerCase().substring(1);
+        const mimeType = file.mimetype.toLowerCase();
+        
+        // Check both extension and MIME type
+        const isValidExtension = allowedTypes.includes(fileExtension);
+        const isValidMimeType = allowedTypes.some(type => mimeType.includes(type));
+        
+        if (isValidExtension && isValidMimeType) {
             return cb(null, true);
         } else {
-            cb(new Error('Only image files are allowed!'));
+            cb(new Error(`File type not allowed. Allowed types: ${allowedTypes.join(', ')}`));
         }
     }
 });
 
-// Authentication middleware
+// Input validation schemas
+const validationSchemas = {
+    login: Joi.object({
+        username: Joi.string().trim().min(3).max(50).required(),
+        password: Joi.string().min(6).max(128).required(),
+        rememberMe: Joi.boolean().optional()
+    }),
+    
+    passwordUpdate: Joi.object({
+        currentPassword: Joi.string().required(),
+        newPassword: Joi.string().min(8).max(128).pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/).required()
+            .messages({
+                'string.pattern.base': 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
+            })
+    }),
+    
+    contactForm: Joi.object({
+        name: Joi.string().trim().min(2).max(100).required(),
+        email: Joi.string().email().required(),
+        phone: Joi.string().trim().max(20).optional().allow(''),
+        organization: Joi.string().trim().max(200).optional().allow(''),
+        inquiryType: Joi.string().trim().max(100).optional().allow(''),
+        message: Joi.string().trim().min(10).max(2000).required()
+    }),
+    
+    contentUpdate: Joi.object({
+        content_type: Joi.string().valid('text', 'html', 'json', 'image').required(),
+        content_value: Joi.string().max(10000).required()
+    }),
+    
+    batchContentUpdate: Joi.object({
+        updates: Joi.array().items(Joi.object({
+            section_key: Joi.string().trim().max(100).required(),
+            content_type: Joi.string().valid('text', 'html', 'json', 'image').required(),
+            content_value: Joi.string().max(10000).required()
+        })).min(1).max(50).required()
+    })
+};
+
+// Enhanced authentication middleware with token validation
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
-        return res.status(401).json({ success: false, message: 'Access token required' });
+        return res.status(401).json({ 
+            success: false, 
+            message: 'Access token required',
+            code: 'NO_TOKEN'
+        });
     }
 
     jwt.verify(token, JWT_SECRET, (err, user) => {
         if (err) {
-            return res.status(403).json({ success: false, message: 'Invalid or expired token' });
+            if (err.name === 'TokenExpiredError') {
+                return res.status(401).json({ 
+                    success: false, 
+                    message: 'Token has expired',
+                    code: 'TOKEN_EXPIRED'
+                });
+            } else if (err.name === 'JsonWebTokenError') {
+                return res.status(403).json({ 
+                    success: false, 
+                    message: 'Invalid token',
+                    code: 'INVALID_TOKEN'
+                });
+            } else {
+                return res.status(403).json({ 
+                    success: false, 
+                    message: 'Token verification failed',
+                    code: 'TOKEN_VERIFICATION_FAILED'
+                });
+            }
         }
+        
+        // Add token expiration check
+        const now = Math.floor(Date.now() / 1000);
+        if (user.exp && user.exp < now) {
+            return res.status(401).json({ 
+                success: false, 
+                message: 'Token has expired',
+                code: 'TOKEN_EXPIRED'
+            });
+        }
+        
         req.user = user;
         next();
     });
+};
+
+// Input validation middleware
+const validateInput = (schema) => {
+    return (req, res, next) => {
+        const { error } = schema.validate(req.body);
+        if (error) {
+            return res.status(400).json({
+                success: false,
+                message: 'Validation error',
+                details: error.details.map(detail => ({
+                    field: detail.path.join('.'),
+                    message: detail.message
+                }))
+            });
+        }
+        next();
+    };
 };
 
 // Serve static files from build directory in production
@@ -177,7 +331,7 @@ if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
     // Using port 587 (STARTTLS) as default - more compatible with shared hosting
     // If this fails, change EMAIL_PORT in .env to 465 and it will auto-switch to SSL
     
-    const emailPort = parseInt(process.env.EMAIL_PORT) || 587; 
+    const emailPort = parseInt(process.env.EMAIL_PORT) || 465; 
     const isSecure = emailPort === 465; // SSL for 465, STARTTLS for 587
 
     transporter = nodemailer.createTransport({
@@ -185,8 +339,8 @@ if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
         port: emailPort, 
         secure: isSecure, 
         auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
+            user: process.env.EMAIL_USER || 'contact@afeworkpharmaet.com',
+            pass: process.env.EMAIL_PASS || 'mQ+3HMm2(g)q.R758J!;Lb'
         },
         tls: {
             rejectUnauthorized: false
@@ -300,89 +454,98 @@ app.get('/api/ping', (req, res) => {
     });
 });
 
+// Apply general rate limiting to all API routes
+app.use('/api', apiLimiter);
+
 // Authentication Routes
-app.post('/api/admin/login', loginLimiter, async (req, res) => {
+app.post('/api/admin/login', loginLimiter, validateInput(validationSchemas.login), async (req, res) => {
     try {
         const { username, password, rememberMe } = req.body;
 
-        // Validation
-        const schema = Joi.object({
-            username: Joi.string().trim().required(),
-            password: Joi.string().min(3).required(),
-            rememberMe: Joi.boolean().optional()
-        });
+        // Try database authentication first
+        try {
+            const [rows] = await db.execute(
+                'SELECT * FROM admin_users WHERE username = ?',
+                [username.trim()]
+            );
+            
+            if (rows.length > 0) {
+                const user = rows[0];
+                
+                // Validate password
+                const isValidPassword = await bcrypt.compare(password, user.password_hash);
 
-        const { error } = schema.validate({ username, password, rememberMe });
-        if (error) {
-            return res.status(400).json({ 
-                success: false, 
-                message: error.details[0].message 
+                if (isValidPassword) {
+                    // Generate JWT token with appropriate expiration
+                    const tokenExpiration = rememberMe ? '30d' : '24h';
+                    const token = jwt.sign(
+                        { 
+                            userId: user.id, 
+                            username: user.username,
+                            rememberMe: !!rememberMe,
+                            iat: Math.floor(Date.now() / 1000)
+                        },
+                        JWT_SECRET,
+                        { expiresIn: tokenExpiration }
+                    );
+
+                    // Log successful login
+                    console.log(`✅ Admin login successful: ${username} (Remember: ${!!rememberMe})`);
+
+                    return res.json({
+                        success: true,
+                        message: 'Login successful',
+                        token,
+                        user: { 
+                            id: user.id, 
+                            username: user.username,
+                            rememberMe: !!rememberMe
+                        },
+                        expiresIn: tokenExpiration
+                    });
+                }
+            }
+        } catch (dbError) {
+            console.warn('⚠️ Database authentication failed, trying development fallback:', dbError.message);
+        }
+
+        // Development fallback - hardcoded credentials for local development
+        if (process.env.NODE_ENV === 'development' && username === 'admin' && password === 'adm@123') {
+            console.log('🔧 Using development fallback authentication');
+            
+            // Generate JWT token with appropriate expiration
+            const tokenExpiration = rememberMe ? '30d' : '24h';
+            const token = jwt.sign(
+                { 
+                    userId: 1, 
+                    username: 'admin',
+                    rememberMe: !!rememberMe,
+                    iat: Math.floor(Date.now() / 1000)
+                },
+                JWT_SECRET,
+                { expiresIn: tokenExpiration }
+            );
+
+            // Log successful login
+            console.log(`✅ Development admin login successful: ${username} (Remember: ${!!rememberMe})`);
+
+            return res.json({
+                success: true,
+                message: 'Login successful (development mode)',
+                token,
+                user: { 
+                    id: 1, 
+                    username: 'admin',
+                    rememberMe: !!rememberMe
+                },
+                expiresIn: tokenExpiration
             });
         }
 
-        // Temporary bypass for database connection issues
-        // Check for hardcoded admin user
-        if (username.trim() !== 'admin') {
-            return res.status(401).json({ 
-                success: false, 
-                message: 'Invalid credentials' 
-            });
-        }
-
-        // Hardcoded admin user for testing
-        const user = {
-            id: 1,
-            username: 'admin',
-            password_hash: '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi' // adm@123
-        };
-        
-        // Enable password validation for better security
-        const isValidPassword = await bcrypt.compare(password, user.password_hash);
-        
-        // Original database code (commented out due to connection issues):
-        // const [rows] = await db.execute(
-        //     'SELECT * FROM admin_users WHERE username = ?',
-        //     [username.trim()]
-        // );
-        // if (rows.length === 0) {
-        //     return res.status(401).json({ success: false, message: 'Invalid credentials' });
-        // }
-        // const user = rows[0];
-        // const isValidPassword = await bcrypt.compare(password, user.password_hash);
-
-        if (!isValidPassword) {
-            return res.status(401).json({ 
-                success: false, 
-                message: 'Invalid credentials' 
-            });
-        }
-
-        // Generate JWT token with appropriate expiration
-        const tokenExpiration = rememberMe ? '30d' : '24h';
-        const token = jwt.sign(
-            { 
-                userId: user.id, 
-                username: user.username,
-                rememberMe: !!rememberMe,
-                iat: Math.floor(Date.now() / 1000)
-            },
-            JWT_SECRET,
-            { expiresIn: tokenExpiration }
-        );
-
-        // Log successful login
-        console.log(`✅ Admin login successful: ${username} (Remember: ${!!rememberMe})`);
-
-        res.json({
-            success: true,
-            message: 'Login successful',
-            token,
-            user: { 
-                id: user.id, 
-                username: user.username,
-                rememberMe: !!rememberMe
-            },
-            expiresIn: tokenExpiration
+        // Invalid credentials
+        return res.status(401).json({ 
+            success: false, 
+            message: 'Invalid credentials' 
         });
 
     } catch (error) {
@@ -395,45 +558,46 @@ app.post('/api/admin/login', loginLimiter, async (req, res) => {
 });
 
 // Password Update Route
-app.post('/api/admin/update-password', authenticateToken, async (req, res) => {
+app.post('/api/admin/update-password', adminLimiter, authenticateToken, validateInput(validationSchemas.passwordUpdate), async (req, res) => {
     try {
         const { currentPassword, newPassword } = req.body;
 
-        // Validation
-        const schema = Joi.object({
-            currentPassword: Joi.string().required(),
-            newPassword: Joi.string().min(6).required()
-        });
-
-        const { error } = schema.validate({ currentPassword, newPassword });
-        if (error) {
-            return res.status(400).json({ 
-                success: false, 
-                message: error.details[0].message 
+        // Verify current password
+        const [userRows] = await db.execute(
+            'SELECT password_hash FROM admin_users WHERE id = ?',
+            [req.user.userId]
+        );
+        
+        if (userRows.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found'
             });
         }
-
-        // For now, since we're using hardcoded user, just hash the new password
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
         
-        // TODO: When database connection is fixed, update the actual database:
-        // await db.execute(
-        //     'UPDATE admin_users SET password_hash = ? WHERE username = ?',
-        //     [hashedPassword, req.user.username]
-        // );
+        const isValidCurrentPassword = await bcrypt.compare(currentPassword, userRows[0].password_hash);
+        if (!isValidCurrentPassword) {
+            return res.status(401).json({
+                success: false,
+                message: 'Current password is incorrect'
+            });
+        }
         
-        // For now, just return success (you'll need to manually update the hardcoded hash)
-        console.log('\n🔐 New Password Hash Generated:');
-        console.log('Password:', newPassword);
-        console.log('Hash:', hashedPassword);
-        console.log('\n📝 Update server.js line ~189 with this hash:\n');
-        console.log(`password_hash: '${hashedPassword}'`);
-        console.log('\n');
+        // Hash new password with increased salt rounds for better security
+        const saltRounds = 12;
+        const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+        
+        // Update password in database
+        await db.execute(
+            'UPDATE admin_users SET password_hash = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?',
+            [hashedPassword, req.user.userId]
+        );
+        
+        console.log(`✅ Password updated for user: ${req.user.username}`);
 
         res.json({
             success: true,
-            message: 'Password updated successfully! Check server console for the new hash.',
-            hash: hashedPassword // Remove this in production
+            message: 'Password updated successfully!'
         });
 
     } catch (error) {
@@ -488,16 +652,9 @@ app.get('/api/content/all', async (req, res) => {
 });
 
 // Batch Content Update Route
-app.post('/api/content/batch', authenticateToken, async (req, res) => {
+app.post('/api/content/batch', adminLimiter, authenticateToken, validateInput(validationSchemas.batchContentUpdate), async (req, res) => {
     try {
         const { updates } = req.body;
-        
-        if (!Array.isArray(updates)) {
-            return res.status(400).json({
-                success: false,
-                message: 'Updates must be an array'
-            });
-        }
 
         // For now, just log the updates since database connection has issues
         console.log('\n📝 Content Updates Received:');
@@ -757,17 +914,9 @@ app.delete('/api/media/:id', authenticateToken, async (req, res) => {
 });
 
 // Contact form submission route
-app.post('/send-message', async (req, res) => {
+app.post('/send-message', validateInput(validationSchemas.contactForm), async (req, res) => {
     try {
         const { name, email, phone, organization, inquiryType, message } = req.body;
-
-        // Validate required fields
-        if (!name || !email || !message) {
-            return res.status(400).json({ 
-                success: false, 
-                message: 'Name, email, and message are required fields.' 
-            });
-        }
 
         // Email content configuration
         const mailOptions = {

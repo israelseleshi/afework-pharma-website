@@ -153,7 +153,7 @@ export function HeroSection() {
           className="w-full h-full"
         >
           <ImageWithFallback
-            src="/medical-equipments.png"
+            src="/assets/images/medical-equipments.png"
             className="w-full h-full object-cover lg:object-contain lg:object-center"
           />
         </motion.div>

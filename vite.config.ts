@@ -52,6 +52,25 @@
     build: {
       target: 'esnext',
       outDir: 'build',
+      minify: 'terser',
+      sourcemap: false,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['react', 'react-dom'],
+            ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-tabs'],
+            motion: ['framer-motion'],
+            icons: ['lucide-react']
+          }
+        }
+      },
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true
+        }
+      },
+      chunkSizeWarningLimit: 1000
     },
     server: {
       port: 5173,
@@ -59,12 +78,6 @@
       proxy: {
         // Proxy API calls to backend server
         '/api': {
-          target: 'http://localhost:3000',
-          changeOrigin: true,
-          secure: false,
-        },
-        // Proxy contact form handler
-        '/send-message': {
           target: 'http://localhost:3000',
           changeOrigin: true,
           secure: false,

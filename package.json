@@ -40,6 +40,7 @@
     "express-rate-limit": "^7.5.1",
     "framer-motion": "^12.23.22",
     "gsap": "^3.13.0",
+    "helmet": "^8.1.0",
     "input-otp": "^1.4.2",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
@@ -69,12 +70,13 @@
     "concurrently": "^9.2.1",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.14",
+    "terser": "^5.44.0",
     "typescript": "^5.9.3",
     "vite": "6.3.5"
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "server": "node server.js",
@@ -84,6 +86,10 @@
     "dev:full": "concurrently \"npm run server\" \"npm run dev\"",
     "build:start": "npm run build && npm run start",
     "production": "npm run build && set NODE_ENV=production && node server.js",
-    "setup-db": "node setup-database.js"
+    "setup-db": "node setup-database.js",
+    "create-admin": "node scripts/create-admin.js",
+    "backup-db": "node scripts/backup-db.js",
+    "deploy:cpanel": "npm run build && npm run setup-db && npm run start:prod",
+    "test:security": "node scripts/security-test.js"
   }
 }

@@ -68,7 +68,7 @@ export function SolutionsPage() {
       icon: Beaker,
       title: "Diagnostic & Laboratory Solutions",
       description: "Complete laboratory ecosystems featuring automated chemistry analyzers, hematology systems, and comprehensive IVD solutions tailored for Ethiopian healthcare facilities.",
-      image: "/diagnostic-&-laboratory-solutions.jpg",
+      image: "/assets/images/diagnostic-&-laboratory-solutions.jpg",
       products: ["Mindray BS-240 Chemistry Analyzers", "BC-5150 Hematology Systems", "Digital Microscopes", "Lab Furniture", "Quality Control Systems"],
       benefits: [
         "Increase Patient Throughput with Automated Workflows",
@@ -81,7 +81,7 @@ export function SolutionsPage() {
       icon: Scan,
       title: "Diagnostic Imaging & Radiology",
       description: "Advanced imaging solutions from digital radiography to high-end MRI systems, addressing Ethiopia's growing need for accurate diagnostic imaging capabilities.",
-      image: "/diagnostic-imaging-&-radiology.jpg",
+      image: "/assets/images/diagnostic-imaging-&-radiology.jpg",
       products: ["Digital X-Ray Systems", "Ultrasound Machines", "CT Scanners", "MRI Systems", "PACS Solutions"],
       benefits: [
         "Eliminate Film Costs with Complete Digital Workflow",
@@ -94,7 +94,7 @@ export function SolutionsPage() {
       icon: Heart,
       title: "Critical Care & Operation Theatre",
       description: "Life-saving equipment for intensive care units and operating rooms, ensuring optimal patient outcomes during Ethiopia's most critical medical procedures.",
-      image: "/hospital-clinic-furniture.png",
+      image: "/assets/images/hospital-clinic-furniture.png",
       products: ["ICU Ventilators", "Multi-Parameter Monitors", "Surgical Tables", "Anesthesia Machines", "OR Integration Systems"],
       benefits: [
         "Save More Lives with Advanced Life-Support Technology",
@@ -107,7 +107,7 @@ export function SolutionsPage() {
       icon: Bed,
       title: "Hospital Furniture & Patient Care",
       description: "Ergonomic hospital furniture and patient care equipment designed to improve patient comfort while enhancing healthcare worker efficiency in Ethiopian hospitals.",
-      image: "/hospital-furniture-&-patient-care.jpg",
+      image: "/assets/images/hospital-furniture-&-patient-care.jpg",
       products: ["Electric Hospital Beds", "Patient Transfer Chairs", "Medical Trolleys", "Storage Solutions", "Waiting Area Furniture"],
       benefits: [
         "Improve Patient Recovery with Enhanced Comfort Features",
@@ -383,7 +383,7 @@ export function SolutionsPage() {
                 {/* FDA Approved Badge */}
                 <div className="relative group">
                   <img 
-                    src="/fda-approved.png" 
+                    src="/assets/logos/fda-approved.png" 
                     alt="FDA Approved" 
                     className="w-full h-48 object-contain hover:scale-105 transition-transform duration-300"
                   />
@@ -392,7 +392,7 @@ export function SolutionsPage() {
                 {/* ISO Certified Badge */}
                 <div className="relative group">
                   <img 
-                    src="/iso-certified.png" 
+                    src="/assets/logos/iso-certified.png" 
                     alt="ISO Certified" 
                     className="w-full h-48 object-contain hover:scale-105 transition-transform duration-300"
                   />

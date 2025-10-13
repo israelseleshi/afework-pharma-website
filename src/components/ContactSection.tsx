@@ -44,16 +44,61 @@ export function ContactSection() {
     name: "",
     email: "",
     phone: "",
-    institution: "",
-    reason: "",
+    organization: "",
+    inquiryType: "",
     message: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
-    // In a real implementation, this would submit to a backend
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
+
+    try {
+      const response = await fetch('/api/contact-handler.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus({
+          type: 'success',
+          message: result.message || 'Thank you! Your message has been sent successfully. We will respond within 24 hours.'
+        });
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          organization: "",
+          inquiryType: "",
+          message: ""
+        });
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: result.error || 'Failed to send message. Please try again.'
+        });
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Network error. Please check your connection and try again.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -213,6 +258,7 @@ export function ContactSection() {
                     placeholder="+251 911 123 456"
                     value={formData.phone}
                     onChange={(e) => handleInputChange("phone", e.target.value)}
+                    required
                   />
                 </div>
                 
@@ -223,8 +269,9 @@ export function ContactSection() {
                   <Input
                     type="text"
                     placeholder="Your organization name"
-                    value={formData.institution}
-                    onChange={(e) => handleInputChange("institution", e.target.value)}
+                    value={formData.organization}
+                    onChange={(e) => handleInputChange("organization", e.target.value)}
+                    required
                   />
                 </div>
               </div>
@@ -233,17 +280,17 @@ export function ContactSection() {
                 <label className="block text-sm font-medium text-slate-700 mb-2">
                   Reason for Contact *
                 </label>
-                <Select onValueChange={(value) => handleInputChange("reason", value)}>
+                <Select onValueChange={(value) => handleInputChange("inquiryType", value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select reason for contact" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="sales">Sales Inquiry</SelectItem>
-                    <SelectItem value="quote">Request Quote</SelectItem>
-                    <SelectItem value="support">Technical Support</SelectItem>
-                    <SelectItem value="partnership">Partnership Opportunity</SelectItem>
-                    <SelectItem value="service">Service Request</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    <SelectItem value="Sales Inquiry">Sales Inquiry</SelectItem>
+                    <SelectItem value="Request Quote">Request Quote</SelectItem>
+                    <SelectItem value="Technical Support">Technical Support</SelectItem>
+                    <SelectItem value="Partnership Opportunity">Partnership Opportunity</SelectItem>
+                    <SelectItem value="Service Request">Service Request</SelectItem>
+                    <SelectItem value="Other">Other</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -265,11 +312,30 @@ export function ContactSection() {
                 type="submit" 
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3"
                 size="lg"
+                disabled={isSubmitting}
               >
-                Send Message
-                <ArrowRight className="ml-2 w-5 h-5" />
+                {isSubmitting ? "Sending..." : "Send Message"}
+                {!isSubmitting && <ArrowRight className="ml-2 w-5 h-5" />}
               </Button>
             </form>
+
+            {/* Success/Error Feedback */}
+            {submitStatus.type && (
+              <div className={`mt-4 p-4 rounded-lg border ${
+                submitStatus.type === 'success' 
+                  ? 'bg-green-50 border-green-200 text-green-800' 
+                  : 'bg-red-50 border-red-200 text-red-800'
+              }`}>
+                <div className="flex items-center">
+                  <div className={`w-5 h-5 mr-2 ${
+                    submitStatus.type === 'success' ? 'text-green-600' : 'text-red-600'
+                  }`}>
+                    {submitStatus.type === 'success' ? '✓' : '✗'}
+                  </div>
+                  <p className="text-sm font-medium">{submitStatus.message}</p>
+                </div>
+              </div>
+            )}
 
             <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
               <p className="text-sm text-blue-800">

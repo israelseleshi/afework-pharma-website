@@ -86,7 +86,11 @@ export function AdminLogin() {
     setLoading(true);
     
     try {
-      const response = await fetch('/api/admin/login', {
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? '/api/admin/login'
+        : 'http://localhost:3001/api/admin/login';
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

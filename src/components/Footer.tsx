@@ -65,7 +65,7 @@ export function Footer() {
               >
                 <div className="mr-3">
                   <ImageWithFallback
-                    src="/afework-pharma-logo.png"
+                    src="/assets/logos/afework-pharma-logo.png"
                     alt="Afework Pharma Logo"
                     className="h-10 w-auto object-contain group-hover:opacity-80 transition-opacity"
                   />

@@ -215,7 +215,7 @@ export function AboutPage() {
               variants={kenBurnsVariants}
             >
               <ImageWithFallback 
-                src="/afewrork-team-image.jpg"
+                src="/assets/images/afewrork-team-image.jpg"
                 alt="Afework Pharma team in Ethiopian hospital"
                 className="w-full h-96 object-cover shadow-lg"
               />

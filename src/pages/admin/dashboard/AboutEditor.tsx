@@ -40,7 +40,7 @@ export function AboutEditor() {
     mission: 'To provide cutting-edge medical equipment and healthcare solutions that enhance the quality of healthcare delivery across Ethiopia.',
     vision: 'To be the leading provider of innovative medical technology solutions in East Africa, contributing to healthier communities.',
     description: 'Afework Pharma has been at the forefront of medical equipment distribution and healthcare solutions in Ethiopia since 2019.',
-    teamImage: '/afewrork-team-image.jpg',
+    teamImage: '/assets/images/afewrork-team-image.jpg',
     achievements: {
       clients: '36+',
       projects: '150+',

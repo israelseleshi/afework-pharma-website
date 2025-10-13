@@ -129,7 +129,7 @@ export function ProjectsPage() {
       year: "2024",
       location: "Mekelle, Tigray Region",
       image: "https://images.unsplash.com/photo-1694787590597-ba49c7cdc2cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHxldGhpb3BpYW4lMjBob3NwaXRhbCUyMG1lZGljYWwlMjBmYWNpbGl0eXxlbnwxfHx8fDE3NTk4MjkwMzh8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      logo: "/tigray-regional-health-bureau-logo.png",
+      logo: "/assets/logos/tigray-regional-health-bureau-logo.png",
       description: "Comprehensive laboratory infrastructure development supporting TB and HIV diagnostics across 25 health facilities in Tigray region.",
       scope: [
         "11 Mindray BS-240 Chemistry Analyzers",
@@ -151,8 +151,8 @@ export function ProjectsPage() {
       client: "Federal Democratic Republic of Ethiopia Defense Hospital",
       year: "2023-2024",
       location: "Bishoftu, Ethiopia",
-      image: "/fdre-defense-referral-hospital.jpg",
-      logo: "/fdre-defense-logo.png",
+      image: "/assets/logos/fdre-defense-referral-hospital.jpg",
+      logo: "/assets/logos/fdre-defense-logo.png",
       description: "Installation and commissioning of advanced laboratory suite with comprehensive reagent supply chain management.",
       scope: [
         "Mindray BS-480 Biochemistry Analyzer",

@@ -76,7 +76,7 @@ export function MediaEditor() {
     {
       id: '6',
       name: 'afework-team-image.jpg',
-      url: '/afewrork-team-image.jpg',
+      url: '/assets/images/afewrork-team-image.jpg',
       type: 'image',
       size: '312 KB',
       uploadDate: '2024-01-25',

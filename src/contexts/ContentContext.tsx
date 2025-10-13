@@ -324,8 +324,8 @@ export function ContentProvider({ children }: ContentProviderProps) {
       setError(null);
 
       const apiUrl = process.env.NODE_ENV === 'production' 
-        ? '/api/content/all'
-        : 'http://localhost:3000/api/content/all';
+        ? '/api/content.php'
+        : '/api/content.php';
 
       const response = await fetch(apiUrl);
       
