@@ -73,14 +73,20 @@
       chunkSizeWarningLimit: 1000
     },
     server: {
-      port: 5173,
+      port: 5174,
       open: true,
       proxy: {
-        // Proxy API calls to backend server
+        // Proxy API calls to PHP server on port 8000
+        // Start PHP server with: php -S localhost:8000 -t public
         '/api': {
-          target: 'http://localhost:3000',
+          target: 'http://localhost:8000',
           changeOrigin: true,
           secure: false,
+          configure: (proxy, options) => {
+            proxy.on('error', (err, req, res) => {
+              console.log('🔴 PHP server not running on port 8000');
+            });
+          }
         }
       }
     },

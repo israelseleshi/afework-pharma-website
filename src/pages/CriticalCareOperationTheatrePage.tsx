@@ -1,14 +1,48 @@
 import React from "react";
+import SEO from "../components/SEO";
 import { Button } from "../components/ui/button";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { useRouter } from "../components/Router";
-import { ArrowRight, ArrowLeft, Check, Star, Download, Phone, Heart, Activity, Shield, Zap, Monitor, Stethoscope } from "lucide-react";
+import { ArrowRight, ArrowLeft, Check, Star, Download, Heart, Activity, Shield, Zap, Monitor, Stethoscope } from "lucide-react";
 
 export function CriticalCareOperationTheatrePage() {
   const { navigateTo } = useRouter();
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Critical Care & Operation Theatre Solutions",
+    "description": "Comprehensive critical care and operation theatre equipment including ICU ventilators, patient monitors, anesthesia machines, surgical tables, and life-support technology for Ethiopian healthcare facilities.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Afework Pharma"
+    },
+    "manufacturer": {
+      "@type": "Organization",
+      "name": "Afework Pharma"
+    },
+    "category": "Critical Care Medical Equipment",
+    "offers": {
+      "@type": "Offer",
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "Afework Pharma"
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Critical Care and ICU Equipment Ethiopia | Afework Pharma"
+        description="Leading supplier of critical care and ICU equipment in Ethiopia. ICU ventilators, patient monitors, anesthesia machines, surgical tables, and life-support technology for healthcare facilities."
+        keywords="critical care and ICU equipment Ethiopia, ICU ventilators supplier, patient monitors, anesthesia machines, surgical tables, life-support technology Ethiopia, operation theatre equipment, critical care solutions"
+        canonical="/critical-care-operation-theatre"
+        ogTitle="Critical Care and ICU Equipment Ethiopia | Afework Pharma"
+        ogDescription="Leading supplier of critical care and ICU equipment in Ethiopia. ICU ventilators, patient monitors, anesthesia machines, and surgical tables."
+        structuredData={structuredData}
+      />
       {/* Breadcrumb */}
       <section className="py-8 bg-gray-50 border-b">
         <div className="max-w-6xl mx-auto px-6">
@@ -74,16 +108,12 @@ export function CriticalCareOperationTheatrePage() {
                 <Button 
                   variant="outline" 
                   className="border-green-600 text-green-600 hover:bg-green-50 cursor-pointer"
+                  onClick={() => {
+                    alert('Brochure will be available soon. Please contact us for more information.');
+                  }}
                 >
                   <Download className="mr-2 w-4 h-4" />
                   Download Brochure
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="border-green-600 text-green-600 hover:bg-green-50 cursor-pointer"
-                >
-                  <Phone className="mr-2 w-4 h-4" />
-                  Schedule Demo
                 </Button>
               </div>
             </div>

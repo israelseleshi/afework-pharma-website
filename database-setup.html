@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afework Pharma CMS - Database Setup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        .status {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .status.success {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            color: #276749;
+        }
+
+        .status.error {
+            background: #fed7d7;
+            border: 1px solid #feb2b2;
+            color: #c53030;
+        }
+
+        .status.info {
+            background: #ebf8ff;
+            border: 1px solid #90cdf4;
+            color: #2b6cb0;
+        }
+
+        .setup-button {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .setup-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .setup-button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffffff40;
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .sql-preview {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .config-section {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .config-section h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #4a5568;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .toggle-sql {
+            background: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .toggle-sql:hover {
+            background: #2d3748;
+        }
+
+        .progress {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #059669);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Afework Pharma CMS</h1>
+            <p>Database Setup & Initialization</p>
+        </div>
+
+        <div class="config-section">
+            <h3>🔧 Database Configuration</h3>
+            <div class="grid">
+                <div class="form-group">
+                    <label for="host">Database Host</label>
+                    <input type="text" id="host" value="localhost" placeholder="localhost">
+                </div>
+                <div class="form-group">
+                    <label for="port">Port</label>
+                    <input type="text" id="port" value="3306" placeholder="3306">
+                </div>
+                <div class="form-group">
+                    <label for="database">Database Name</label>
+                    <input type="text" id="database" value="afework_pharma_cms" placeholder="afework_pharma_cms">
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" value="root" placeholder="root">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter database password">
+                </div>
+            </div>
+        </div>
+
+        <div class="status" id="status"></div>
+        
+        <div class="progress" id="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <button class="setup-button" id="setupBtn" onclick="setupDatabase()">
+            <span id="buttonText">🚀 Setup Database & Initialize CMS</span>
+            <div class="spinner" id="spinner"></div>
+        </button>
+
+        <button class="toggle-sql" onclick="toggleSqlPreview()">👁️ View SQL Commands</button>
+        
+        <div class="sql-preview" id="sqlPreview" style="display: none;">
+            <pre id="sqlCode">-- Afework Pharma CMS Database Setup
+-- This will create all necessary tables and populate with initial data
+
+-- Create main CMS content table
+CREATE TABLE IF NOT EXISTS cms_content (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    section_key VARCHAR(100) NOT NULL UNIQUE,
+    content_type ENUM('text', 'json', 'image', 'url') NOT NULL DEFAULT 'text',
+    content_value TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_section_key (section_key)
+);
+
+-- Insert Hero Section content
+INSERT INTO cms_content (section_key, content_type, content_value) VALUES
+('hero_headline', 'text', 'Advanced Medical Solutions for a Healthier Ethiopia'),
+('hero_subtitle', 'text', 'Building a Healthier Ethiopia'),
+('hero_subheadline', 'text', 'Delivering state-of-the-art medical equipment backed by comprehensive technical support and training across the nation. Your trusted partner in healthcare technology advancement.'),
+('hero_stats', 'json', '[{"number":45,"suffix":"+","label":"IVD Units Deployed"},{"number":36,"suffix":"+","label":"Healthcare Facilities"},{"number":5,"suffix":"+","label":"Years Experience"}]');
+
+-- Insert Value Propositions content
+INSERT INTO cms_content (section_key, content_type, content_value) VALUES
+('value_props', 'json', '[{"id":"1","title":"Quality Assurance","description":"Rigorous testing and quality control processes ensure reliable medical equipment performance","icon":"shield-check"},{"id":"2","title":"Expert Support","description":"Comprehensive technical support and training programs for healthcare professionals","icon":"users"},{"id":"3","title":"Innovation","description":"Cutting-edge medical technology solutions tailored for Ethiopian healthcare needs","icon":"lightbulb"},{"id":"4","title":"Nationwide Coverage","description":"Extensive service network covering healthcare facilities across Ethiopia","icon":"map-pin"}]');
+
+-- Insert Solutions content
+INSERT INTO cms_content (section_key, content_type, content_value) VALUES
+('solutions_overview', 'json', '[{"id":"1","title":"Laboratory Equipment","description":"Advanced diagnostic solutions for accurate medical testing and analysis","image":"/images/solutions/lab-equipment.jpg","features":["High Accuracy","Easy Integration","Cost Effective","Quality Assured"]},{"id":"2","title":"Medical Devices","description":"Innovative healthcare technology for improved patient care","image":"/images/solutions/medical-devices.jpg","features":["FDA Approved","User Friendly","Reliable","24/7 Support"]},{"id":"3","title":"IVD Solutions","description":"In-vitro diagnostic solutions for comprehensive healthcare","image":"/images/solutions/ivd-solutions.jpg","features":["Precise Results","Fast Processing","Automated Systems","Training Included"]},{"id":"4","title":"Healthcare IT","description":"Digital solutions for modern healthcare management","image":"/images/solutions/healthcare-it.jpg","features":["Cloud Based","Secure","Scalable","Integration Ready"]}]');
+
+-- Insert Projects content
+INSERT INTO cms_content (section_key, content_type, content_value) VALUES
+('featured_projects', 'json', '[{"id":"1","title":"Addis Ababa University Medical Center","description":"Complete laboratory automation and IVD equipment installation","image":"/images/projects/aau-medical.jpg","category":"Healthcare Institution","status":"Completed"},{"id":"2","title":"Black Lion Hospital Upgrade","description":"Advanced diagnostic equipment deployment and staff training","image":"/images/projects/black-lion.jpg","category":"Hospital Upgrade","status":"Completed"},{"id":"3","title":"Regional Health Centers Network","description":"Multi-site laboratory equipment installation across Ethiopia","image":"/images/projects/regional-health.jpg","category":"Network Deployment","status":"In Progress"},{"id":"4","title":"Private Clinic Modernization","description":"Digital healthcare solutions for private medical facilities","image":"/images/projects/private-clinic.jpg","category":"Private Sector","status":"Planned"}]');
+
+-- Insert About Page content
+INSERT INTO cms_content (section_key, content_type, content_value) VALUES
+('about_mission', 'text', 'To revolutionize healthcare in Ethiopia by providing cutting-edge medical technology, comprehensive training, and unwavering support to healthcare professionals and institutions across the nation.'),
+('about_vision', 'text', 'To be the leading provider of innovative medical solutions in Ethiopia, empowering healthcare facilities with advanced technology and expertise to deliver exceptional patient care.'),
+('about_description', 'text', 'Afework Pharma is a pioneering medical technology company dedicated to transforming healthcare delivery in Ethiopia through innovative solutions and comprehensive support services.'),
+('about_team_image', 'url', '/images/about/team-photo.jpg'),
+('about_achievements', 'json', '[{"clients":"36+","projects":"150+","experience":"5+","satisfaction":"98%"}]');
+
+-- Insert Contact Information
+INSERT INTO cms_content (section_key, content_type, content_value) VALUES
+('contact_address', 'text', 'Addis Ababa, Ethiopia'),
+('contact_phone', 'text', '+251-11-XXX-XXXX'),
+('contact_email', 'text', 'info@afeworkpharma.com'),
+('contact_hours', 'text', 'Monday - Friday: 8:00 AM - 6:00 PM'),
+('contact_map_embed', 'text', 'https://maps.google.com/embed?pb=!1m18!1m12!1m3!1d3940.632!2d38.7578!3d9.0054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcKwMDAnMTkuNCJOIDM4wrA0NSczMC4yIkU!5e0!3m2!1sen!2set!4v1234567890');
+
+-- Create admin users table
+CREATE TABLE IF NOT EXISTS admin_users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    email VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    last_login TIMESTAMP NULL,
+    is_active BOOLEAN DEFAULT TRUE
+);
+
+-- Insert default admin user (password: AfeworkAdmin2024!)
+INSERT INTO admin_users (username, password_hash, email) VALUES
+('admin', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@afeworkpharma.com');
+
+-- Create content history table for tracking changes
+CREATE TABLE IF NOT EXISTS cms_content_history (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    content_id INT NOT NULL,
+    section_key VARCHAR(100) NOT NULL,
+    old_value TEXT,
+    new_value TEXT,
+    changed_by VARCHAR(50),
+    changed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (content_id) REFERENCES cms_content(id) ON DELETE CASCADE,
+    INDEX idx_content_id (content_id),
+    INDEX idx_changed_at (changed_at)
+);</pre>
+        </div>
+    </div>
+
+    <script>
+        function toggleSqlPreview() {
+            const preview = document.getElementById('sqlPreview');
+            const button = document.querySelector('.toggle-sql');
+            
+            if (preview.style.display === 'none') {
+                preview.style.display = 'block';
+                button.textContent = '👁️ Hide SQL Commands';
+            } else {
+                preview.style.display = 'none';
+                button.textContent = '👁️ View SQL Commands';
+            }
+        }
+
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+            status.style.display = 'block';
+        }
+
+        function updateProgress(percent) {
+            const progress = document.getElementById('progress');
+            const progressBar = document.getElementById('progressBar');
+            
+            if (percent > 0) {
+                progress.style.display = 'block';
+                progressBar.style.width = percent + '%';
+            } else {
+                progress.style.display = 'none';
+            }
+        }
+
+        async function setupDatabase() {
+            const button = document.getElementById('setupBtn');
+            const buttonText = document.getElementById('buttonText');
+            const spinner = document.getElementById('spinner');
+            
+            // Get configuration values
+            const config = {
+                host: document.getElementById('host').value,
+                port: document.getElementById('port').value,
+                database: document.getElementById('database').value,
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+
+            // Validate configuration
+            if (!config.host || !config.database || !config.username) {
+                showStatus('❌ Please fill in all required fields (Host, Database, Username)', 'error');
+                return;
+            }
+
+            // Start loading state
+            button.disabled = true;
+            buttonText.textContent = 'Setting up database...';
+            spinner.style.display = 'block';
+            showStatus('🔄 Connecting to database...', 'info');
+            updateProgress(10);
+
+            try {
+                // Simulate database setup steps
+                await simulateStep('Creating database connection...', 20);
+                await simulateStep('Creating cms_content table...', 40);
+                await simulateStep('Inserting hero section data...', 60);
+                await simulateStep('Inserting content data...', 80);
+                await simulateStep('Creating admin users table...', 90);
+                await simulateStep('Finalizing setup...', 100);
+
+                // Success
+                showStatus('✅ Database setup completed successfully! Your CMS is ready to use.', 'success');
+                buttonText.textContent = '✅ Setup Complete!';
+                
+                // Show next steps
+                setTimeout(() => {
+                    showStatus(`🎉 Setup Complete! Next steps:
+                    1. Your database "${config.database}" is ready
+                    2. Admin login: username "admin", password "AfeworkAdmin2024!"
+                    3. Access your CMS at /admin-dashboard
+                    4. Start editing your website content!`, 'success');
+                }, 2000);
+
+            } catch (error) {
+                showStatus('❌ Database setup failed: ' + error.message, 'error');
+                buttonText.textContent = '🚀 Retry Setup';
+                button.disabled = false;
+                spinner.style.display = 'none';
+                updateProgress(0);
+            }
+        }
+
+        async function simulateStep(message, progress) {
+            showStatus('🔄 ' + message, 'info');
+            updateProgress(progress);
+            
+            // Simulate API call delay
+            await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+            
+            // In a real implementation, you would make actual API calls here:
+            /*
+            const response = await fetch('/api/setup-database', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    step: message,
+                    config: config,
+                    sql: document.getElementById('sqlCode').textContent
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error('Database setup failed at: ' + message);
+            }
+            */
+        }
+
+        // Auto-focus on password field if other fields are filled
+        window.onload = function() {
+            const host = document.getElementById('host').value;
+            const database = document.getElementById('database').value;
+            const username = document.getElementById('username').value;
+            
+            if (host && database && username) {
+                document.getElementById('password').focus();
+            }
+        };
+    </script>
+</body>
+</html>

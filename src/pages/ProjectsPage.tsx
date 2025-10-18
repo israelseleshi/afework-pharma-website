@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
+import SEO from "../components/SEO";
 import { Button } from "../components/ui/button";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { useRouter } from "../components/Router";
@@ -198,8 +199,42 @@ export function ProjectsPage() {
     }
   ];
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Medical Technology Project Case Studies Ethiopia",
+    "description": "Successful medical technology projects by Afework Pharma including CDC Tigray health project and FDRE Defense Hospital modernization.",
+    "itemListElement": [
+      {
+        "@type": "Project",
+        "name": "CDC-Tigray Regional Health System Enhancement",
+        "description": "Comprehensive deployment of 45 IVD units across 36 healthcare facilities in Tigray region",
+        "startDate": "2024",
+        "client": "Tigray Regional Health Bureau",
+        "sponsor": "CDC (Centers for Disease Control and Prevention)"
+      },
+      {
+        "@type": "Project", 
+        "name": "FDRE Defense Referral Hospital Modernization",
+        "description": "Complete medical equipment modernization and infrastructure upgrade for Ethiopia's premier military medical facility",
+        "startDate": "2023",
+        "client": "FDRE Defense Referral Hospital",
+        "sponsor": "Federal Democratic Republic of Ethiopia"
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Medical Technology Project Case Studies Ethiopia | Afework Pharma"
+        description="Explore Afework Pharma's successful medical technology projects including CDC Tigray health project, FDRE Defense Hospital modernization, and turnkey hospital projects in Ethiopia."
+        keywords="medical technology project case studies Ethiopia, CDC Tigray health project, FDRE Defense Hospital modernization, turnkey hospital projects Ethiopia, healthcare infrastructure, medical equipment deployment Ethiopia"
+        canonical="/projects"
+        ogTitle="Medical Technology Project Case Studies Ethiopia | Afework Pharma"
+        ogDescription="Successful medical technology projects including CDC Tigray health project, FDRE Defense Hospital modernization, and turnkey hospital projects in Ethiopia."
+        structuredData={structuredData}
+      />
       {/* Hero Section - Staggered Page Load Animation */}
       <section className="py-8 sm:py-12" style={{backgroundColor: '#ecfdf5'}}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">

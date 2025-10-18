@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { getApiEndpoint } from '../config/api';
 
 // Types for content structure
 export interface ContentValue {
@@ -323,11 +324,10 @@ export function ContentProvider({ children }: ContentProviderProps) {
       setLoading(true);
       setError(null);
 
-      const apiUrl = process.env.NODE_ENV === 'production' 
-        ? '/api/content.php'
-        : '/api/content.php';
-
-      const response = await fetch(apiUrl);
+      console.log('🔄 Fetching content from database API...');
+      
+      // Fetch from new Content API
+      const response = await fetch('/api/content/all');
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -335,30 +335,61 @@ export function ContentProvider({ children }: ContentProviderProps) {
 
       const result = await response.json();
       
-      if (result.success) {
-        setContent(result.content);
+      if (result.success && result.content) {
+        // Transform database content to match our content structure
+        const cmsContent: ContentData = { ...defaultContent };
+        
+        result.content.forEach((item: any) => {
+          let value = item.content_value;
+          
+          // Parse JSON content
+          if (item.content_type === 'json') {
+            try {
+              value = JSON.parse(item.content_value);
+            } catch (e) {
+              console.warn(`Failed to parse JSON for ${item.section_key}:`, e);
+              value = item.content_value;
+            }
+          }
+          
+          cmsContent[item.section_key] = {
+            type: item.content_type as 'text' | 'html' | 'json' | 'image',
+            value: value,
+            updated_at: item.updated_at
+          };
+        });
+
+        setContent(cmsContent);
+        console.log(`✅ Loaded ${result.content.length} content items from database`);
+        
         // Cache in localStorage
-        localStorage.setItem('afework_content', JSON.stringify(result.content));
+        localStorage.setItem('afework_content', JSON.stringify(cmsContent));
+        localStorage.setItem('afework_content_timestamp', Date.now().toString());
       } else {
-        throw new Error(result.message || 'Failed to fetch content');
+        throw new Error(result.message || 'Failed to fetch content from database');
       }
     } catch (err) {
-      console.warn('Failed to fetch content from API, using cached/default content:', err);
+      console.warn('Failed to fetch content from CMS API, using cached/default content:', err);
       
-      // Try to load from localStorage
+      // Try to load from localStorage (check if cache is recent)
       const cachedContent = localStorage.getItem('afework_content');
-      if (cachedContent) {
+      const cacheTimestamp = localStorage.getItem('afework_content_timestamp');
+      const isRecentCache = cacheTimestamp && (Date.now() - parseInt(cacheTimestamp)) < 300000; // 5 minutes
+      
+      if (cachedContent && isRecentCache) {
         try {
           setContent(JSON.parse(cachedContent));
+          console.log('Using cached content (recent)');
         } catch (parseError) {
           console.warn('Failed to parse cached content, using defaults');
           setContent(defaultContent);
         }
       } else {
+        console.log('Using default content (no recent cache)');
         setContent(defaultContent);
       }
       
-      setError(err instanceof Error ? err.message : 'Failed to fetch content');
+      setError(err instanceof Error ? err.message : 'Failed to fetch content from CMS');
     } finally {
       setLoading(false);
     }

@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import SEO from "../components/SEO";
 import { Button } from "../components/ui/button";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { useRouter } from "../components/Router";
@@ -178,8 +179,47 @@ export function AboutPage() {
     }
   ];
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Afework Pharma Medical Solutions",
+    "foundingDate": "2019",
+    "founder": {
+      "@type": "Person",
+      "name": "Afework Woldesilassie"
+    },
+    "description": "Ethiopia medical technology partner providing healthcare innovation and trusted medical distribution services since 2019.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "Ethiopia",
+      "addressLocality": "Addis Ababa"
+    },
+    "numberOfEmployees": "10-50",
+    "industry": "Medical Equipment and Healthcare Technology",
+    "serviceArea": {
+      "@type": "Country", 
+      "name": "Ethiopia"
+    },
+    "knowsAbout": [
+      "Medical Equipment Distribution",
+      "Healthcare Technology",
+      "Diagnostic Solutions",
+      "Hospital Setup",
+      "Medical Device Training"
+    ]
+  };
+
   return (
     <div className="min-h-screen">
+      <SEO
+        title="About Afework Pharma Medical Solutions | Healthcare Innovation Ethiopia"
+        description="Learn about Afework Pharma - Ethiopia's trusted medical technology partner since 2019. Healthcare innovation, medical equipment distribution, and trusted solutions for Ethiopian healthcare facilities."
+        keywords="About Afework Pharma Medical Solutions, Ethiopia medical technology partner, healthcare innovation Ethiopia, Afework Woldesilassie, trusted medical distributor, medical equipment company history, Ethiopian healthcare solutions"
+        canonical="/about"
+        ogTitle="About Afework Pharma Medical Solutions | Healthcare Innovation Ethiopia"
+        ogDescription="Ethiopia's trusted medical technology partner since 2019. Healthcare innovation, medical equipment distribution, and trusted solutions for Ethiopian healthcare facilities."
+        structuredData={structuredData}
+      />
       {/* Hero Section - Narrative Unveiling */}
       <section className="py-24" style={{backgroundColor: '#ecfdf5'}}>
         <div className="max-w-7xl mx-auto px-8">

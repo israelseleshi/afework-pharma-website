@@ -63,7 +63,7 @@ export function FeaturedProjects() {
       client: "Federal Defense Hospital",
       sponsor: "Ministry of Defense",
       year: "2023",
-      image: "/fdre-defense-referral-hospital.jpg",
+      image: "/assets/logos/fdre-defense-referral-hospital.jpg",
       stats: [
         { icon: MapPin, label: "Major Hospital", value: "Addis Ababa" },
         { icon: Users, label: "Multiple Depts", value: "Upgraded" },

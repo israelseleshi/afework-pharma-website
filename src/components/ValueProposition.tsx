@@ -1,13 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Microscope, Users, MapPin, Shield } from "lucide-react";
-import { useContent } from "../hooks/useContent";
+// import { useCMSContent } from "../hooks/useCMSContent"; // Removed to prevent database loading
 
 export function ValueProposition() {
-  const { getJsonContent } = useContent();
-  
-  // Get dynamic content
-  const values = getJsonContent('value_propositions', [
+  // Hardcoded content to prevent database loading
+  const values = [
     {
       icon: 'Microscope',
       title: "Cutting-Edge Products",
@@ -28,7 +26,7 @@ export function ValueProposition() {
       title: "Regulatory Compliance",
       description: "Full regulatory and logistics management ensuring compliance with international and local standards."
     }
-  ]);
+  ];
 
   // Icon mapping
   const iconMap = {
@@ -86,8 +84,7 @@ export function ValueProposition() {
             Why Choose Afework Pharma?
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            We are more than a supplier; we are your strategic partner in advancing 
-            healthcare in Ethiopia. Experience the difference of working with true experts.
+            We are more than a supplier; we are your strategic partner in advancing healthcare in Ethiopia. Experience the difference of working with true experts.
           </p>
         </motion.div>
 

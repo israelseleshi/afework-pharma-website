@@ -1,8 +1,12 @@
-# Afework Pharma Website - Routing Configuration
-# Simple .htaccess for React/Vite SPA routing
+# Afework Pharma Website - Production Configuration
+# Complete .htaccess for React/Vite SPA with API routing
 
 # Enable URL rewriting
 RewriteEngine On
+
+# API Routes - Redirect to PHP endpoints
+RewriteRule ^api/content/all/?$ api/content/all.php [L,QSA]
+RewriteRule ^api/content/batch/?$ api/content/batch.php [L,QSA]
 
 # Exclude Google verification files from rewriting
 RewriteCond %{REQUEST_FILENAME} ^.*google.*\.html$ [NC]
@@ -16,7 +20,74 @@ RewriteRule ^.*$ - [L]
 # If the requested file/directory doesn't exist, serve index.html
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteCond %{REQUEST_URI} !\.php$
 RewriteRule ^.*$ /index.html [L,QSA]
 
-# Optional: Set default charset
+# Security Headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# File Access Restrictions
+<Files ".env">
+    Require all denied
+</Files>
+
+<Files "*.log">
+    Require all denied
+</Files>
+
+<Files "package.json">
+    Require all denied
+</Files>
+
+<Files "server.js">
+    Require all denied
+</Files>
+
+<Files "deploy.js">
+    Require all denied
+</Files>
+
+# Cache Control for Static Assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType font/woff "access plus 1 month"
+    ExpiresByType font/woff2 "access plus 1 month"
+    ExpiresByType text/html "access plus 1 hour"
+</IfModule>
+
+# Gzip Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# Set default charset
 AddDefaultCharset UTF-8
+
+# Add proper MIME types
+<IfModule mod_mime.c>
+    AddType application/javascript .js
+    AddType text/css .css
+    AddType image/svg+xml .svg
+    AddType font/woff .woff
+    AddType font/woff2 .woff2
+    AddType application/json .json
+</IfModule>

@@ -1,7 +1,7 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "./ui/button";
-import { ArrowRight, Beaker, Scan, Heart, Bed, Pill } from "lucide-react";
+import { ArrowRight, Beaker, Scan, Heart, Bed, Pill, Search, ChevronDown, ChevronUp } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { useRouter } from "./Router";
 
@@ -47,28 +47,28 @@ export function SolutionsOverview() {
       icon: Beaker,
       title: "Diagnostic & Laboratory Solutions",
       description: "Complete IVD systems including chemistry analyzers, hematology equipment, and laboratory infrastructure.",
-      image: "/diagnostic-&-laboratory-solutions.jpg",
+      image: "/assets/images/diagnostic-&-laboratory-solutions.jpg",
       products: ["Chemistry Analyzers", "Hematology Systems", "Microscopes", "Lab Furniture"]
     },
     {
       icon: Scan,
       title: "Diagnostic Imaging & Radiology",
       description: "Advanced imaging solutions from digital X-ray to MRI systems with full installation support.",
-      image: "/diagnostic-imaging-&-radiology.jpg",
+      image: "/assets/images/diagnostic-imaging-&-radiology.jpg",
       products: ["Digital X-Ray", "Ultrasound", "CT Scanners", "MRI Systems"]
     },
     {
       icon: Heart,
       title: "Critical Care & Operation Theatre",
       description: "Life-saving equipment for ICUs and operating rooms including ventilators and surgical instruments.",
-      image: "/critical-care-&-operation-theatre.jpg",
+      image: "/assets/images/critical-care-&-operation-theatre.jpg",
       products: ["Ventilators", "Patient Monitors", "Surgical Tables", "Anesthesia Machines"]
     },
     {
       icon: Bed,
       title: "Hospital Furniture & Patient Care",
       description: "Ergonomic hospital furniture and patient care equipment designed for comfort and functionality.",
-      image: "/hospital-furniture-&-patient-care.jpg",
+      image: "/assets/images/hospital-furniture-&-patient-care.jpg",
       products: ["Hospital Beds", "Patient Chairs", "Medical Trolleys", "Storage Solutions"]
     },
     {
@@ -91,7 +91,7 @@ export function SolutionsOverview() {
           variants={headerVariants}
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-            Comprehensive Medical Solutions
+            Our Medical Solutions
           </h2>
           <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
             From diagnostic equipment to complete hospital setups, we provide end-to-end 

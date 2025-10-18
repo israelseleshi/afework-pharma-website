@@ -1,8 +1,9 @@
 import React from "react";
+import SEO from "../components/SEO";
 import { Button } from "../components/ui/button";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { useRouter } from "../components/Router";
-import { ArrowRight, ArrowLeft, Check, Star, Download, Phone } from "lucide-react";
+import { ArrowRight, ArrowLeft, Check, Star, Download } from "lucide-react";
 
 export function SolutionDetailPage() {
   const { navigateTo, currentSolution } = useRouter();
@@ -187,8 +188,76 @@ export function SolutionDetailPage() {
 
   const currentData = solutionDetails[currentSolution as keyof typeof solutionDetails] || solutionDetails["Diagnostic & Laboratory Solutions"];
 
+  // Generate SEO data based on current solution
+  const getSEOData = (solution: string) => {
+    const seoMap: Record<string, any> = {
+      "Diagnostic & Laboratory Solutions": {
+        title: "Diagnostic and Laboratory Solutions Ethiopia | Afework Pharma",
+        description: "Advanced diagnostic and laboratory solutions in Ethiopia. Mindray chemistry analyzers, hematology systems, IVD solutions, and laboratory infrastructure setup by Afework Pharma.",
+        keywords: "diagnostic and laboratory solutions Ethiopia, Mindray chemistry analyzers, hematology systems Ethiopia, IVD solutions, laboratory infrastructure setup, BC-5150 hematology, automated laboratory equipment Ethiopia"
+      },
+      "Diagnostic Imaging & Radiology": {
+        title: "Medical Imaging Equipment Supplier Ethiopia | Afework Pharma", 
+        description: "Leading medical imaging equipment supplier in Ethiopia. Digital X-Ray systems, CT scanners, ultrasound machines, MRI systems, and PACS solutions for healthcare facilities.",
+        keywords: "medical imaging equipment supplier Ethiopia, digital X-Ray systems, CT scanners Ethiopia, ultrasound machines, MRI systems, PACS solutions, radiology equipment Ethiopia"
+      },
+      "Critical Care & Operation Theatre": {
+        title: "Critical Care and ICU Equipment Ethiopia | Afework Pharma",
+        description: "Critical care and ICU equipment supplier in Ethiopia. ICU ventilators, patient monitors, anesthesia machines, surgical tables, and life-support technology.",
+        keywords: "critical care and ICU equipment Ethiopia, ICU ventilators supplier, patient monitors, anesthesia machines, surgical tables, life-support technology Ethiopia"
+      },
+      "Hospital Furniture & Patient Care": {
+        title: "Hospital Furniture and Patient Care Solutions | Afework Pharma",
+        description: "Hospital furniture and patient care solutions in Ethiopia. Electric hospital beds, medical trolleys, patient transfer chairs, and ergonomic medical furniture.",
+        keywords: "hospital furniture and patient care solutions, electric hospital beds Ethiopia, medical trolleys, patient transfer chairs, ergonomic medical furniture Ethiopia"
+      },
+      "Medical Consumables & Reagents": {
+        title: "Medical Consumables and Reagents Supplier Ethiopia | Afework Pharma",
+        description: "Reliable medical consumables and reagents supplier in Ethiopia. Laboratory reagents, rapid diagnostic test kits, medical disposables, and quality control materials.",
+        keywords: "medical consumables and reagents supplier Ethiopia, laboratory reagents Ethiopia, rapid diagnostic test kits, medical disposables, quality control materials Ethiopia"
+      }
+    };
+    
+    return seoMap[solution] || seoMap["Diagnostic & Laboratory Solutions"];
+  };
+
+  const seoData = getSEOData(currentSolution || "Diagnostic & Laboratory Solutions");
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": currentData.title,
+    "description": currentData.description,
+    "brand": {
+      "@type": "Brand",
+      "name": "Afework Pharma"
+    },
+    "manufacturer": {
+      "@type": "Organization", 
+      "name": "Afework Pharma"
+    },
+    "category": "Medical Equipment",
+    "offers": {
+      "@type": "Offer",
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "Afework Pharma"
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen">
+      <SEO
+        title={seoData.title}
+        description={seoData.description}
+        keywords={seoData.keywords}
+        canonical={`/solution-detail?solution=${encodeURIComponent(currentSolution || "Diagnostic & Laboratory Solutions")}`}
+        ogTitle={seoData.title}
+        ogDescription={seoData.description}
+        structuredData={structuredData}
+      />
       {/* Breadcrumb */}
       <section className="py-8 bg-gray-50 border-b">
         <div className="max-w-6xl mx-auto px-6">
@@ -251,16 +320,31 @@ export function SolutionDetailPage() {
                 <Button 
                   variant="outline" 
                   className="border-green-600 text-green-600 hover:bg-green-50 cursor-pointer"
+                  onClick={() => {
+                    if (currentSolution === "Diagnostic Imaging & Radiology") {
+                      // Download the specific PDF for Diagnostic Imaging & Radiology
+                      const link = document.createElement('a');
+                      link.href = '/assets/brochures/AfeWork_Pharma_Radiology_Brochure.pdf';
+                      link.download = 'AfeWork_Pharma_Radiology_Brochure.pdf';
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    } else if (currentSolution === "Diagnostic & Laboratory Solutions") {
+                      // Download the specific PDF for Diagnostic & Laboratory Solutions
+                      const link = document.createElement('a');
+                      link.href = '/assets/brochures/AfeWork_Pharma_Lab_Solutions_Brochure.pdf';
+                      link.download = 'AfeWork_Pharma_Lab_Solutions_Brochure.pdf';
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    } else {
+                      // For other solutions, show a message or redirect to contact
+                      alert('Brochure will be available soon. Please contact us for more information.');
+                    }
+                  }}
                 >
                   <Download className="mr-2 w-4 h-4" />
                   Download Brochure
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="border-green-600 text-green-600 hover:bg-green-50 cursor-pointer"
-                >
-                  <Phone className="mr-2 w-4 h-4" />
-                  Schedule Demo
                 </Button>
               </div>
             </div>

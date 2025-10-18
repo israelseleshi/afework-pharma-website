@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import SEO from "../components/SEO";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
@@ -132,27 +133,39 @@ export function ContactPage() {
     setFormStatus('loading');
     
     try {
-      // Use PHP handler for all environments
-      const response = await fetch('/contact-handler.php', {
+      // Use PHP handler exclusively for DirectAdmin compatibility
+      console.log('Sending contact form via PHP handler...');
+      console.log('Form data:', formData);
+      
+      console.log('🚀 Making POST request to /contact-directadmin-fix.php');
+      console.log('📦 Request body:', JSON.stringify(formData));
+      
+      const response = await fetch('/api/contact-phpmailer-dual.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify(formData),
       });
 
-      console.log('Response status:', response.status);
-      console.log('Response headers:', response.headers);
+      console.log('📨 Response status:', response.status);
+      console.log('📨 Response headers:', response.headers);
+      
+      // Log the raw response text first
+      const responseText = await response.text();
+      console.log('📨 Raw response:', responseText);
 
-      // Check if response is JSON
-      const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
-        const textResponse = await response.text();
-        console.error('Non-JSON response received:', textResponse);
-        throw new Error(`Server returned HTML instead of JSON. Status: ${response.status}. This usually means the server isn't running or the endpoint doesn't exist.`);
+      // Try to parse as JSON
+      let result;
+      try {
+        result = JSON.parse(responseText);
+        console.log('✅ Parsed JSON result:', result);
+      } catch (parseError) {
+        console.error('❌ Failed to parse JSON:', parseError);
+        console.error('📨 Response was:', responseText);
+        throw new Error(`Server returned invalid JSON. Response: ${responseText.substring(0, 200)}...`);
       }
-
-      const result = await response.json();
 
       if (response.ok && result.success) {
         setFormStatus('success');
@@ -187,7 +200,7 @@ export function ContactPage() {
       icon: Mail,
       title: "Email",
       details: ["afomphama13@gmail.com", "afeworkwoldesilassie@gmail.com"],
-      description: "We respond within 24 hours"
+      description: "We respond promptly to all inquiries"
     },
     {
       icon: MapPin,
@@ -227,8 +240,46 @@ export function ContactPage() {
     }
   ];
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Afework Pharma",
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+251-911-123456",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Amharic"],
+          "hoursAvailable": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "17:00"
+          }
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "Ethiopia",
+        "addressLocality": "Addis Ababa"
+      },
+      "email": "contact@afeworkpharmaet.com"
+    }
+  };
+
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Contact Afework Pharma Ethiopia | Medical Equipment Inquiries"
+        description="Contact Afework Pharma for medical equipment inquiries in Ethiopia. Get in touch for diagnostic solutions, hospital setup, and healthcare technology. Phone, email, and showroom in Addis Ababa."
+        keywords="Contact Afework Pharma Ethiopia, medical equipment showroom Addis Ababa, Afework Pharma address, healthcare solutions phone number, medical equipment inquiries Ethiopia, diagnostic equipment contact"
+        canonical="/contact"
+        ogTitle="Contact Afework Pharma Ethiopia | Medical Equipment Inquiries"
+        ogDescription="Contact Afework Pharma for medical equipment inquiries in Ethiopia. Phone, email, and showroom in Addis Ababa for diagnostic solutions and healthcare technology."
+        structuredData={structuredData}
+      />
       {/* Hero Section - Guided Introduction */}
       <section className="py-8 sm:py-12" style={{backgroundColor: '#ecfdf5'}}>
         <div className="max-w-6xl mx-auto px-6 text-center">
@@ -269,7 +320,7 @@ export function ContactPage() {
               <div>
                 <h2 className="text-3xl text-gray-900 mb-4">Send Us a Message</h2>
                 <p className="text-gray-600">
-                  Fill out the form below and our team will respond within 24 hours.
+                  Fill out the form below and our team will respond promptly.
                 </p>
               </div>
               
@@ -277,201 +328,71 @@ export function ContactPage() {
                 {formStatus === 'success' ? (
                   <motion.div
                     key="success"
-                    initial={{ opacity: 0, scale: 0.5, y: 50 }}
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ 
                       opacity: 1, 
-                      scale: 1, 
                       y: 0,
                       transition: {
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20,
-                        duration: 0.8
+                        duration: 0.5,
+                        ease: "easeOut"
                       }
                     }}
-                    exit={{ opacity: 0, scale: 0.8, y: -20 }}
-                    className="relative bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 border-2 border-green-300 rounded-2xl p-8 text-center overflow-hidden shadow-2xl"
-                    style={{
-                      background: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #a7f3d0 100%)',
-                      boxShadow: '0 25px 50px -12px rgba(16, 185, 129, 0.25), 0 0 0 1px rgba(16, 185, 129, 0.1)'
-                    }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="bg-white border border-gray-200 rounded-xl p-8 text-center shadow-sm"
                   >
-                    {/* Animated background particles */}
+                    {/* Success icon */}
                     <motion.div
-                      className="absolute inset-0 pointer-events-none"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.5, duration: 1 }}
-                    >
-                      {[...Array(6)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          className="absolute w-2 h-2 bg-green-400 rounded-full"
-                          style={{
-                            left: `${20 + i * 15}%`,
-                            top: `${10 + (i % 2) * 70}%`,
-                          }}
-                          animate={{
-                            y: [0, -20, 0],
-                            opacity: [0.3, 1, 0.3],
-                            scale: [0.5, 1, 0.5],
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            delay: i * 0.2,
-                            ease: "easeInOut"
-                          }}
-                        />
-                      ))}
-                    </motion.div>
-
-                    {/* Success icon with celebration animation */}
-                    <motion.div
-                      initial={{ scale: 0, rotate: -180 }}
+                      initial={{ scale: 0 }}
                       animate={{ 
-                        scale: 1, 
-                        rotate: 0,
+                        scale: 1,
                         transition: {
                           type: "spring",
                           stiffness: 200,
                           damping: 15,
-                          delay: 0.3
+                          delay: 0.2
                         }
                       }}
-                      className="relative w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
+                      className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"
                     >
-                      <motion.div
-                        animate={{ 
-                          scale: [1, 1.2, 1],
-                          rotate: [0, 10, -10, 0]
-                        }}
-                        transition={{ 
-                          duration: 2,
-                          repeat: Infinity,
-                          repeatDelay: 3
-                        }}
-                      >
-                        <Check className="w-10 h-10 text-white drop-shadow-sm" />
-                      </motion.div>
-                      
-                      {/* Pulsing ring effect */}
-                      <motion.div
-                        className="absolute inset-0 rounded-full border-4 border-green-400"
-                        animate={{ 
-                          scale: [1, 1.5, 1],
-                          opacity: [0.8, 0, 0.8]
-                        }}
-                        transition={{ 
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeOut"
-                        }}
-                      />
+                      <Check className="w-8 h-8 text-green-600" />
                     </motion.div>
 
-                    {/* Animated title */}
+                    {/* Title */}
                     <motion.h3 
-                      className="text-2xl font-bold bg-gradient-to-r from-green-700 via-emerald-600 to-teal-600 bg-clip-text text-transparent mb-3"
-                      initial={{ opacity: 0, y: 20 }}
+                      className="text-xl font-semibold text-gray-900 mb-3"
+                      initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5, duration: 0.6 }}
+                      transition={{ delay: 0.3, duration: 0.4 }}
                     >
-                      🎉 Message Sent Successfully! 🎉
+                      Message Sent Successfully
                     </motion.h3>
 
-                    {/* Animated subtitle */}
+                    {/* Subtitle */}
                     <motion.p 
-                      className="text-lg text-green-800 font-medium mb-4"
-                      initial={{ opacity: 0, y: 20 }}
+                      className="text-gray-600 mb-6"
+                      initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.7, duration: 0.6 }}
+                      transition={{ delay: 0.4, duration: 0.4 }}
                     >
-                      Thank you for contacting Afework Pharma! 
+                      Thank you for contacting Afework Pharma. Our team will review your message and get back to you soon.
                     </motion.p>
 
-                    {/* Feature highlights */}
+                    {/* Features */}
                     <motion.div
-                      className="space-y-2 mb-6"
+                      className="space-y-3"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{ delay: 0.9, duration: 0.8 }}
+                      transition={{ delay: 0.5, duration: 0.4 }}
                     >
-                      <motion.div 
-                        className="flex items-center justify-center gap-2 text-green-700"
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        <motion.span
-                          animate={{ rotate: [0, 360] }}
-                          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                          className="text-xl"
-                        >
-                          ⚡
-                        </motion.span>
-                        <span className="font-semibold">Auto-reply sent to your email</span>
-                      </motion.div>
+                      <div className="flex items-center justify-center gap-3 text-sm text-gray-600">
+                        <Mail className="w-4 h-4 text-green-600" />
+                        <span>Confirmation sent to your email</span>
+                      </div>
                       
-                      <motion.div 
-                        className="flex items-center justify-center gap-2 text-green-700"
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        <motion.span
-                          animate={{ scale: [1, 1.2, 1] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
-                          className="text-xl"
-                        >
-                          🕐
-                        </motion.span>
-                        <span className="font-semibold">We'll respond within 24 hours</span>
-                      </motion.div>
-                      
-                      <motion.div 
-                        className="flex items-center justify-center gap-2 text-green-700"
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        <motion.span
-                          animate={{ y: [0, -5, 0] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                          className="text-xl"
-                        >
-                          🚀
-                        </motion.span>
-                        <span className="font-semibold">Our team is reviewing your inquiry</span>
-                      </motion.div>
-                    </motion.div>
-
-                    {/* Celebration confetti effect */}
-                    <motion.div
-                      className="absolute inset-0 pointer-events-none"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      {[...Array(12)].map((_, i) => (
-                        <motion.div
-                          key={`confetti-${i}`}
-                          className={`absolute w-1 h-3 ${
-                            i % 4 === 0 ? 'bg-yellow-400' :
-                            i % 4 === 1 ? 'bg-green-400' :
-                            i % 4 === 2 ? 'bg-blue-400' : 'bg-pink-400'
-                          } rounded-full`}
-                          style={{
-                            left: `${10 + (i * 7)}%`,
-                            top: '10%',
-                          }}
-                          animate={{
-                            y: [0, 300],
-                            x: [0, (i % 2 === 0 ? 50 : -50)],
-                            rotate: [0, 360 * (i % 2 === 0 ? 1 : -1)],
-                            opacity: [1, 0],
-                          }}
-                          transition={{
-                            duration: 3,
-                            delay: i * 0.1,
-                            ease: "easeOut"
-                          }}
-                        />
-                      ))}
+                      <div className="flex items-center justify-center gap-3 text-sm text-gray-600">
+                        <Users className="w-4 h-4 text-green-600" />
+                        <span>Our team is reviewing your inquiry</span>
+                      </div>
                     </motion.div>
                   </motion.div>
                 ) : formStatus === 'error' ? (

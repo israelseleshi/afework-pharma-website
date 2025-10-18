@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import SEO from "../components/SEO";
 import { Button } from "../components/ui/button";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { useRouter } from "../components/Router";
@@ -150,8 +151,39 @@ export function SolutionsPage() {
     }
   ];
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Comprehensive Medical Solutions Ethiopia",
+    "provider": {
+      "@type": "Organization",
+      "name": "Afework Pharma"
+    },
+    "description": "Complete medical solutions in Ethiopia: diagnostic laboratory systems, medical imaging, critical care, hospital furniture & consumables. Trusted by healthcare facilities.",
+    "serviceType": [
+      "Diagnostic Laboratory Solutions",
+      "Medical Imaging Equipment",
+      "Critical Care Solutions",
+      "Hospital Furniture",
+      "Medical Consumables"
+    ],
+    "areaServed": {
+      "@type": "Country",
+      "name": "Ethiopia"
+    }
+  };
+
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Comprehensive Medical Solutions Ethiopia | Afework Pharma"
+        description="Complete medical solutions in Ethiopia: diagnostic laboratory systems, medical imaging, critical care, hospital furniture & consumables. Trusted by healthcare facilities."
+        keywords="comprehensive medical solutions Ethiopia, diagnostic laboratory systems, medical imaging equipment, critical care solutions, hospital furniture, medical consumables, healthcare technology Ethiopia, medical equipment solutions"
+        canonical="/solutions"
+        ogTitle="Comprehensive Medical Solutions Ethiopia | Afework Pharma"
+        ogDescription="Complete medical solutions in Ethiopia: diagnostic laboratory systems, medical imaging, critical care, hospital furniture & consumables."
+        structuredData={structuredData}
+      />
       {/* Hero Section */}
       <section className="py-8 sm:py-12" style={{backgroundColor: '#ecfdf5'}}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
@@ -164,7 +196,7 @@ export function SolutionsPage() {
               className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-900"
               variants={itemVariants}
             >
-              Comprehensive Medical Solutions
+              Our Medical Solutions
             </motion.h1>
             <motion.p 
               className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed"

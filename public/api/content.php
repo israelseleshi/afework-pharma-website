@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Database configuration
-$host = 'mysql.lu-shared04.dapanel.net';
+$host = 'localhost';
 $username = 'afeworcn_afework_admin';
 $password = 'mQ+3HMm2(g)q.R758J!;Lb';
 $database = 'afeworcn_afework_content';
