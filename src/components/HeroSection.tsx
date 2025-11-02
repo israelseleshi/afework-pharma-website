@@ -155,9 +155,9 @@ const AnimatedCounter = ({ end, duration = 1200, delay = 0 }: { end: number; dur
 };
 
 export function HeroSection() {
-  // Hardcoded content to prevent database loading
-  const headline = 'Advanced Medical Solutions for a Healthier Ethiopia';
-  const subheadline = 'Delivering state-of-the-art medical equipment backed by comprehensive technical support and training across the nation. Your trusted partner in healthcare technology advancement.';
+  // Enhanced content for better impact and clarity
+  const headline = 'Elevating Ethiopian Healthcare with State-of-the-Art Technology';
+  const subheadline = 'Delivering and supporting advanced medical equipment across Ethiopia, ensuring comprehensive technical training and sustained healthcare technology advancement.';
   const stats = [
     { number: 45, suffix: '+', label: 'IVD Units Deployed' },
     { number: 36, suffix: '+', label: 'Healthcare Facilities' },
@@ -168,8 +168,8 @@ export function HeroSection() {
   const solutionSlides = [
     {
       image: '/assets/images/medical-equipments.png',
-      title: 'Leading Medical Equipment Supplier in Ethiopia',
-      subtitle: 'The best way to advance healthcare in Ethiopia',
+      title: 'Your Trusted Partner in Next-Generation Medical Equipment',
+      subtitle: 'Delivering and supporting advanced medical equipment across Ethiopia, ensuring comprehensive technical training and sustained healthcare technology advancement.',
       showButton: true
     },
     {
@@ -238,144 +238,123 @@ export function HeroSection() {
       return () => clearTimeout(timer);
     }
   }, [currentImageIndex, solutionImages.length]);
-  
+
+  const heroSolutions = [
+    {
+      title: "Hospital Furniture & Patient Care",
+      subtitle: "Ergonomic Solutions for Enhanced Comfort and Efficiency",
+      description: "Our design specialists are here to help you create comfortable and functional healthcare environments with ergonomic furniture solutions tailored to your facility's needs.",
+      image: "/hospital_furniture_patient_care/hospital_furniture.jpg"
+    },
+    {
+      title: "Medical Consumables & Reagents", 
+      subtitle: "Quality Supplies for Reliable Healthcare Delivery",
+      description: "We provide high-quality medical consumables and reagents ensuring consistent results and optimal patient safety standards across Ethiopian healthcare facilities.",
+      image: "/medical_consumables_reagents/medical_consumables.jpg"
+    },
+    {
+      title: "Diagnostic Imaging & Radiology",
+      subtitle: "Advanced Imaging Technology for Precise Diagnostics", 
+      description: "Our imaging solutions provide exceptional image quality and enhanced workflow efficiency, delivering comprehensive diagnostic capabilities for healthcare facilities.",
+      image: "/diagnostic_imaging_radiology/diagnostic_imaging_radiology.jpg"
+    }
+  ];
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSolutions.length);
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
-      {/* Background container (unchanged) */}
-      <div className="absolute inset-0 z-0">
-        <div className="relative w-full h-full overflow-hidden">
-          <div className="absolute inset-0 w-full h-full">
-            {solutionImages.map((image, index) => (
-              <motion.div
-                key={index}
-                className="absolute inset-0 w-full h-full"
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ 
-                  opacity: index === (currentImageIndex % solutionImages.length) ? 0.6 : 0,
-                  scale: index === (currentImageIndex % solutionImages.length) ? 1 : 1.1
-                }}
-                transition={{ 
-                  duration: 2,
-                  ease: "easeInOut"
-                }}
-              >
-                <div className="hero-image-animated w-full h-full">
-                  <ImageWithFallback
-                    src={image}
-                    className="w-full h-full object-cover"
-                    style={{
-                      filter: 'blur(1px) brightness(0.8) contrast(1.2) saturate(1.1)',
-                    }}
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-br from-green-900/70 via-emerald-800/50 to-green-600/30" />
-              </motion.div>
-            ))}
-          </div>
-          
-          <div className="absolute inset-0 pointer-events-none z-15" 
-               style={{
-                 background: `linear-gradient(135deg, 
-                   rgba(20, 83, 45, 0.85) 0%, 
-                   rgba(34, 97, 60, 0.70) 40%, 
-                   rgba(52, 168, 83, 0.55) 70%, 
-                   rgba(74, 222, 128, 0.40) 100%)`
-               }} 
-          />
-        </div>
+    <section id="home" className="relative min-h-screen bg-white overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-emerald-50"></div>
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2316a34a' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}></div>
       </div>
-      
-      {/* Hero Content - Left Aligned */}
-      <div className="absolute inset-0 z-30 flex items-center">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-          <div className="max-w-5xl py-8 sm:py-12 lg:py-16">
-            {/* Dynamic Main Heading */}
-            <motion.h1
-              key={currentImageIndex} // Add key to trigger re-animation on slide change
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-white mb-4 sm:mb-6 lg:mb-8 leading-tight"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+
+      <div className="relative z-10 min-h-screen flex items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Image Section - Left */}
+            <motion.div 
+              key={`image-${currentSlide}`}
+              className="relative"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              {currentImageIndex === 0 ? (
-                <>
-                  Advanced Medical Solutions for a{' '}
-                  <span className="text-green-400 block sm:inline">Healthier Ethiopia</span>
-                </>
-              ) : (
-                <>
-                  <span className="text-green-400">
-                    {solutionSlides[currentImageIndex % solutionSlides.length]?.title}
-                  </span>
-                </>
-              )}
-            </motion.h1>
+              <div className="relative">
+                <ImageWithFallback
+                  src={heroSolutions[currentSlide].image}
+                  alt={heroSolutions[currentSlide].title}
+                  className="w-full h-80 sm:h-96 lg:h-[32rem] xl:h-[36rem] object-cover"
+                />
+              </div>
+            </motion.div>
 
-            {/* Divider Line */}
-            <motion.div
-              className="w-16 sm:w-20 lg:w-24 h-0.5 lg:h-1 bg-green-400 mb-6 lg:mb-8"
-              initial={{ opacity: 0, scaleX: 0 }}
-              animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
-            />
-
-            {/* Dynamic Description */}
-            <motion.p
-              key={`desc-${currentImageIndex}`} // Add key to trigger re-animation on slide change
-              className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-white mb-8 sm:mb-12 lg:mb-16 max-w-4xl leading-relaxed"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+            {/* Content Section - Right */}
+            <motion.div 
+              key={`content-${currentSlide}`}
+              className="space-y-6"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              {currentImageIndex === 0 
-                ? "Delivering state-of-the-art medical equipment backed by comprehensive technical support and training across the nation. Your trusted partner in healthcare technology advancement."
-                : solutionSlides[currentImageIndex % solutionSlides.length]?.subtitle
-              }
-            </motion.p>
+              <div className="space-y-6">
+                <motion.h1 
+                  className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold leading-tight text-gray-900"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                >
+                  {heroSolutions[currentSlide].title}
+                </motion.h1>
+                
+                <motion.h2 
+                  className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-green-600 font-medium leading-relaxed"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                >
+                  {heroSolutions[currentSlide].subtitle}
+                </motion.h2>
+                
+                <motion.p 
+                  className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-gray-700 leading-relaxed max-w-4xl"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                >
+                  {heroSolutions[currentSlide].description}
+                </motion.p>
+              </div>
+            </motion.div>
+          </div>
 
-            {/* Statistics - Only show on first slide */}
-            {currentImageIndex === 0 && (
-              <motion.div
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 xl:gap-16"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                {/* Stat 1 */}
-                <div className="text-left sm:text-center lg:text-left bg-white/10 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-white/20">
-                  <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-white mb-3 lg:mb-4">
-                    <AnimatedCounter end={45} duration={2000} delay={800} />+
-                  </div>
-                  <div className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white font-medium leading-tight">
-                    IVD Units Deployed
-                  </div>
-                </div>
-
-                {/* Stat 2 */}
-                <div className="text-left sm:text-center lg:text-left bg-white/10 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-white/20">
-                  <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-white mb-3 lg:mb-4">
-                    <AnimatedCounter end={36} duration={2000} delay={1000} />+
-                  </div>
-                  <div className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white font-medium leading-tight">
-                    Healthcare Facilities
-                  </div>
-                </div>
-
-                {/* Stat 3 */}
-                <div className="text-left sm:text-center lg:text-left sm:col-span-2 lg:col-span-1 bg-white/10 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-white/20">
-                  <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-white mb-3 lg:mb-4">
-                    <AnimatedCounter end={5} duration={2000} delay={1200} />+
-                  </div>
-                  <div className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white font-medium leading-tight">
-                    Years Experience
-                  </div>
-                </div>
-              </motion.div>
-            )}
+          {/* Navigation Dots */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+            {heroSolutions.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentSlide
+                    ? 'bg-green-600 scale-125'
+                    : 'bg-gray-400 hover:bg-gray-500'
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
-      
     </section>
   );
 }

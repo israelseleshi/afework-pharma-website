@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Router, useRouter } from "./components/Router";
+import { LoadingScreen } from "./components/LoadingScreen";
 // import { ContentProvider } from "./contexts/ContentContext"; // Removed to prevent database loading
 import { HomePage } from "./pages/HomePage";
 import { AboutPage } from "./pages/AboutPage";
@@ -15,6 +16,25 @@ import { AdminDashboard } from "./pages/AdminDashboard";
 
 function AppContent() {
   const { currentPage, currentSolution } = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+    // Small delay to ensure smooth transition
+    setTimeout(() => setShowContent(true), 100);
+  };
+
+  // Only show loading screen on initial mount
+  useEffect(() => {
+    const hasSeenLoading = sessionStorage.getItem('hasSeenLoading');
+    if (hasSeenLoading) {
+      setIsLoading(false);
+      setShowContent(true);
+    } else {
+      sessionStorage.setItem('hasSeenLoading', 'true');
+    }
+  }, []);
 
   const renderPage = () => {
     switch (currentPage) {
@@ -39,13 +59,19 @@ function AppContent() {
     }
   };
 
+  // Show loading screen first
+  if (isLoading) {
+    return <LoadingScreen onLoadingComplete={handleLoadingComplete} />;
+  }
+
   // Don't show header/footer for admin pages
   if (currentPage === 'admin-login' || currentPage === 'admin-dashboard') {
     return renderPage();
   }
 
+  // Main content with fade-in animation
   return (
-    <div className="min-h-screen bg-white">
+    <div className={`min-h-screen bg-white transition-opacity duration-500 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
       <Header />
       <main>
         {renderPage()}

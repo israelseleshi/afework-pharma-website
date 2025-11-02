@@ -81,10 +81,16 @@ export function SolutionsOverview() {
   ];
 
   return (
-    <section id="solutions" className="py-24 bg-white">
+    <section id="solutions" className="py-24 bg-white relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-emerald-100/20 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-green-100/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-50/10 rounded-full blur-3xl"></div>
+      </div>
       <div className="max-w-7xl mx-auto px-8">
         <motion.div 
-          className="text-center mb-12 lg:mb-16"
+          className="text-left mb-12 lg:mb-16"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
@@ -93,7 +99,7 @@ export function SolutionsOverview() {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
             Our Medical Solutions
           </h2>
-          <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 max-w-3xl leading-relaxed">
             From diagnostic equipment to complete hospital setups, we provide end-to-end 
             medical technology solutions tailored to Ethiopian healthcare needs.
           </p>
@@ -111,12 +117,18 @@ export function SolutionsOverview() {
             return (
               <motion.div 
                 key={index}
-                className="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl transition-all duration-500 hover:-translate-y-2 cursor-pointer"
+                className="group bg-white/10 backdrop-blur-xl rounded-2xl border border-white/30 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-4 cursor-pointer relative z-10"
                 variants={cardVariants}
                 whileHover={{ 
-                  y: -8,
-                  scale: 1.02,
-                  transition: { duration: 0.3 }
+                  y: -12,
+                  scale: 1.03,
+                  boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.7), inset 0 -1px 0 0 rgba(255, 255, 255, 0.2)",
+                  background: "linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%)",
+                  transition: { duration: 0.4, ease: "easeOut" }
+                }}
+                style={{
+                  boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37), inset 0 1px 0 0 rgba(255, 255, 255, 0.5), inset 0 -1px 0 0 rgba(255, 255, 255, 0.1)",
+                  background: "linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)"
                 }}
                 onClick={() => navigateTo('solution-detail', solution.title)}
               >
@@ -127,34 +139,43 @@ export function SolutionsOverview() {
                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm border border-gray-200 p-3 rounded-xl">
-                    <IconComponent className="w-6 h-6 text-green-600" />
+                  <div className="absolute top-4 left-4 bg-white/20 backdrop-blur-lg border border-white/40 p-3 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110" style={{
+                    background: "linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%)",
+                    boxShadow: "0 4px 16px 0 rgba(31, 38, 135, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.6)"
+                  }}>
+                    <IconComponent className="w-6 h-6 text-green-600 group-hover:text-green-700 transition-colors duration-300" />
                   </div>
                   
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-green-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
 
-                <div className="p-4 sm:p-6 space-y-4">
+                <div className="p-4 sm:p-6 space-y-4 bg-white/10 backdrop-blur-lg border-t border-white/20" style={{
+                  background: "linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%)"
+                }}>
                   <button 
                     onClick={() => navigateTo('solution-detail', solution.title)}
                     className="text-left w-full"
                   >
-                    <h3 className="text-slate-900 group-hover:text-green-600 transition-colors cursor-pointer hover:text-green-600">
+                    <h3 className="text-lg font-semibold text-slate-900 group-hover:text-green-600 transition-colors cursor-pointer hover:text-green-600 group-hover:scale-105 transform transition-transform duration-300">
                       {solution.title}
                     </h3>
                   </button>
                   
-                  <p className="text-slate-600">
+                  <p className="text-slate-600 group-hover:text-slate-700 transition-colors duration-300 leading-relaxed">
                     {solution.description}
                   </p>
                   
                   <div className="space-y-3">
-                    <h4 className="text-slate-900">Key Products:</h4>
+                    <h4 className="text-sm font-medium text-slate-900 group-hover:text-green-700 transition-colors duration-300">Key Products:</h4>
                     <div className="flex flex-wrap gap-2">
                       {solution.products.map((product, productIndex) => (
                         <span 
                           key={productIndex}
-                          className="px-2 py-1 sm:px-3 bg-slate-100 text-slate-700 rounded-full text-xs sm:text-sm"
+                          className="px-2 py-1 sm:px-3 bg-emerald-500/20 text-emerald-800 rounded-full text-xs sm:text-sm border border-emerald-300/30 group-hover:bg-emerald-500/30 group-hover:border-emerald-300/50 transition-all duration-300 shadow-sm backdrop-blur-sm"
+                          style={{
+                            background: "linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%)"
+                          }}
                         >
                           {product}
                         </span>
@@ -165,10 +186,20 @@ export function SolutionsOverview() {
                   <Button 
                     variant="ghost" 
                     onClick={() => navigateTo('solutions')}
-                    className="w-full justify-between text-green-600 hover:text-green-700 hover:bg-green-50 mt-4"
+                    className="w-full justify-between text-green-700 hover:text-white mt-4 border border-green-300/30 hover:border-green-500/50 transition-all duration-300 shadow-sm hover:shadow-md group-hover:scale-105 transform backdrop-blur-sm"
+                    style={{
+                      background: "linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%)",
+                      backdropFilter: "blur(8px)"
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = "linear-gradient(135deg, rgba(16, 185, 129, 0.8) 0%, rgba(16, 185, 129, 0.6) 100%)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = "linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%)";
+                    }}
                   >
                     View Solutions
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                   </Button>
                 </div>
               </motion.div>

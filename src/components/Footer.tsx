@@ -67,11 +67,11 @@ export function Footer() {
                   <ImageWithFallback
                     src="/assets/logos/afework-pharma-logo.png"
                     alt="Afework Pharma Logo"
-                    className="h-10 w-auto object-contain group-hover:opacity-80 transition-opacity"
+                    className="h-12 w-auto object-contain group-hover:opacity-80 transition-opacity"
                   />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold text-white group-hover:text-green-500 transition-colors">Afework Pharma</h1>
+                  <h1 className="text-lg font-bold text-white group-hover:text-green-500 transition-colors">Afework Pharma</h1>
                   <p className="text-sm text-gray-300">Medical Solutions Provider</p>
                 </div>
               </button>
@@ -160,7 +160,7 @@ export function Footer() {
 
       {/* Bottom Bar */}
       <motion.div
-        className="border-t border-gray-700/50" // Adjusted border color for contrast on dark bg
+        className="border-t border-gray-200 bg-white" // White background with light border
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -168,14 +168,25 @@ export function Footer() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
-            <div className="text-xs sm:text-sm text-gray-400 text-center sm:text-left">
+            <div className="text-xs sm:text-sm text-blue-600 text-center sm:text-left">
               © {new Date().getFullYear()} Afework Pharma. All rights reserved.
             </div>
 
-            <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm text-gray-400">
-              <a href="#" className="hover:text-white transition-all duration-300 transform hover:translate-x-1">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-all duration-300 transform hover:translate-x-1">Terms of Service</a>
-              <a href="#" className="hover:text-white transition-all duration-300 transform hover:translate-x-1">Cookie Policy</a>
+            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
+              <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm text-blue-600">
+                <a href="#" className="hover:text-blue-800 transition-all duration-300 transform hover:translate-x-1">Privacy Policy</a>
+                <a href="#" className="hover:text-blue-800 transition-all duration-300 transform hover:translate-x-1">Terms of Service</a>
+                <a href="#" className="hover:text-blue-800 transition-all duration-300 transform hover:translate-x-1">Cookie Policy</a>
+              </div>
+              <div className="flex items-center gap-2 text-sm sm:text-base text-blue-600">
+                <span>Developed by</span>
+                <ImageWithFallback
+                  src="/nano-logo.jpg"
+                  alt="Nano Computing Logo"
+                  className="h-7 w-auto object-contain"
+                />
+                <span className="font-medium">Nano Computing ICT Solutions</span>
+              </div>
             </div>
           </div>
         </div>

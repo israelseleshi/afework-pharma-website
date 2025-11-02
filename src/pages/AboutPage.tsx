@@ -221,24 +221,24 @@ export function AboutPage() {
         structuredData={structuredData}
       />
       {/* Hero Section - Narrative Unveiling */}
-      <section className="py-24" style={{backgroundColor: '#ecfdf5'}}>
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <section className="py-16 sm:py-20 lg:py-24 bg-green-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
             <motion.div 
-              className="space-y-8"
+              className="space-y-6 sm:space-y-8"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
             >
               <div>
                 <motion.h1 
-                  className="text-5xl mb-6 text-gray-900"
+                  className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mb-4 sm:mb-6 text-gray-900 leading-tight"
                   variants={heroVariants}
                 >
                   Advancing Healthcare Through Innovation
                 </motion.h1>
                 <motion.p 
-                  className="text-xl text-gray-600 leading-relaxed"
+                  className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed"
                   variants={heroVariants}
                 >
                   Since 2019, Afework Pharma has been Ethiopia's trusted partner in medical technology, 
@@ -257,7 +257,7 @@ export function AboutPage() {
               <ImageWithFallback 
                 src="/assets/images/afewrork-team-image.jpg"
                 alt="Afework Pharma team in Ethiopian hospital"
-                className="w-full h-96 object-cover shadow-lg"
+                className="w-full h-64 sm:h-80 lg:h-96 object-cover shadow-lg"
               />
             </motion.div>
           </div>
@@ -265,7 +265,7 @@ export function AboutPage() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-16" style={{backgroundColor: '#f0fdf4'}}>
+      <section className="py-16 bg-emerald-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12">
             <motion.div 
@@ -301,142 +301,21 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* Key Achievements */}
-      <section className="py-16" style={{backgroundColor: '#f7fee7'}}>
-        <div className="max-w-6xl mx-auto px-6">
-          <motion.div 
-            className="text-center mb-12"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={heroVariants}
-          >
-            <h2 className="text-3xl text-gray-900 mb-4">Key Achievements</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our track record speaks for itself - delivering excellence across Ethiopia's healthcare landscape
-            </p>
-          </motion.div>
-          
-          <motion.div 
-            className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-          >
-            {achievements.map((achievement, index) => {
-              const IconComponent = achievement.icon;
-              return (
-                <motion.div 
-                  key={index} 
-                  className="text-center space-y-3 sm:space-y-4"
-                  variants={achievementTextVariants}
-                >
-                  <motion.div 
-                    className="w-12 h-12 sm:w-16 sm:h-16 border-2 border-gray-200 rounded-xl flex items-center justify-center mx-auto"
-                    variants={achievementIconVariants}
-                  >
-                    <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" />
-                  </motion.div>
-                  <h3 className="text-base sm:text-lg text-gray-900">{achievement.title}</h3>
-                  <p className="text-sm sm:text-base text-gray-600">{achievement.description}</p>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Company Timeline - The Star of the Show */}
-      <section className="py-16" style={{backgroundColor: '#f8fafc'}}>
-        <div className="max-w-4xl mx-auto px-6">
-          <motion.div 
-            className="text-center mb-12"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={heroVariants}
-          >
-            <h2 className="text-3xl text-gray-900 mb-4">Our Journey</h2>
-            <p className="text-xl text-gray-600">
-              Building Ethiopia's healthcare infrastructure one project at a time
-            </p>
-          </motion.div>
-          
-          <div className="space-y-8">
-            {milestones.map((milestone, index) => {
-              const IconComponent = milestone.icon;
-              return (
-                <motion.div 
-                  key={index} 
-                  className="flex gap-8 items-start"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
-                  variants={containerVariants}
-                >
-                  <motion.div 
-                    className="flex-shrink-0 w-20 text-center"
-                    variants={timelineVariants}
-                  >
-                    <div className="text-2xl font-bold text-green-600 mb-2">{milestone.year}</div>
-                    <div className="w-12 h-12 bg-green-100 rounded-full mx-auto flex items-center justify-center mb-2">
-                      <IconComponent className="w-6 h-6 text-green-600" />
-                    </div>
-                    {index < milestones.length - 1 && (
-                      <motion.div 
-                        className="w-px h-16 bg-gray-200 mx-auto mt-4"
-                        initial={{ scaleY: 0 }}
-                        whileInView={{ scaleY: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.5 }}
-                        style={{ originY: 0 }}
-                      />
-                    )}
-                  </motion.div>
-                  <motion.div 
-                    className="flex-1 pb-8"
-                    variants={timelineContentVariants}
-                  >
-                    <div className="pl-4">
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">{milestone.title}</h3>
-                      <p className="text-gray-600 mb-3">{milestone.description}</p>
-                      {milestone.achievement && (
-                        <motion.div 
-                          className="flex items-center gap-2 mt-3"
-                          variants={achievementTagVariants}
-                        >
-                          <Trophy className="w-4 h-4 text-green-600" />
-                          <span className="text-sm font-medium text-green-700">{milestone.achievement}</span>
-                        </motion.div>
-                      )}
-                    </div>
-                  </motion.div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* Leadership Team */}
-      <section className="py-16" style={{backgroundColor: '#f1f5f9'}}>
-        <div className="max-w-6xl mx-auto px-6">
+      <section className="py-16 sm:py-20 lg:py-24 bg-slate-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <motion.div 
-            className="text-center mb-12"
+            className="mb-8 sm:mb-12"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             variants={heroVariants}
           >
-            <h2 className="text-3xl text-gray-900 mb-4">Leadership Team</h2>
-            <p className="text-xl text-gray-600">
-              Experienced professionals dedicated to advancing Ethiopian healthcare
-            </p>
+            <h2 className="text-2xl sm:text-3xl text-gray-900 mb-3 sm:mb-4">Leadership Team</h2>
           </motion.div>
           
           <motion.div 
-            className="grid md:grid-cols-3 gap-8"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -467,7 +346,7 @@ export function AboutPage() {
             ].map((member, index) => (
               <motion.div 
                 key={index} 
-                className={`bg-white p-6 rounded-xl border transition-all duration-300 hover:shadow-lg h-full flex flex-col ${member.featured ? 'border-green-200 shadow-md' : 'border-gray-200'}`}
+                className={`bg-white p-4 sm:p-6 rounded-xl border transition-all duration-300 hover:shadow-lg h-full flex flex-col ${member.featured ? 'border-green-200 shadow-md' : 'border-gray-200'}`}
                 variants={leadershipCardVariants}
                 whileHover={{ 
                   y: -8,
@@ -475,9 +354,9 @@ export function AboutPage() {
                   transition: { duration: 0.2 }
                 }}
               >
-                <div className="relative mb-4 flex-shrink-0">
+                <div className="relative mb-3 sm:mb-4 flex-shrink-0">
                   <motion.div 
-                    className="w-20 h-20 mx-auto rounded-full overflow-hidden border-3 border-white shadow-lg"
+                    className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full overflow-hidden border-3 border-white shadow-lg"
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.2 }}
                   >
@@ -494,8 +373,8 @@ export function AboutPage() {
                   )}
                 </div>
                 <div className="flex-grow flex flex-col">
-                  <h3 className="text-lg font-bold text-gray-900 text-center mb-2">{member.name}</h3>
-                  <p className="text-green-600 font-medium text-center mb-3 text-sm">{member.position}</p>
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 text-center mb-1 sm:mb-2">{member.name}</h3>
+                  <p className="text-green-600 font-medium text-center mb-2 sm:mb-3 text-xs sm:text-sm">{member.position}</p>
                   <p className="text-gray-600 text-center text-xs leading-relaxed flex-grow">{member.bio}</p>
                 </div>
               </motion.div>
@@ -503,6 +382,76 @@ export function AboutPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Company Timeline - The Star of the Show */}
+      <section className="py-16 sm:py-20 lg:py-24 bg-slate-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <motion.div 
+            className="mb-8 sm:mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={heroVariants}
+          >
+            <h2 className="text-2xl sm:text-3xl text-gray-900 mb-3 sm:mb-4">Our Journey</h2>
+          </motion.div>
+          
+          <div className="space-y-3 sm:space-y-4 lg:space-y-6">
+            {milestones.map((milestone, index) => {
+              const IconComponent = milestone.icon;
+              return (
+                <motion.div 
+                  key={index} 
+                  className="flex gap-3 sm:gap-4 lg:gap-6 items-start p-3 sm:p-4 lg:p-6 bg-white/50 rounded-xl border border-gray-100 hover:bg-white/80 transition-colors duration-200"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                  variants={containerVariants}
+                >
+                  <motion.div 
+                    className="flex-shrink-0 w-14 sm:w-16 lg:w-20 text-center"
+                    variants={timelineVariants}
+                  >
+                    <div className="text-base sm:text-lg lg:text-xl font-bold text-green-600 mb-1 sm:mb-2">{milestone.year}</div>
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-green-100 rounded-full mx-auto flex items-center justify-center mb-1 sm:mb-2">
+                      <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-green-600" />
+                    </div>
+                    {index < milestones.length - 1 && (
+                      <motion.div 
+                        className="w-px h-6 sm:h-8 lg:h-10 bg-gray-200 mx-auto mt-2 sm:mt-3"
+                        initial={{ scaleY: 0 }}
+                        whileInView={{ scaleY: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.5 }}
+                        style={{ originY: 0 }}
+                      />
+                    )}
+                  </motion.div>
+                  <motion.div 
+                    className="flex-1 pb-2 sm:pb-3 lg:pb-4"
+                    variants={timelineContentVariants}
+                  >
+                    <div className="pl-1 sm:pl-2 lg:pl-4">
+                      <h3 className="text-sm sm:text-base lg:text-lg xl:text-xl font-bold text-gray-900 mb-1 sm:mb-2">{milestone.title}</h3>
+                      <p className="text-xs sm:text-sm lg:text-base text-gray-600 mb-2 sm:mb-3 leading-relaxed">{milestone.description}</p>
+                      {milestone.achievement && (
+                        <motion.div 
+                          className="flex items-center gap-1 sm:gap-2 mt-2 sm:mt-3"
+                          variants={achievementTagVariants}
+                        >
+                          <Trophy className="w-3 h-3 sm:w-4 sm:h-4 text-green-600" />
+                          <span className="text-xs sm:text-sm font-medium text-green-700">{milestone.achievement}</span>
+                        </motion.div>
+                      )}
+                    </div>
+                  </motion.div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
 
     </div>
   );

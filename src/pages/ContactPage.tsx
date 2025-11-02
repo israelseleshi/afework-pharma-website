@@ -194,7 +194,7 @@ export function ContactPage() {
       icon: Phone,
       title: "Phone",
       details: ["+251 929 092 353", "+251 988 338 800"],
-      description: "Available Monday - Saturday, 8:30 AM - 5:00 PM"
+      description: ""
     },
     {
       icon: Mail,
@@ -281,7 +281,7 @@ export function ContactPage() {
         structuredData={structuredData}
       />
       {/* Hero Section - Guided Introduction */}
-      <section className="py-8 sm:py-12" style={{backgroundColor: '#ecfdf5'}}>
+      <section className="py-8 sm:py-12 bg-green-50">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <motion.div
             variants={heroVariants}
@@ -289,29 +289,22 @@ export function ContactPage() {
             animate="visible"
           >
             <motion.h1 
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-900"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-900 text-left"
               variants={heroVariants}
             >
-              Get in Touch
+              Contact Us
             </motion.h1>
-            <motion.p 
-              className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
-              variants={heroVariants}
-            >
-              Ready to transform your healthcare facility? Our team of experts is here to 
-              help you find the perfect medical equipment solutions for your needs.
-            </motion.p>
           </motion.div>
         </div>
       </section>
 
       {/* Contact Form & Info */}
-      <section className="py-16" style={{backgroundColor: '#f0fdf4'}}>
+      <section className="py-16 bg-emerald-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <motion.div 
-              className="space-y-8"
+              className="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-8 space-y-8"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
@@ -319,9 +312,6 @@ export function ContactPage() {
             >
               <div>
                 <h2 className="text-3xl text-gray-900 mb-4">Send Us a Message</h2>
-                <p className="text-gray-600">
-                  Fill out the form below and our team will respond promptly.
-                </p>
               </div>
               
               <AnimatePresence mode="wait">
@@ -430,7 +420,7 @@ export function ContactPage() {
                           placeholder="Your full name"
                           value={formData.name}
                           onChange={(e) => handleInputChange('name', e.target.value)}
-                          className="border-gray-300 focus:border-green-600 focus:ring-green-600 transition-colors duration-200"
+                          className="border-2 border-gray-400 focus:border-green-600 focus:ring-green-600 transition-colors duration-200 hover:border-gray-500"
                           required
                         />
                         {fieldValidation.name !== undefined && (
@@ -457,7 +447,7 @@ export function ContactPage() {
                           placeholder="your.email@company.com"
                           value={formData.email}
                           onChange={(e) => handleInputChange('email', e.target.value)}
-                          className="border-gray-300 focus:border-green-600 focus:ring-green-600 transition-colors duration-200"
+                          className="border-2 border-gray-400 focus:border-green-600 focus:ring-green-600 transition-colors duration-200 hover:border-gray-500"
                           required
                         />
                         {fieldValidation.email !== undefined && (
@@ -483,7 +473,7 @@ export function ContactPage() {
                         placeholder="+251 9XX XXX XXX"
                         value={formData.phone}
                         onChange={(e) => handleInputChange('phone', e.target.value)}
-                        className="border-gray-300 focus:border-green-600 focus:ring-green-600 transition-colors duration-200"
+                        className="border-2 border-gray-400 focus:border-green-600 focus:ring-green-600 transition-colors duration-200 hover:border-gray-500"
                       />
                     </div>
                     
@@ -494,14 +484,14 @@ export function ContactPage() {
                         placeholder="Hospital, clinic, or organization name"
                         value={formData.organization}
                         onChange={(e) => handleInputChange('organization', e.target.value)}
-                        className="border-gray-300 focus:border-green-600 focus:ring-green-600 transition-colors duration-200"
+                        className="border-2 border-gray-400 focus:border-green-600 focus:ring-green-600 transition-colors duration-200 hover:border-gray-500"
                       />
                     </div>
                     
                     <div>
                       <label className="block text-sm text-gray-700 mb-2">Inquiry Type</label>
                       <Select onValueChange={(value) => handleInputChange('inquiryType', value)}>
-                        <SelectTrigger className="border-gray-300 focus:border-green-600 focus:ring-green-600 transition-colors duration-200">
+                        <SelectTrigger className="border-2 border-gray-400 focus:border-green-600 focus:ring-green-600 transition-colors duration-200 hover:border-gray-500">
                           <SelectValue placeholder="Select inquiry type" />
                         </SelectTrigger>
                         <SelectContent>
@@ -521,7 +511,7 @@ export function ContactPage() {
                         rows={6}
                         value={formData.message}
                         onChange={(e) => handleInputChange('message', e.target.value)}
-                        className="border-gray-300 focus:border-green-600 focus:ring-green-600 transition-colors duration-200"
+                        className="border-2 border-gray-400 focus:border-green-600 focus:ring-green-600 transition-colors duration-200 hover:border-gray-500"
                         required
                       />
                     </div>
@@ -564,40 +554,39 @@ export function ContactPage() {
             
             {/* Contact Information */}
             <motion.div 
-              className="space-y-8"
+              className="space-y-6 sm:space-y-8"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
               variants={contactInfoVariants}
             >
               <div>
-                <h2 className="text-3xl text-gray-900 mb-4">Contact Information</h2>
-                <p className="text-gray-600">
-                  Multiple ways to reach us for your convenience.
-                </p>
+                <h2 className="text-2xl sm:text-3xl text-gray-900 mb-6 sm:mb-8">Contact Information</h2>
               </div>
               
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {contactInfo.map((info, index) => {
                   const IconComponent = info.icon;
                   return (
                     <motion.div 
                       key={index} 
-                      className="flex gap-4"
+                      className="flex gap-3 sm:gap-4 p-3 sm:p-4 bg-white/50 rounded-xl border border-gray-100 hover:bg-white/80 transition-colors duration-200"
                       initial={{ opacity: 0, x: 20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.1, duration: 0.5 }}
                     >
-                      <div className="w-12 h-12 border-2 border-gray-200 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <IconComponent className="w-6 h-6 text-green-600" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-gray-200 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
                       </div>
-                      <div>
-                        <h3 className="text-lg text-gray-900 mb-1">{info.title}</h3>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-1">{info.title}</h3>
                         {info.details.map((detail, detailIndex) => (
-                          <p key={detailIndex} className="text-gray-700">{detail}</p>
+                          <p key={detailIndex} className="text-sm sm:text-base text-gray-700 break-words">{detail}</p>
                         ))}
-                        <p className="text-gray-500 text-sm mt-1">{info.description}</p>
+                        {info.description && (
+                          <p className="text-xs sm:text-sm text-gray-500 mt-1">{info.description}</p>
+                        )}
                       </div>
                     </motion.div>
                   );
@@ -608,88 +597,9 @@ export function ContactPage() {
         </div>
       </section>
 
-      {/* Department Contact Cards */}
-      <section className="py-16" style={{backgroundColor: '#f7fee7'}}>
-        <div className="max-w-6xl mx-auto px-6">
-          <motion.div 
-            className="text-center mb-12"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={heroVariants}
-          >
-            <h2 className="text-3xl text-gray-900 mb-4">Department Contacts</h2>
-            <p className="text-xl text-gray-600">
-              Reach out to the right department for faster assistance
-            </p>
-          </motion.div>
-          
-          <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-          >
-            {departments.map((dept, index) => {
-              const IconComponent = dept.icon;
-              return (
-                <motion.div
-                  key={index}
-                  variants={departmentCardVariants}
-                  whileHover={{ 
-                    y: -8,
-                    scale: 1.02,
-                    transition: { duration: 0.2 }
-                  }}
-                >
-                  <Card className="border-gray-200 h-full hover:shadow-lg transition-shadow duration-300">
-                    <CardHeader className="text-center pb-4">
-                      <motion.div 
-                        className="w-12 h-12 sm:w-16 sm:h-16 border-2 border-gray-200 rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4"
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <motion.div
-                          animate={
-                            dept.icon === Wrench ? { rotate: [0, 15, -15, 0] } :
-                            dept.icon === ShoppingCart ? { x: [0, 2, -2, 0] } :
-                            dept.icon === Users ? { scale: [1, 1.1, 1] } : {}
-                          }
-                          transition={{ 
-                            duration: 0.6,
-                            repeat: Infinity,
-                            repeatDelay: 3
-                          }}
-                        >
-                          <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" />
-                        </motion.div>
-                      </motion.div>
-                      <CardTitle className="text-lg sm:text-xl text-gray-900">{dept.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="text-center space-y-3 sm:space-y-4 px-4 sm:px-6">
-                      <p className="text-sm sm:text-base text-gray-600">{dept.description}</p>
-                      <div className="space-y-2">
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
-                          <Mail className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                          <span className="text-green-600 text-xs sm:text-sm break-all">{dept.email}</span>
-                        </div>
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
-                          <Phone className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                          <span className="text-gray-700 text-xs sm:text-sm">{dept.phone}</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
-      </section>
 
       {/* Map & Location */}
-      <section className="py-16" style={{backgroundColor: '#f8fafc'}}>
+      <section className="py-16 bg-slate-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <motion.div 
@@ -700,55 +610,11 @@ export function ContactPage() {
               variants={officeInfoVariants}
             >
               <h2 className="text-2xl sm:text-3xl text-gray-900">Visit Our Office</h2>
-              <p className="text-gray-600 leading-relaxed text-base sm:text-lg">
-                Located in the heart of Addis Ababa, our office features a modern showroom 
-                where you can see our medical equipment firsthand. Schedule a visit to 
-                discuss your requirements with our technical experts.
-              </p>
               
-              <div className="space-y-3 sm:space-y-4">
-                <h3 className="text-base sm:text-lg text-gray-900">Office Features:</h3>
-                <ul className="space-y-2">
-                  {[
-                    "Interactive equipment demonstrations",
-                    "Technical consultation rooms",
-                    "Training facilities",
-                    "Parts and service center"
-                  ].map((feature, index) => (
-                    <motion.li 
-                      key={index} 
-                      className="flex items-center gap-2 sm:gap-3"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1, duration: 0.5 }}
-                    >
-                      <motion.div 
-                        className="w-2 h-2 bg-green-600 rounded-full"
-                        initial={{ scale: 0 }}
-                        whileInView={{ scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.1 + 0.2, duration: 0.3 }}
-                      />
-                      <span className="text-sm sm:text-base text-gray-600">{feature}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-              
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="pt-2"
-              >
-                <Button className="bg-green-600 hover:bg-green-700 text-white cursor-pointer w-full sm:w-auto">
-                  Schedule a Visit
-                </Button>
-              </motion.div>
             </motion.div>
             
             <motion.div 
-              className="bg-gray-200 h-64 sm:h-80 rounded-2xl overflow-hidden order-1 lg:order-2"
+              className="bg-gray-200 h-96 sm:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden order-1 lg:order-2"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
@@ -770,19 +636,16 @@ export function ContactPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16" style={{backgroundColor: '#f1f5f9'}}>
+      <section className="py-16 bg-slate-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <motion.div 
-            className="text-center mb-8 sm:mb-12"
+            className="mb-8 sm:mb-12"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             variants={heroVariants}
           >
             <h2 className="text-2xl sm:text-3xl text-gray-900 mb-3 sm:mb-4">Frequently Asked Questions</h2>
-            <p className="text-lg sm:text-xl text-gray-600">
-              Quick answers to common questions
-            </p>
           </motion.div>
           
           <motion.div 

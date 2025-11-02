@@ -40,35 +40,35 @@ export function Header() {
           <nav className="hidden lg:flex items-center space-x-8">
             <button 
               onClick={() => handleNavigation('home')} 
-              className={`relative transition-all duration-300 transform hover:scale-105 ${currentPage === 'home' ? 'text-green-600 font-semibold' : 'text-gray-600 hover:text-green-600'} group`}
+              className={`relative text-lg transition-all duration-300 transform hover:scale-105 ${currentPage === 'home' ? 'text-green-600 font-semibold' : 'text-gray-600 hover:text-green-600'} group`}
             >
               Home
               <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-green-600 transform transition-transform duration-300 ${currentPage === 'home' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
             </button>
             <button 
               onClick={() => handleNavigation('solutions')} 
-              className={`relative transition-all duration-300 transform hover:scale-105 ${currentPage === 'solutions' ? 'text-green-600 font-semibold' : 'text-gray-600 hover:text-green-600'} group`}
+              className={`relative text-lg transition-all duration-300 transform hover:scale-105 ${currentPage === 'solutions' ? 'text-green-600 font-semibold' : 'text-gray-600 hover:text-green-600'} group`}
             >
               Solutions
               <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-green-600 transform transition-transform duration-300 ${currentPage === 'solutions' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
             </button>
             <button 
               onClick={() => handleNavigation('projects')} 
-              className={`relative transition-all duration-300 transform hover:scale-105 ${currentPage === 'projects' ? 'text-green-600 font-semibold' : 'text-gray-600 hover:text-green-600'} group`}
+              className={`relative text-lg transition-all duration-300 transform hover:scale-105 ${currentPage === 'projects' ? 'text-green-600 font-semibold' : 'text-gray-600 hover:text-green-600'} group`}
             >
               Projects
               <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-green-600 transform transition-transform duration-300 ${currentPage === 'projects' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
             </button>
             <button 
               onClick={() => handleNavigation('about')} 
-              className={`relative transition-all duration-300 transform hover:scale-105 ${currentPage === 'about' ? 'text-green-600 font-semibold' : 'text-gray-600 hover:text-green-600'} group`}
+              className={`relative text-lg transition-all duration-300 transform hover:scale-105 ${currentPage === 'about' ? 'text-green-600 font-semibold' : 'text-gray-600 hover:text-green-600'} group`}
             >
               About
               <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-green-600 transform transition-transform duration-300 ${currentPage === 'about' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
             </button>
             <button 
               onClick={() => handleNavigation('contact')} 
-              className={`relative transition-all duration-300 transform hover:scale-105 ${currentPage === 'contact' ? 'text-green-600 font-semibold' : 'text-gray-600 hover:text-green-600'} group`}
+              className={`relative text-lg transition-all duration-300 transform hover:scale-105 ${currentPage === 'contact' ? 'text-green-600 font-semibold' : 'text-gray-600 hover:text-green-600'} group`}
             >
               Contact
               <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-green-600 transform transition-transform duration-300 ${currentPage === 'contact' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>

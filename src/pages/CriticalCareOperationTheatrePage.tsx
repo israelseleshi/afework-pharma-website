@@ -186,7 +186,7 @@ export function CriticalCareOperationTheatrePage() {
       {/* Equipment Categories */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Equipment Categories</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-12">Equipment Categories</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
@@ -252,7 +252,7 @@ export function CriticalCareOperationTheatrePage() {
       {/* Technical Specifications */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Technical Specifications</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-8">Technical Specifications</h2>
           
           <div className="bg-white rounded-2xl p-8 shadow-sm">
             <div className="grid md:grid-cols-2 gap-8">
@@ -279,7 +279,7 @@ export function CriticalCareOperationTheatrePage() {
       {/* Support Services */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Comprehensive Support Services</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-12">Comprehensive Support Services</h2>
           
           <div className="grid md:grid-cols-4 gap-8">
             {[
@@ -356,7 +356,7 @@ export function CriticalCareOperationTheatrePage() {
       {/* Related Solutions */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Related Solutions</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-12">Related Solutions</h2>
           
           <div className="grid md:grid-cols-3 gap-8">
             {[

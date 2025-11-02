@@ -83,7 +83,7 @@ export function FeaturedProjects() {
     <section id="projects" className="py-16 sm:py-20 lg:py-28" style={{background: 'linear-gradient(to bottom, #f8fafc, #e2e8f0)'}}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
-          className="text-center mb-8 sm:mb-12 lg:mb-16"
+          className="text-left mb-8 sm:mb-12 lg:mb-16"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
@@ -92,7 +92,7 @@ export function FeaturedProjects() {
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3 sm:mb-4">
             Proven Success in Critical Projects
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl leading-relaxed">
             Our track record speaks for itself. From emergency deployments to comprehensive 
             hospital modernizations, we deliver excellence when it matters most.
           </p>

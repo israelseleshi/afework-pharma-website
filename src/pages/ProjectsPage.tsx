@@ -3,6 +3,7 @@ import { motion, useAnimation, useInView } from "framer-motion";
 import SEO from "../components/SEO";
 import { Button } from "../components/ui/button";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { ImageGallery } from "../components/ImageGallery";
 import { useRouter } from "../components/Router";
 import { ArrowRight, Calendar, MapPin, Users, Award, CheckCircle2 } from "lucide-react";
 
@@ -123,13 +124,47 @@ export function ProjectsPage() {
     );
   };
 
+  // Tigray project gallery images - Using photo_9_2025-11-02_13-45-14.jpg as requested
+  const tigrayProjectGallery = [
+    {
+      src: "/images_from_afework/tigray_project/photo_9_2025-11-02_13-45-14.jpg",
+      alt: "Healthcare Impact Assessment",
+      title: "Healthcare Impact Assessment",
+      subtitle: "Measuring Success Outcomes"
+    },
+    {
+      src: "/images_from_afework/tigray_project/photo_9_2025-11-02_13-45-14.jpg",
+      alt: "Project Success Evaluation",
+      title: "Project Success Evaluation",
+      subtitle: "Quality Healthcare Delivery"
+    },
+    {
+      src: "/images_from_afework/tigray_project/photo_9_2025-11-02_13-45-14.jpg",
+      alt: "Medical Equipment Excellence",
+      title: "Medical Equipment Excellence",
+      subtitle: "Advanced Diagnostic Solutions"
+    },
+    {
+      src: "/images_from_afework/tigray_project/photo_9_2025-11-02_13-45-14.jpg",
+      alt: "Healthcare Infrastructure",
+      title: "Healthcare Infrastructure",
+      subtitle: "Modern Medical Facilities"
+    },
+    {
+      src: "/images_from_afework/tigray_project/photo_9_2025-11-02_13-45-14.jpg",
+      alt: "Professional Medical Services",
+      title: "Professional Medical Services",
+      subtitle: "Comprehensive Healthcare Solutions"
+    }
+  ];
+
   const featuredProjects = [
     {
       title: "CDC-Tigray Regional Health Bureau Project",
       client: "Centers for Disease Control & Tigray Regional Health Bureau",
       year: "2024",
       location: "Mekelle, Tigray Region",
-      image: "https://images.unsplash.com/photo-1694787590597-ba49c7cdc2cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHxldGhpb3BpYW4lMjBob3NwaXRhbCUyMG1lZGljYWwlMjBmYWNpbGl0eXxlbnwxfHx8fDE3NTk4MjkwMzh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      gallery: tigrayProjectGallery,
       logo: "/assets/logos/tigray-regional-health-bureau-logo.png",
       description: "Comprehensive laboratory infrastructure development supporting TB and HIV diagnostics across 25 health facilities in Tigray region.",
       scope: [
@@ -236,8 +271,8 @@ export function ProjectsPage() {
         structuredData={structuredData}
       />
       {/* Hero Section - Staggered Page Load Animation */}
-      <section className="py-8 sm:py-12" style={{backgroundColor: '#ecfdf5'}}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+      <section className="py-8 sm:py-12 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -249,19 +284,12 @@ export function ProjectsPage() {
             >
               Success Stories & Case Studies
             </motion.h1>
-            <motion.p 
-              className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed"
-              variants={pageLoadVariants}
-            >
-              Discover how we've transformed healthcare delivery across Ethiopia through 
-              innovative medical technology solutions and comprehensive support services.
-            </motion.p>
           </motion.div>
         </div>
       </section>
 
       {/* Featured Projects */}
-      <section className="py-16" style={{backgroundColor: '#f0fdf4'}}>
+      <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="space-y-16 lg:space-y-20">
             {featuredProjects.map((project, index) => (
@@ -311,22 +339,40 @@ export function ProjectsPage() {
                     </p>
                   </motion.div>
                   
-                  <motion.div 
-                    className="relative"
-                    variants={imageRevealVariants}
-                  >
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.3 }}
+                  {project.image && (
+                    <motion.div 
+                      className="relative"
+                      variants={imageRevealVariants}
                     >
-                      <ImageWithFallback 
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-lg"
-                      />
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <ImageWithFallback 
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-lg"
+                        />
+                      </motion.div>
                     </motion.div>
-                  </motion.div>
+                  )}
                 </div>
+
+                {/* Project Gallery - Below project header */}
+                {project.gallery && (
+                  <motion.div 
+                    className="mt-8"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={pageLoadVariants}
+                  >
+                    <ImageGallery 
+                      images={project.gallery}
+                      title={`${project.title} - Project Gallery`}
+                    />
+                  </motion.div>
+                )}
 
                 {/* Project Details */}
                 <motion.div 
@@ -386,11 +432,12 @@ export function ProjectsPage() {
                       <p className="text-green-800 text-sm sm:text-base">{project.impact}</p>
                     </motion.div>
                   </motion.div>
+                  
                 </motion.div>
 
                 {/* Testimonial */}
                 <motion.div 
-                  className="p-6 sm:p-8 rounded-2xl" style={{backgroundColor: '#f1f5f9'}}
+                  className="p-6 sm:p-8 rounded-2xl bg-slate-100"
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.5 }}
@@ -425,19 +472,16 @@ export function ProjectsPage() {
       </section>
 
       {/* Additional Projects */}
-      <section className="py-16" style={{backgroundColor: '#f7fee7'}}>
+      <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div 
-            className="text-center mb-12"
+            className="mb-12"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             variants={pageLoadVariants}
           >
             <h2 className="text-gray-900 mb-4">Additional Success Stories</h2>
-            <p className="text-gray-600">
-              More examples of our commitment to advancing Ethiopian healthcare
-            </p>
           </motion.div>
           
           <motion.div 
@@ -487,19 +531,16 @@ export function ProjectsPage() {
       </section>
 
       {/* Statistics - Animated Counters */}
-      <section className="py-16" style={{backgroundColor: '#f8fafc'}}>
+      <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div 
-            className="text-center mb-12"
+            className="mb-12"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             variants={pageLoadVariants}
           >
             <h2 className="text-gray-900 mb-4">Our Impact by Numbers</h2>
-            <p className="text-gray-600">
-              Measurable results across Ethiopia's healthcare landscape
-            </p>
           </motion.div>
           
           <motion.div 

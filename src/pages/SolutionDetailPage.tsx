@@ -2,6 +2,7 @@ import React from "react";
 import SEO from "../components/SEO";
 import { Button } from "../components/ui/button";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { ImageGallery } from "../components/ImageGallery";
 import { useRouter } from "../components/Router";
 import { ArrowRight, ArrowLeft, Check, Star, Download } from "lucide-react";
 
@@ -44,7 +45,7 @@ export function SolutionDetailPage() {
       title: "Diagnostic Imaging & Radiology",
       subtitle: "Advanced Imaging Solutions for Comprehensive Diagnostics",
       description: "Transform your diagnostic capabilities with our state-of-the-art imaging solutions. From digital radiography to advanced MRI systems, we provide comprehensive imaging technology that delivers exceptional image quality, enhanced workflow efficiency, and improved patient outcomes across Ethiopian healthcare facilities.",
-      image: "/assets/images/diagnostic-imaging-&-radiology.jpg",
+      image: "/diagnostic_imaging_radiology/general_imaging_ultrasound_machine_front_hero_960x720_pc.jpg",
       keyFeatures: [
         "Digital X-Ray systems with direct radiography (DR) technology",
         "High-resolution ultrasound machines with 4D imaging capabilities",
@@ -187,6 +188,304 @@ export function SolutionDetailPage() {
   };
 
   const currentData = solutionDetails[currentSolution as keyof typeof solutionDetails] || solutionDetails["Diagnostic & Laboratory Solutions"];
+
+  // Gallery images for each solution
+  const galleryImages = {
+    "Diagnostic & Laboratory Solutions": [
+      {
+        src: "/diagnostic_laboratory_solutions/glp13_img1.jpg",
+        alt: "BC-5150 Hematology Analyzer",
+        title: "BC-5150 Hematology Analyzer",
+        subtitle: "Small Test Volume Hematology"
+      },
+      {
+        src: "/diagnostic_laboratory_solutions/glp13-s3.jpg",
+        alt: "Laboratory Automation System",
+        title: "Laboratory Automation System",
+        subtitle: "Complete Lab Workflow"
+      },
+      {
+        src: "/diagnostic_laboratory_solutions/glp13-s4-2.jpg",
+        alt: "Chemistry Analyzer",
+        title: "Chemistry Analyzer",
+        subtitle: "Automated Chemistry Testing"
+      },
+      {
+        src: "/diagnostic_laboratory_solutions/glp13-s4-3.jpg",
+        alt: "Lab Testing Equipment",
+        title: "Lab Testing Equipment",
+        subtitle: "Precision Diagnostics"
+      },
+      {
+        src: "/diagnostic_laboratory_solutions/glp13-s5-1.jpg",
+        alt: "Laboratory Workstation",
+        title: "Laboratory Workstation",
+        subtitle: "Integrated Lab Solutions"
+      },
+      {
+        src: "/diagnostic_laboratory_solutions/chemiluminescence-immunoassay.thumb.1280.1280.png",
+        alt: "Immunoassay System",
+        title: "Immunoassay System",
+        subtitle: "Chemiluminescence Testing"
+      },
+      {
+        src: "/diagnostic_laboratory_solutions/1.jpg",
+        alt: "Lab Equipment Setup",
+        title: "Lab Equipment Setup",
+        subtitle: "Complete Laboratory"
+      },
+      {
+        src: "/diagnostic_laboratory_solutions/3.jpg",
+        alt: "Diagnostic Instruments",
+        title: "Diagnostic Instruments",
+        subtitle: "Advanced Testing"
+      },
+      {
+        src: "/diagnostic_laboratory_solutions/5.jpg",
+        alt: "Laboratory Analysis",
+        title: "Laboratory Analysis",
+        subtitle: "Quality Control"
+      },
+      {
+        src: "/diagnostic_laboratory_solutions/L.jpg",
+        alt: "Lab Technology",
+        title: "Lab Technology",
+        subtitle: "Modern Diagnostics"
+      }
+    ],
+    "Diagnostic Imaging & Radiology": [
+      {
+        src: "/diagnostic_imaging_radiology/Consona_N6_diagnostic_ultrasound_front_894x671_pc_introduction_600x.jpg",
+        alt: "Consona N6 Ultrasound",
+        title: "Consona N6 Ultrasound",
+        subtitle: "General Imaging & Diagnostics"
+      },
+      {
+        src: "/diagnostic_imaging_radiology/Consona_N6_diagnostic_ultrasound_system_1260x844_pc_600x.jpg",
+        alt: "Consona N6 System",
+        title: "Consona N6 System",
+        subtitle: "Complete Ultrasound Solution"
+      },
+      {
+        src: "/diagnostic_imaging_radiology/Digital_X-ray_Systems_1390x956.jpg",
+        alt: "Digital X-ray System",
+        title: "Digital X-ray System",
+        subtitle: "Premium Radiography"
+      },
+      {
+        src: "/diagnostic_imaging_radiology/general_imaging_ultrasound_machine_front_hero_960x720_pc.jpg",
+        alt: "General Imaging Ultrasound",
+        title: "General Imaging Ultrasound",
+        subtitle: "Versatile Diagnostic Imaging"
+      },
+      {
+        src: "/diagnostic_imaging_radiology/hepatus6-762x429_28885824-f2be-4045-ac9b-3bb61aab9023_600x.jpg",
+        alt: "Hepatus6 Ultrasound",
+        title: "Hepatus6 Ultrasound",
+        subtitle: "Specialized Liver Imaging"
+      },
+      {
+        src: "/diagnostic_imaging_radiology/me8-1_600x.jpg",
+        alt: "ME8 Ultrasound System",
+        title: "ME8 Ultrasound System",
+        subtitle: "Advanced Imaging Technology"
+      },
+      {
+        src: "/diagnostic_imaging_radiology/point_of_care_brain_microwave_imaging_system_emu_emvision_rsna23_df.jpeg.webp",
+        alt: "Brain Imaging System",
+        title: "Brain Imaging System",
+        subtitle: "Point-of-Care Brain Imaging"
+      },
+      {
+        src: "/diagnostic_imaging_radiology/Probo-Tampa-inventory-Ultrasound-Lineup-Logiqs-Photoshop-Edit-scaled.jpg",
+        alt: "Ultrasound Equipment Lineup",
+        title: "Ultrasound Equipment Lineup",
+        subtitle: "Complete Imaging Solutions"
+      },
+      {
+        src: "/diagnostic_imaging_radiology/TE_205_20SP_20System_20Image-1_600x.jpg",
+        alt: "TE205 SP System",
+        title: "TE205 SP System",
+        subtitle: "Portable Imaging Solution"
+      },
+      {
+        src: "/diagnostic_imaging_radiology/X-ray-Technology-in-Medicine-and-Science-1024x768.jpg",
+        alt: "X-ray Technology",
+        title: "X-ray Technology",
+        subtitle: "Medical & Scientific Imaging"
+      }
+    ],
+    "Critical Care & Operation Theatre": [
+      {
+        src: "/critical_care_operation_theatre/A9-Front",
+        alt: "A9 Anesthesia System",
+        title: "A9 Anesthesia System",
+        subtitle: "High-End OR Workflow"
+      },
+      {
+        src: "/critical_care_operation_theatre/Anesthesia-s3.jpg",
+        alt: "Advanced Anesthesia System",
+        title: "Advanced Anesthesia System",
+        subtitle: "Complete Anesthesia Workflow"
+      },
+      {
+        src: "/critical_care_operation_theatre/anesthesia-insight-anaesight.jpg",
+        alt: "Anesthesia Insight System",
+        title: "Anesthesia Insight System",
+        subtitle: "Smart Anesthesia Monitoring"
+      },
+      {
+        src: "/critical_care_operation_theatre/cutting-edge-breathing-system.jpg",
+        alt: "Breathing System",
+        title: "Cutting-Edge Breathing System",
+        subtitle: "Advanced Respiratory Support"
+      },
+      {
+        src: "/critical_care_operation_theatre/hfnc.jpg",
+        alt: "High Flow Nasal Cannula",
+        title: "High Flow Nasal Cannula",
+        subtitle: "HFNC Oxygen Therapy"
+      },
+      {
+        src: "/critical_care_operation_theatre/n27-s1.jpg",
+        alt: "N27 Patient Monitor",
+        title: "N27 Patient Monitor",
+        subtitle: "Multi-Parameter Monitoring"
+      },
+      {
+        src: "/critical_care_operation_theatre/A5-mid-acuity-anesthesia-system_984x671_PC-min.webp",
+        alt: "A5 Mid-Acuity System",
+        title: "A5 Mid-Acuity System",
+        subtitle: "Mid-Level Anesthesia Care"
+      },
+      {
+        src: "/critical_care_operation_theatre/A5-web-800x600-1-300x225.jpg",
+        alt: "A5 Anesthesia Workstation",
+        title: "A5 Anesthesia Workstation",
+        subtitle: "Compact Anesthesia Solution"
+      },
+      {
+        src: "/critical_care_operation_theatre/p4-s5-2.gif",
+        alt: "P4 Patient Monitor",
+        title: "P4 Patient Monitor",
+        subtitle: "Advanced Patient Monitoring"
+      }
+    ],
+    "Hospital Furniture & Patient Care": [
+      {
+        src: "/hospital_furniture_patient_care/2590891032722500_.jpg",
+        alt: "Electric Hospital Bed",
+        title: "Electric Hospital Bed",
+        subtitle: "3-Function Positioning"
+      },
+      {
+        src: "/hospital_furniture_patient_care/2590891136848900_.jpg",
+        alt: "Advanced Hospital Bed",
+        title: "Advanced Hospital Bed",
+        subtitle: "Multi-Function Patient Care"
+      },
+      {
+        src: "/hospital_furniture_patient_care/Healthcare-2.jpg",
+        alt: "Healthcare Furniture Setup",
+        title: "Healthcare Furniture Setup",
+        subtitle: "Complete Patient Room"
+      },
+      {
+        src: "/hospital_furniture_patient_care/Hospital-Furniture-1200x804.jpg",
+        alt: "Hospital Furniture Collection",
+        title: "Hospital Furniture Collection",
+        subtitle: "Professional Medical Furniture"
+      },
+      {
+        src: "/hospital_furniture_patient_care/fc135c9e54278575fae05eaddaf0cd6d.jpeg",
+        alt: "Patient Care Equipment",
+        title: "Patient Care Equipment",
+        subtitle: "Comprehensive Care Solutions"
+      },
+      {
+        src: "/hospital_furniture_patient_care/h06884600_010-e1708713499860.jpg",
+        alt: "Medical Workstation",
+        title: "Medical Workstation",
+        subtitle: "Healthcare Professional Station"
+      },
+      {
+        src: "/hospital_furniture_patient_care/akqzozseapvwd4k7fsj0_b452d30b-421c-4c0c-a6e9-23e6eb29c8db_1024x.jpg",
+        alt: "Patient Transfer System",
+        title: "Patient Transfer System",
+        subtitle: "Safe Patient Mobility"
+      },
+      {
+        src: "/hospital_furniture_patient_care/1761632957-x800.webp",
+        alt: "Hospital Room Furniture",
+        title: "Hospital Room Furniture",
+        subtitle: "Patient Comfort Solutions"
+      },
+      {
+        src: "/hospital_furniture_patient_care/%E6%9C%AA%E6%A0%87%E9%A2%98-1-3.jpg",
+        alt: "Medical Storage Solutions",
+        title: "Medical Storage Solutions",
+        subtitle: "Organized Healthcare Storage"
+      },
+      {
+        src: "/hospital_furniture_patient_care/%E6%9C%AA%E6%A0%87%E9%A2%98-1-4.jpg",
+        alt: "Healthcare Equipment Cart",
+        title: "Healthcare Equipment Cart",
+        subtitle: "Mobile Medical Solutions"
+      }
+    ],
+    "Medical Consumables & Reagents": [
+      {
+        src: "/medical_consumables_reagents/glp13-s6.jpg",
+        alt: "Laboratory Reagents",
+        title: "Laboratory Reagents",
+        subtitle: "High-Quality Testing Reagents"
+      },
+      {
+        src: "/medical_consumables_reagents/reagents.jpg",
+        alt: "Chemistry Reagents Pack",
+        title: "Chemistry Reagents Pack",
+        subtitle: "Diagnostic Assays"
+      },
+      {
+        src: "/medical_consumables_reagents/free-testosterone-elisa-reagent-launch-reagent-family-1.0-en.jpg",
+        alt: "ELISA Reagent Family",
+        title: "ELISA Reagent Family",
+        subtitle: "Testosterone Testing Reagents"
+      },
+      {
+        src: "/medical_consumables_reagents/Hot-Sale-PP-Plastic-60ml-Reagent-Bottle-for-Mindray-400-Chemistry-Analyzer-with-Factory-Price-Lab-Chemistry-Consumables.jpg",
+        alt: "Reagent Bottles",
+        title: "Reagent Bottles",
+        subtitle: "Chemistry Analyzer Consumables"
+      },
+      {
+        src: "/medical_consumables_reagents/ls-s14-2009-1.jpg",
+        alt: "Laboratory Supplies",
+        title: "Laboratory Supplies",
+        subtitle: "Essential Lab Consumables"
+      },
+      {
+        src: "/medical_consumables_reagents/Mindray-Chemistry-Analyzer-Reagent-Mindray-Compatible-original-Reagents-With-Good-Price.webp",
+        alt: "Mindray Compatible Reagents",
+        title: "Mindray Compatible Reagents",
+        subtitle: "Original Quality Reagents"
+      },
+      {
+        src: "/medical_consumables_reagents/Mindray-Original-Chemistry-Analyzer-Reagents-Bs-120-Bs-200-Bs-220-Bs-230-Bs-240-Bs-330-Bs-350-Alb-Alp-Alt-Ua-Urea.webp",
+        alt: "Mindray Analyzer Reagents",
+        title: "Mindray Analyzer Reagents",
+        subtitle: "BS Series Compatible"
+      },
+      {
+        src: "/medical_consumables_reagents/P-06.jpg",
+        alt: "Medical Consumables",
+        title: "Medical Consumables",
+        subtitle: "Quality Medical Supplies"
+      }
+    ]
+  };
+
+  const currentGalleryImages = galleryImages[currentSolution as keyof typeof galleryImages] || galleryImages["Diagnostic & Laboratory Solutions"];
 
   // Generate SEO data based on current solution
   const getSEOData = (solution: string) => {
@@ -360,8 +659,16 @@ export function SolutionDetailPage() {
         </div>
       </section>
 
-      {/* Key Features */}
+      {/* Product Gallery */}
       <section className="py-16 bg-gray-50">
+        <ImageGallery 
+          images={currentGalleryImages}
+          title={`${currentData.title} Gallery`}
+        />
+      </section>
+
+      {/* Key Features */}
+      <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
@@ -394,7 +701,7 @@ export function SolutionDetailPage() {
       {/* Technical Specifications */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Technical Specifications</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-8">Technical Specifications</h2>
           
           <div className="bg-gray-50 rounded-2xl p-8">
             <div className="grid md:grid-cols-2 gap-8">
@@ -414,7 +721,7 @@ export function SolutionDetailPage() {
       {/* Related Solutions */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Related Solutions</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-12">Related Solutions</h2>
           
           <div className="grid md:grid-cols-3 gap-8">
             {[
