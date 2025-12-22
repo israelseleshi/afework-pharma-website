@@ -897,7 +897,7 @@ export function AboutPage() {
             ].map((member, index) => (
               <motion.div 
                 key={index} 
-                className={`bg-white p-6 rounded-xl border transition-all duration-300 hover:shadow-lg h-full flex items-start gap-6 ${member.featured ? 'border-green-200 shadow-md' : 'border-gray-200'}`}
+                className={`bg-white p-6 rounded-xl border transition-all duration-300 hover:shadow-lg h-full flex flex-col ${member.featured ? 'border-green-200 shadow-md' : 'border-gray-200'}`}
                 variants={leadershipCardVariants}
                 whileHover={{ 
                   y: -8,
@@ -905,29 +905,31 @@ export function AboutPage() {
                   transition: { duration: 0.2 }
                 }}
               >
-                <div className="relative mb-3 sm:mb-4 flex-shrink-0">
-                  <motion.div 
-                    className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full overflow-hidden border-3 border-white shadow-lg"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <ImageWithFallback 
-                      src={member.image}
-                      alt={`${member.name} - ${member.position}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </motion.div>
-                  {member.featured && (
-                    <div className="absolute -top-1 -right-1 bg-green-600 text-white px-2 py-1 rounded-full text-xs font-medium">
-                      Founder
-                    </div>
-                  )}
+                <div className="flex items-start gap-6">
+                  <div className="relative flex-shrink-0">
+                    <motion.div 
+                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-3 border-white shadow-lg"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ImageWithFallback 
+                        src={member.image}
+                        alt={`${member.name} - ${member.position}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.div>
+                    {member.featured && (
+                      <div className="absolute -top-1 -right-1 bg-green-600 text-white px-2 py-1 rounded-full text-xs font-medium">
+                        Founder
+                      </div>
+                    )}
+                  </div>
+                  <div>
+                    <h3 className="text-base sm:text-lg font-bold text-gray-900 text-left mb-1 sm:mb-2" style={{letterSpacing: '-0.02em'}}>{member.name}</h3>
+                    <p className="text-green-600 font-medium text-left text-xs sm:text-sm">{member.position}</p>
+                  </div>
                 </div>
-                <div className="flex-grow flex flex-col">
-                  <h3 className="text-base sm:text-lg font-bold text-gray-900 text-left mb-1 sm:mb-2" style={{letterSpacing: '-0.02em'}}>{member.name}</h3>
-                  <p className="text-green-600 font-medium text-left mb-2 sm:mb-3 text-xs sm:text-sm">{member.position}</p>
-                  <p className="text-gray-600 text-left text-xs leading-relaxed flex-grow">{member.bio}</p>
-                </div>
+                <p className="mt-2 text-gray-600 text-left text-xs leading-relaxed">{member.bio}</p>
               </motion.div>
             ))}
           </motion.div>
