@@ -54,7 +54,7 @@ Thumbs.db
 .LSOverride
 
 # Package manager files
-package-lock.json
+# package-lock.json is tracked
 yarn.lock
 pnpm-lock.yaml
 
