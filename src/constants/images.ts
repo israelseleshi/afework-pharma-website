@@ -40,7 +40,7 @@ export const IMAGES = {
 
   // Team member photos (using available images as placeholders)
   team: {
-    afeworkWoldesilassie: '/assets/images/afewrork-team-image.jpg',
+    afeworkWoldesilassie: '/assets/images/team/afework-woldesilassie.png',
     meronGetachew: '/assets/images/afewrork-team-image.jpg',
     dawitAlemayehu: '/assets/images/afewrork-team-image.jpg'
   },
