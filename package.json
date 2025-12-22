@@ -79,7 +79,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node deploy.js",
+    "build": "vite build",
     "build:only": "vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
@@ -91,7 +91,7 @@
     "start:dev": "set NODE_ENV=development && node server.js",
     "dev:full": "concurrently \"npm run server\" \"npm run dev\"",
     "build:start": "npm run build && npm run start",
-    "production": "npm run build && set NODE_ENV=production && node server.js",
+    "production": "npm run build && node server.js",
     "setup-db": "node setup-database.js",
     "create-admin": "node scripts/create-admin.js",
     "backup-db": "node scripts/backup-db.js",
