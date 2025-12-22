@@ -110,3 +110,12 @@ build/
 .turbo/
 build/
 client/build/
+
+# Large un-versioned assets
+*.zip
+*.docx
+*.pdf
+*.sql
+
+# Duplicate frontend assets
+client/public/
