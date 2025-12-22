@@ -108,3 +108,5 @@ dist/
 build/
 .cache/
 .turbo/
+build/
+client/build/
