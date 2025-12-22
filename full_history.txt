@@ -1,0 +1,23 @@
+* 245638d (HEAD -> main, origin/main, origin/HEAD) ci: run npm ci with workspaces flag
+* 4503063 chore: regenerate workspace package-lock.json
+* 6336f98 ci: track lock file, drop large zips, fix workflow YAML
+* ea86536 ci: fix workflows (upload-sarif v3, permissions) and track package-lock for tests
+* ee55d66 chore: stop tracking build artefacts & update .gitignore
+* fd57be0 chore: stop tracking build folders
+* 9fea7a4 WIP: state before structure rollback
+| *   7b0abe6 (refs/stash) On main: WIP restructuring checklist
+|/|\  
+| | * ab52567 untracked files on main: e7d19e9 redesigned solutions page, hero section
+| * 865b2fe index on main: e7d19e9 redesigned solutions page, hero section
+|/  
+* e7d19e9 redesigned solutions page, hero section
+* f991bbc redesigned hero section, added brochures to be downloaded
+* 3d2fdde restructured the project
+* 8124e3e conetnt mangaement created
+* 0e967e5 trying to integrate mailing functionality
+* 384cf35 added animtion and trasnition on all pages
+* c9f88f8 animations and transitions added to the HomePage
+* 4657bac fix: Update vercel.json with correct output directory
+* b68b502 second commit
+* 883ee79 fix: Update package.json for Vercel deployment
+* 9d65549 initial commit
