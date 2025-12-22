@@ -32,6 +32,8 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-results.sarif'
+          token: ${{ secrets.GITHUB_TOKEN }}
+        
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
