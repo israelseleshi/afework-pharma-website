@@ -133,7 +133,7 @@ INSERT INTO cms_home_content (
                 'icon', 'Bed',
                 'title', 'Hospital Furniture & Patient Care',
                 'description', 'Ergonomic hospital furniture and patient care equipment designed for comfort and functionality.',
-                'image', '/hospital-furniture-&-patient-care.jpg',
+                'image', '/hospital_furniture_patient_care/hospital_furniture.png',
                 'products', JSON_ARRAY('Hospital Beds', 'Patient Chairs', 'Medical Trolleys', 'Storage Solutions')
             ),
             JSON_OBJECT(
