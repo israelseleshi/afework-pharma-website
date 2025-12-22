@@ -10,8 +10,8 @@ export const IMAGES = {
     diagnosticLab: '/assets/images/solutions/diagnostic-laboratory.webp',
     imagingRadiology: '/assets/images/solutions/imaging-radiology.webp',
     criticalCare: '/assets/images/solutions/critical-care.webp',
-    hospitalFurniture: '/hospital_furniture_patient_care/hospital_furniture.png',
-    medicalConsumables: '/medical_consumables_reagents/medical_consumables.png'
+    hospitalFurniture: '/assets/images/solutions/hospital_furniture.png',
+    medicalConsumables: '/assets/images/solutions/medical_consumables.png'
   },
 
   // Solution category images
@@ -19,8 +19,8 @@ export const IMAGES = {
     diagnosticLab: '/assets/images/solutions/diagnostic-laboratory.webp',
     imagingRadiology: '/assets/images/solutions/imaging-radiology.webp',
     criticalCare: '/assets/images/solutions/critical-care.webp',
-    hospitalFurniture: '/hospital_furniture_patient_care/hospital_furniture.png',
-    medicalConsumables: '/medical_consumables_reagents/medical_consumables.png'
+    hospitalFurniture: '/assets/images/solutions/hospital_furniture.png',
+    medicalConsumables: '/assets/images/solutions/medical_consumables.png'
   },
 
   // Product images - Actual Mindray product images
@@ -41,8 +41,8 @@ export const IMAGES = {
   // Team member photos (using available images as placeholders)
   team: {
     afeworkWoldesilassie: '/assets/images/team/afework-woldesilassie.png',
-    meronGetachew: '/assets/images/afewrork-team-image.jpg',
-    dawitAlemayehu: '/assets/images/afewrork-team-image.jpg'
+    meronGetachew: '/assets/images/team/placeholder.jpg',
+    dawitAlemayehu: '/assets/images/team/placeholder.jpg'
   },
 
   // Project images (using available images as placeholders)
