@@ -401,32 +401,17 @@ export function AboutPage() {
           <div className="grid lg:grid-cols-2 gap-8 items-stretch">
             {/* Left Side - Our Story Image */}
             <motion.div 
-              className="relative overflow-hidden rounded-[2rem] shadow-2xl min-h-[400px] lg:min-h-[500px] bg-gradient-to-br from-gray-900 to-gray-700"
+              className="flex items-center justify-center"
               initial="hiddenLeft"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
               variants={missionVisionVariants}
-              style={{
-                borderRadius: '2rem',
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
-              }}
             >
               <ImageWithFallback 
                 src={IMAGES.logos.afeworkPharma}
                 alt={IMAGE_ALT_TEXT.logos.afeworkPharma}
-                className="w-full h-full object-contain p-8"
+                className="w-full h-auto max-h-[500px] object-contain"
               />
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-              {/* Our Story Content */}
-              <div className="absolute bottom-8 left-8 right-8 text-white">
-                <h2 className="text-2xl lg:text-3xl font-bold mb-4" style={{letterSpacing: '-0.02em'}}>Our Story</h2>
-                <p className="text-sm lg:text-base leading-relaxed opacity-90">
-                  Since 2019, Afework Pharma has been Ethiopia's trusted partner in medical technology, 
-                  delivering world-class equipment and comprehensive support services to healthcare 
-                  institutions nationwide.
-                </p>
-              </div>
             </motion.div>
 
             {/* Right Side - Mission & Vision Cards */}
@@ -912,7 +897,7 @@ export function AboutPage() {
             ].map((member, index) => (
               <motion.div 
                 key={index} 
-                className={`bg-white p-4 sm:p-6 rounded-xl border transition-all duration-300 hover:shadow-lg h-full flex flex-col ${member.featured ? 'border-green-200 shadow-md' : 'border-gray-200'}`}
+                className={`bg-white p-6 rounded-xl border transition-all duration-300 hover:shadow-lg h-full flex items-start gap-6 ${member.featured ? 'border-green-200 shadow-md' : 'border-gray-200'}`}
                 variants={leadershipCardVariants}
                 whileHover={{ 
                   y: -8,
@@ -939,9 +924,9 @@ export function AboutPage() {
                   )}
                 </div>
                 <div className="flex-grow flex flex-col">
-                  <h3 className="text-base sm:text-lg font-bold text-gray-900 text-center mb-1 sm:mb-2" style={{letterSpacing: '-0.02em'}}>{member.name}</h3>
-                  <p className="text-green-600 font-medium text-center mb-2 sm:mb-3 text-xs sm:text-sm">{member.position}</p>
-                  <p className="text-gray-600 text-center text-xs leading-relaxed flex-grow">{member.bio}</p>
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 text-left mb-1 sm:mb-2" style={{letterSpacing: '-0.02em'}}>{member.name}</h3>
+                  <p className="text-green-600 font-medium text-left mb-2 sm:mb-3 text-xs sm:text-sm">{member.position}</p>
+                  <p className="text-gray-600 text-left text-xs leading-relaxed flex-grow">{member.bio}</p>
                 </div>
               </motion.div>
             ))}
@@ -975,7 +960,7 @@ export function AboutPage() {
                   variants={containerVariants}
                 >
                   <motion.div 
-                    className="flex-shrink-0 w-14 sm:w-16 lg:w-20 text-center"
+                    className="flex-shrink-0 w-14 sm:w-16 lg:w-20 text-left"
                     variants={timelineVariants}
                   >
                     <div className="text-base sm:text-lg lg:text-xl font-bold text-green-600 mb-1 sm:mb-2">{milestone.year}</div>
@@ -1065,7 +1050,7 @@ export function AboutPage() {
 
               {/* Image caption */}
               <div className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm p-4 border-t border-gray-200">
-                <p className="text-gray-800 text-center font-medium text-lg">{selectedImageAlt}</p>
+                <p className="text-gray-800 text-left font-medium text-lg">{selectedImageAlt}</p>
               </div>
             </motion.div>
           </motion.div>
