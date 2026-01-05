@@ -3,21 +3,18 @@ import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Router, useRouter } from "./components/Router";
 import { LoadingScreen } from "./components/LoadingScreen";
-// import { ContentProvider } from "./contexts/ContentContext"; // Removed to prevent database loading
 import { HomePage } from "./pages/HomePage";
 import { AboutPage } from "./pages/AboutPage";
 import { SolutionsPage } from "./pages/SolutionsPage";
 import { ProjectsPage } from "./pages/ProjectsPage";
 import { ContactPage } from "./pages/ContactPage";
 import { SolutionDetailPage } from "./pages/SolutionDetailPage";
-import { CriticalCareOperationTheatrePage } from "./pages/CriticalCareOperationTheatrePage";
-// Admin pages removed
 import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
 import { TermsOfServicePage } from "./pages/TermsOfServicePage";
 import { CookiePolicyPage } from "./pages/CookiePolicyPage";
 
 function AppContent() {
-  const { currentPage, currentSolution } = useRouter();
+  const { currentPage } = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
 

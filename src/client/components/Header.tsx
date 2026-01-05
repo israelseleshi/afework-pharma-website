@@ -19,7 +19,7 @@ export function Header() {
       {/* Top Bar */}
       <div className="bg-gray-50 border-b border-gray-200 hidden lg:block">
         <div className="w-full px-4 lg:px-6 py-2">
-          <div className="flex justify-between items-center text-sm" style={{fontFamily: 'Geist Sans, sans-serif'}}>
+          <div className="flex justify-between items-center text-sm" style={{fontFamily: 'Public Sans, sans-serif'}}>
             <div className="flex items-center space-x-4">
               <div className="flex items-center text-gray-600">
                 <Phone className="w-4 h-4 mr-2" />
@@ -53,8 +53,8 @@ export function Header() {
                 className="h-10 w-auto object-contain group-hover:opacity-80 transition-opacity"
               />
               <div className="text-left">
-                <h1 className="text-xl font-bold text-gray-900 group-hover:text-green-600 transition-colors" style={{letterSpacing: '-0.02em', fontFamily: 'Geist Sans, sans-serif'}}>Afework Pharma</h1>
-                <p className="text-xs text-gray-500" style={{letterSpacing: '-0.02em', fontFamily: 'Geist Sans, sans-serif'}}>Medical Solutions</p>
+                <h1 className="text-xl font-bold text-gray-900 group-hover:text-green-600 transition-colors" style={{letterSpacing: '-0.02em', fontFamily: 'Public Sans, sans-serif'}}>Afework Pharma</h1>
+                <p className="text-xs text-gray-500" style={{letterSpacing: '-0.02em', fontFamily: 'Public Sans, sans-serif'}}>Medical Solutions</p>
               </div>
             </button>
 
@@ -80,8 +80,8 @@ export function Header() {
               className="h-10 w-auto object-contain group-hover:opacity-80 transition-opacity"
             />
             <div className="text-left">
-              <h1 className="text-xl font-bold text-gray-900 group-hover:text-green-600 transition-colors" style={{letterSpacing: '-0.02em', fontFamily: 'Geist Sans, sans-serif'}}>Afework Pharma</h1>
-              <p className="text-xs text-gray-500" style={{letterSpacing: '-0.02em', fontFamily: 'Geist Sans, sans-serif'}}>Medical Solutions</p>
+              <h1 className="text-xl font-bold text-gray-900 group-hover:text-green-600 transition-colors" style={{letterSpacing: '-0.02em', fontFamily: 'Public Sans, sans-serif'}}>Afework Pharma</h1>
+              <p className="text-xs text-gray-500" style={{letterSpacing: '-0.02em', fontFamily: 'Public Sans, sans-serif'}}>Medical Solutions</p>
             </div>
           </button>
 
@@ -92,7 +92,7 @@ export function Header() {
               className={`text-base transition-colors hover:text-green-400 ${
                 currentPage === 'home' ? 'text-green-600' : 'text-gray-700'
               }`}
-              style={{fontFamily: 'Geist Sans, sans-serif'}}
+              style={{fontFamily: 'Public Sans, sans-serif'}}
             >
               Home
             </button>
@@ -102,7 +102,7 @@ export function Header() {
               className={`text-base transition-colors hover:text-green-600 ${
                 currentPage === 'solutions' ? 'text-green-600' : 'text-gray-700'
               }`}
-              style={{fontFamily: 'Geist Sans, sans-serif'}}
+              style={{fontFamily: 'Public Sans, sans-serif'}}
             >
               Solutions
             </button>
@@ -112,7 +112,7 @@ export function Header() {
               className={`text-base transition-colors hover:text-green-600 ${
                 currentPage === 'projects' ? 'text-green-600' : 'text-gray-700'
               }`}
-              style={{fontFamily: 'Geist Sans, sans-serif'}}
+              style={{fontFamily: 'Public Sans, sans-serif'}}
             >
               Projects
             </button>
@@ -122,7 +122,7 @@ export function Header() {
               className={`text-base transition-colors hover:text-green-600 ${
                 currentPage === 'about' ? 'text-green-600' : 'text-gray-700'
               }`}
-              style={{fontFamily: 'Geist Sans, sans-serif'}}
+              style={{fontFamily: 'Public Sans, sans-serif'}}
             >
               About
             </button>
@@ -130,7 +130,7 @@ export function Header() {
             <button 
               onClick={() => handleNavigation('contact')}
               className="bg-green-500 text-white px-6 py-2.5 rounded-lg text-base font-semibold hover:bg-green-600 transition-colors border-2 border-green-500"
-              style={{fontFamily: 'Geist Sans, sans-serif'}}
+              style={{fontFamily: 'Public Sans, sans-serif'}}
             >
               Contact Us
             </button>
@@ -156,7 +156,7 @@ export function Header() {
                       ? 'bg-green-50 text-green-600' 
                       : 'text-gray-700 hover:bg-gray-50'
                   }`}
-                  style={{fontFamily: 'Geist Sans, sans-serif'}}
+                  style={{fontFamily: 'Public Sans, sans-serif'}}
                 >
                   Home
                 </button>
@@ -168,7 +168,7 @@ export function Header() {
                       ? 'bg-green-50 text-green-600' 
                       : 'text-gray-700 hover:bg-gray-50'
                   }`}
-                  style={{fontFamily: 'Geist Sans, sans-serif'}}
+                  style={{fontFamily: 'Public Sans, sans-serif'}}
                 >
                   Solutions
                 </button>
@@ -180,7 +180,7 @@ export function Header() {
                       ? 'bg-green-50 text-green-600' 
                       : 'text-gray-700 hover:bg-gray-50'
                   }`}
-                  style={{fontFamily: 'Geist Sans, sans-serif'}}
+                  style={{fontFamily: 'Public Sans, sans-serif'}}
                 >
                   Projects
                 </button>
@@ -192,7 +192,7 @@ export function Header() {
                       ? 'bg-green-50 text-green-600' 
                       : 'text-gray-700 hover:bg-gray-50'
                   }`}
-                  style={{fontFamily: 'Geist Sans, sans-serif'}}
+                  style={{fontFamily: 'Public Sans, sans-serif'}}
                 >
                   About
                 </button>
@@ -200,7 +200,7 @@ export function Header() {
                 <button 
                   onClick={() => handleNavigation('contact')}
                   className="block w-full text-left px-4 py-3 text-base font-semibold bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors border-2 border-green-500"
-                  style={{fontFamily: 'Geist Sans, sans-serif'}}
+                  style={{fontFamily: 'Public Sans, sans-serif'}}
                 >
                   Contact Us
                 </button>

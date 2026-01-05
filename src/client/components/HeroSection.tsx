@@ -2,10 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { IMAGES, IMAGE_ALT_TEXT } from '../constants/images';
-import { HeroHighlight, Highlight } from './ui/hero-highlight';
-import { PointerHighlight } from './ui/pointer-highlight';
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { useRouter } from "./Router";
 
 // CSS-in-JS for professional animated color effects
 const heroStyles = `
