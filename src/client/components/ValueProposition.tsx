@@ -71,7 +71,7 @@ export function ValueProposition() {
   };
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-white">
+    <section className="py-16 sm:py-20 lg:py-24 bg-[#f9fafb]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
           {/* Section Title - Left Aligned */}
@@ -92,7 +92,7 @@ export function ValueProposition() {
           {/* Value Cards */}
           <div className="lg:col-span-4">
             <motion.div 
-              className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"

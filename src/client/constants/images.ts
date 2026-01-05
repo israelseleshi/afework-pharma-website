@@ -119,7 +119,7 @@ export const IMAGE_ALT_TEXT = {
     }
   },
   team: {
-    afeworkWoldesilassie: 'Afework Woldesilassie - Founder & CEO',
+    afeworkWoldesilassie: 'Afework Woldesilassie - General Manager',
     meronGetachew: 'Dr. Meron Getachew - Technical Director',
     dawitAlemayehu: 'Dawit Alemayehu - Operations Manager'
   },

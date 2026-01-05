@@ -56,7 +56,7 @@ try {
 }
 
 // Temporary in-memory content storage (until database is connected)
-let contentStore = {
+const contentStore = {
     'hero_headline': {
         type: 'text',
         value: 'Advanced Medical Solutions for a Healthier Ethiopia',
@@ -760,7 +760,7 @@ app.post('/api/contact-phpmailer-dual-fixed.php', validateInput(validationSchema
 // Contact functionality handled by external services
 
 // Development CMS API simulation - MUST come before static file serving
-let mockHeroContent = [
+const mockHeroContent = [
     {
         id: 1,
         content_key: 'hero_headline',

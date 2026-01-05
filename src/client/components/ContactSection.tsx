@@ -150,8 +150,7 @@ export function ContactSection() {
                     <h4 className="font-semibold text-slate-900 mb-2">Sales & General Inquiries</h4>
                     <p className="text-slate-600 mb-2">For new projects and general questions</p>
                     <div className="space-y-1">
-                      <div className="text-blue-600 font-medium">+251 911 123 456</div>
-                      <div className="text-blue-600 font-medium">+251 922 789 123</div>
+                      <div className="text-blue-600 font-medium">+251 911 238 129</div>
                     </div>
                   </div>
                 </div>
@@ -163,7 +162,7 @@ export function ContactSection() {
                   <div>
                     <h4 className="font-semibold text-slate-900 mb-2">Technical Support Hotline</h4>
                     <p className="text-slate-600 mb-2">24/7 support for existing clients</p>
-                    <div className="text-green-600 font-medium">+251 911 555 777</div>
+                    <div className="text-green-600 font-medium">+251 911 238 129</div>
                   </div>
                 </div>
 

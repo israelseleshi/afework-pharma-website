@@ -1,5 +1,6 @@
-import { cn } from "./utils";
-import { motion } from "framer-motion";
+"use client";
+import { cn } from "src/lib/utils";
+import { motion } from "motion/react";
 import { useRef, useEffect, useState } from "react";
 
 export function PointerHighlight({
@@ -89,7 +90,7 @@ export function PointerHighlight({
             }}
           >
             <Pointer
-              className={cn("h-5 w-5 text-orange-500", pointerClassName)}
+              className={cn("h-5 w-5 text-blue-500", pointerClassName)}
             />
           </motion.div>
         </motion.div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { IMAGES, IMAGE_ALT_TEXT } from "../constants/images";
 import SEO from "../components/SEO";
 import { Button } from "../components/ui/button";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";

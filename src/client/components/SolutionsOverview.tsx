@@ -59,7 +59,7 @@ export function SolutionsOverview() {
     {
       icon: Beaker,
       title: "Diagnostic & Laboratory Solutions",
-      description: "Complete laboratory ecosystems featuring automated chemistry analyzers, hematology systems, and comprehensive IVD solutions tailored for Ethiopian healthcare facilities.",
+      description: "Complete laboratory ecosystems for accurate testing — advanced chemistry analyzers, hematology systems, and comprehensive IVD solutions tailored for Ethiopian healthcare facilities with automated workflows and reliable results.",
       image: IMAGES.solutions.diagnosticLab,
       alt: IMAGE_ALT_TEXT.hero.diagnosticLab,
       products: [

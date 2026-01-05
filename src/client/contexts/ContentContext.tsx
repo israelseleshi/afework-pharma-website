@@ -204,7 +204,7 @@ const defaultContent: ContentData = {
     value: [
       {
         name: 'Mr. Afework Woldesilassie',
-        position: 'Founder & Chief Executive Officer',
+        position: 'General Manager',
         bio: 'Visionary leader with international investment acumen and deep healthcare expertise. Founded Afework Pharma in 2019 with a mission to transform Ethiopian healthcare through innovative medical technology solutions.',
         image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMG1hbiUyMGFmcmljYW58ZW58MXx8fHwxNzU5ODI5MzAwfDA&ixlib=rb-4.1.0&q=80&w=1080',
         featured: true

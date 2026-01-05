@@ -15,24 +15,26 @@ import { CookiePolicyPage } from "./pages/CookiePolicyPage";
 
 function AppContent() {
   const { currentPage } = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
-  const [showContent, setShowContent] = useState(false);
-
-  const handleLoadingComplete = () => {
-    setIsLoading(false);
-    // Small delay to ensure smooth transition
-    setTimeout(() => setShowContent(true), 100);
-  };
-
-  // Only show loading screen on initial mount
-  useEffect(() => {
-    const hasSeenLoading = sessionStorage.getItem('hasSeenLoading');
+  // Initialize state with a function to avoid unnecessary re-renders
+  const [loadingState, setLoadingState] = useState(() => {
+    const hasSeenLoading = typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('hasSeenLoading') : null;
     if (hasSeenLoading) {
-      setIsLoading(false);
-      setShowContent(true);
-    } else {
+      return { isLoading: false, showContent: true };
+    }
+    if (typeof sessionStorage !== 'undefined') {
       sessionStorage.setItem('hasSeenLoading', 'true');
     }
+    return { isLoading: true, showContent: false };
+  });
+
+  const handleLoadingComplete = React.useCallback(() => {
+    setLoadingState(prev => ({ ...prev, isLoading: false }));
+    // Small delay to ensure smooth transition
+    const timer = setTimeout(
+      () => setLoadingState(prev => ({ ...prev, showContent: true })),
+      100
+    );
+    return () => clearTimeout(timer);
   }, []);
 
   const renderPage = () => {
@@ -62,15 +64,13 @@ function AppContent() {
   };
 
   // Show loading screen first
-  if (isLoading) {
+  if (loadingState.isLoading) {
     return <LoadingScreen onLoadingComplete={handleLoadingComplete} />;
   }
 
-  // Admin page handling removed
-
   // Main content with fade-in animation
   return (
-    <div className={`min-h-screen bg-white transition-opacity duration-500 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`min-h-screen bg-white transition-opacity duration-500 ${loadingState.showContent ? 'opacity-100' : 'opacity-0'}`}>
       <Header />
       <main>
         {renderPage()}

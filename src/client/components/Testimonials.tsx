@@ -6,7 +6,28 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 export function Testimonials() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const totalTestimonials = 5;
-  const cardsToShow = 3;
+  // Get number of cards to show based on screen size
+  const getCardsToShow = () => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth < 768) return 1; // Mobile: 1 card
+      if (window.innerWidth < 1024) return 2; // Tablet: 2 cards
+      return 3; // Desktop: 3 cards
+    }
+    return 3; // Default for server-side rendering
+  };
+
+  const [cardsToShow, setCardsToShow] = useState(getCardsToShow());
+
+  // Update cardsToShow on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setCardsToShow(getCardsToShow());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const maxIndex = totalTestimonials - cardsToShow;
 
   const testimonials = [
@@ -189,9 +210,9 @@ export function Testimonials() {
                 x: { type: "spring", stiffness: 300, damping: 30 },
                 opacity: { duration: 0.2 }
               }}
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
-              {testimonials.slice(currentTestimonial, currentTestimonial + 3).map((testimonial, index) => (
+              {testimonials.slice(currentTestimonial, currentTestimonial + cardsToShow).map((testimonial, index) => (
                 <motion.div
                   key={testimonial.id}
                   variants={itemVariants}
@@ -212,28 +233,16 @@ export function Testimonials() {
                     </blockquote>
 
                     {/* Author Info */}
-                    <div className="flex items-center gap-4">
-                      <div className="relative">
-                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200">
-                          <ImageWithFallback
-                            src={testimonial.image}
-                            alt={testimonial.name}
-                            className="w-full h-full object-cover object-center"
-                          />
-                        </div>
-                      </div>
-                      
-                      <div className="flex-1">
-                        <h3 className="font-bold text-gray-900 text-base">
-                          {testimonial.name}
-                        </h3>
-                        <p className="text-green-600 font-medium text-sm">
-                          {testimonial.position}
-                        </p>
-                        <p className="text-gray-600 text-sm">
-                          {testimonial.organization}
-                        </p>
-                      </div>
+                    <div className="space-y-2">
+                      <h3 className="font-bold text-gray-900 text-base">
+                        {testimonial.name}
+                      </h3>
+                      <p className="text-green-600 font-medium text-sm">
+                        {testimonial.position}
+                      </p>
+                      <p className="text-gray-600 text-sm">
+                        {testimonial.organization}
+                      </p>
                     </div>
                   </div>
                 </motion.div>

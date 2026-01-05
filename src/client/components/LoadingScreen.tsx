@@ -9,25 +9,17 @@ export function LoadingScreen({ onLoadingComplete }: LoadingScreenProps) {
   const [stage, setStage] = useState(0);
 
   useEffect(() => {
-    // Stage 0: Logo appears (0-1s)
+    // Stage 0: Logo appears (0-1.5s)
     const timer1 = setTimeout(() => setStage(1), 800);
     
-    // Stage 1: Title appears (1-2s)
-    const timer2 = setTimeout(() => setStage(2), 1600);
-    
-    // Stage 2: Tagline appears (2-2.5s)
-    const timer3 = setTimeout(() => setStage(3), 2200);
-    
-    // Stage 3: Fade out everything (2.5-3s)
-    const timer4 = setTimeout(() => {
+    // Stage 1: Fade out everything (1.5-2s)
+    const timer2 = setTimeout(() => {
       onLoadingComplete();
-    }, 3000);
+    }, 2000);
 
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
-      clearTimeout(timer3);
-      clearTimeout(timer4);
     };
   }, [onLoadingComplete]);
 
@@ -49,22 +41,18 @@ export function LoadingScreen({ onLoadingComplete }: LoadingScreenProps) {
         {/* Animated Background Circles */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
-            className="absolute top-1/4 left-1/4 w-96 h-96 bg-green-200/30 rounded-full blur-3xl"
+            className="absolute top-1/4 left-1/4 w-96 h-96 bg-green-200/20 rounded-full blur-3xl"
             animate={{
-              scale: [1, 1.2, 1],
-              x: [0, 50, 0],
-              y: [0, -30, 0],
+              scale: [1, 1.15, 1],
             }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
-            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-200/30 rounded-full blur-3xl"
+            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-200/20 rounded-full blur-3xl"
             animate={{
-              scale: [1, 1.3, 1],
-              x: [0, -50, 0],
-              y: [0, 30, 0],
+              scale: [1, 1.2, 1],
             }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
           />
         </div>
 
@@ -81,30 +69,29 @@ export function LoadingScreen({ onLoadingComplete }: LoadingScreenProps) {
         >
           {/* Logo Animation */}
           <motion.div
-            initial={{ scale: 0, rotate: -180, opacity: 0 }}
+            initial={{ scale: 0.8, opacity: 0 }}
             animate={{ 
-              scale: stage >= 0 ? 1 : 0,
-              rotate: stage >= 0 ? 0 : -180,
+              scale: stage >= 0 ? 1 : 0.8,
               opacity: stage >= 0 ? 1 : 0
             }}
             transition={{ 
-              duration: 0.8,
-              ease: [0.34, 1.56, 0.64, 1], // Bounce effect
+              duration: 1,
+              ease: "easeOut"
             }}
             className="relative"
           >
-            {/* Pulsing Ring Behind Logo */}
+            {/* Gentle Glow Behind Logo */}
             <motion.div
-              className="absolute inset-0 -m-4 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 opacity-20"
+              className="absolute inset-0 -m-4 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 opacity-10"
               animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.2, 0.4, 0.2],
+                scale: [1, 1.1, 1],
+                opacity: [0.1, 0.15, 0.1],
               }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             />
             
             {/* Logo */}
-            <div className="relative w-32 h-32 md:w-40 md:h-40 bg-white rounded-2xl p-6 flex items-center justify-center">
+            <div className="relative w-24 h-24 md:w-32 md:h-32 flex items-center justify-center">
               <img 
                 src="/assets/logos/afework-pharma-logo-full.png" 
                 alt="Afework Pharma" 
@@ -113,51 +100,6 @@ export function LoadingScreen({ onLoadingComplete }: LoadingScreenProps) {
               />
             </div>
 
-          </motion.div>
-
-          {/* Company Name Animation */}
-          <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ 
-              y: stage >= 1 ? 0 : 30,
-              opacity: stage >= 1 ? 1 : 0
-            }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-green-600 via-emerald-600 to-green-700 bg-clip-text text-transparent">
-              Afework Pharma
-            </h1>
-          </motion.div>
-
-          {/* Tagline Animation */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ 
-              y: stage >= 2 ? 0 : 20,
-              opacity: stage >= 2 ? 1 : 0
-            }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="text-center"
-          >
-            <p className="text-lg md:text-xl text-gray-600 font-medium">
-              Medical Solutions Provider
-            </p>
-          </motion.div>
-
-          {/* Loading Progress Bar */}
-          <motion.div
-            className="w-64 h-1 bg-gray-200 rounded-full overflow-hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: stage >= 1 ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <motion.div
-              className="h-full bg-gradient-to-r from-green-500 to-emerald-500"
-              initial={{ width: "0%" }}
-              animate={{ width: "100%" }}
-              transition={{ duration: 2.5, ease: "easeInOut" }}
-            />
           </motion.div>
         </div>
 

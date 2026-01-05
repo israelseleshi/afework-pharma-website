@@ -83,27 +83,6 @@ export function Footer() {
               Delivering world-class medical equipment with comprehensive support services.
             </p>
 
-            <motion.div
-              className="flex space-x-4"
-              variants={containerVariants}
-            >
-              {[
-                { Icon: Linkedin, href: "#" },
-                { Icon: Facebook, href: "#" },
-                { Icon: Twitter, href: "#" }
-              ].map(({ Icon, href }, index) => (
-                <motion.a
-                  key={index}
-                  href={href}
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  variants={socialVariants}
-                  whileHover={{ scale: 1.2, y: -2 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <Icon className="w-5 h-5" />
-                </motion.a>
-              ))}
-            </motion.div>
           </motion.div>
 
           {/* Quick Links */}
@@ -166,7 +145,7 @@ export function Footer() {
             <div className="space-y-2">
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-green-600 flex-shrink-0" />
-                <span className="text-sm text-foreground">+251 929 092 353</span>
+                <span className="text-sm text-foreground">+251 911 238 129</span>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-green-600 flex-shrink-0" />
@@ -214,10 +193,14 @@ export function Footer() {
           </div>
 
           {/* Bottom Row - Copyright and Links */}
-          <div className="flex justify-center">
-            <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-muted-foreground">
+          <div className="flex flex-col items-center justify-center gap-4">
+            {/* Copyright */}
+            <div className="text-sm text-muted-foreground">
               <span>© {new Date().getFullYear()} Afework Pharma. All rights reserved.</span>
-              <span className="hidden sm:inline">•</span>
+            </div>
+            
+            {/* Legal Links */}
+            <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-muted-foreground">
               {[
                 { label: "Privacy Policy", action: () => navigateTo('privacy-policy') },
                 { label: "Terms of Service", action: () => navigateTo('terms-of-service') },

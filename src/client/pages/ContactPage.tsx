@@ -194,7 +194,7 @@ export function ContactPage() {
     {
       icon: Phone,
       title: "Phone",
-      details: ["+251 929 092 353", "+251 988 338 800"],
+      details: ["+251 911 238 129"],
       description: ""
     },
     {
@@ -222,21 +222,21 @@ export function ContactPage() {
       icon: ShoppingCart,
       title: "Sales & Procurement",
       email: "afomphama13@gmail.com",
-      phone: "+251 929 092 353",
+      phone: "+251 911 238 129",
       description: "Equipment quotes, procurement, and partnership inquiries"
     },
     {
       icon: Wrench,
       title: "Technical Support",
       email: "afomphama13@gmail.com", 
-      phone: "+251 988 118 800",
+      phone: "+251 911 238 129",
       description: "Installation, maintenance, and technical assistance"
     },
     {
       icon: Users,
       title: "Training & Education",
       email: "afeworkwoldesilassie@gmail.com",
-      phone: "+251 935 935 954",
+      phone: "+251 911 238 129",
       description: "Equipment training and educational programs"
     }
   ];
@@ -250,7 +250,7 @@ export function ContactPage() {
       "contactPoint": [
         {
           "@type": "ContactPoint",
-          "telephone": "+251-911-123456",
+          "telephone": "+251-911-238129",
           "contactType": "customer service",
           "availableLanguage": ["English", "Amharic"],
           "hoursAvailable": {
@@ -301,73 +301,92 @@ export function ContactPage() {
                 </p>
               </div>
 
-              <div className="space-y-6">
+              <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6 max-w-4xl mx-auto w-full">
                 {/* Phone */}
-                <Card className="border-0 shadow-sm bg-white hover:shadow-lg transition-shadow duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Phone className="w-6 h-6 text-green-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold mb-2 text-gray-900">Phone</h3>
-                        <p className="text-gray-600">+251 929 092 353</p>
-                        <p className="text-gray-600">+251 988 338 800</p>
-                        <p className="text-sm text-green-600 mt-1">24/7 Emergency Support Available</p>
-                      </div>
+                <motion.div 
+                  className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 shadow-md hover:shadow-lg border border-gray-100 flex-1 flex flex-col transition-all duration-300"
+                  whileHover={{ 
+                    scale: 1.02,
+                    y: -4,
+                    transition: { duration: 0.3 }
+                  }}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <Phone className="w-6 h-6 text-green-600" />
                     </div>
-                  </CardContent>
-                </Card>
+                    <div>
+                      <h3 className="text-base sm:text-[15px] md:text-base lg:text-lg font-semibold text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Phone</h3>
+                      <p className="text-[13px] sm:text-[14px] md:text-[15px] lg:text-base text-gray-700 leading-snug">+251 911 238 129</p>
+                      <p className="text-xs sm:text-[13px] md:text-sm text-green-600 mt-1 sm:mt-1.5 md:mt-2">24/7 Emergency Support Available</p>
+                    </div>
+                  </div>
+                </motion.div>
 
                 {/* Email */}
-                <Card className="border-0 shadow-sm bg-white hover:shadow-lg transition-shadow duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Mail className="w-6 h-6 text-green-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold mb-2 text-gray-900">Email</h3>
-                        <p className="text-gray-600">afomphama13@gmail.com</p>
-                        <p className="text-gray-600">afeworkwoldesilassie@gmail.com</p>
-                      </div>
+                <motion.div 
+                  className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 shadow-md hover:shadow-lg border border-gray-100 flex-1 flex flex-col transition-all duration-300"
+                  whileHover={{ 
+                    scale: 1.02,
+                    y: -4,
+                    transition: { duration: 0.3 }
+                  }}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <Mail className="w-6 h-6 text-green-600" />
                     </div>
-                  </CardContent>
-                </Card>
+                    <div>
+                      <h3 className="text-base sm:text-[15px] md:text-base lg:text-lg font-semibold text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Email</h3>
+                      <p className="text-[13px] sm:text-[14px] md:text-[15px] lg:text-base text-gray-700 leading-snug">afomphama13@gmail.com</p>
+                      <p className="text-[13px] sm:text-[14px] md:text-[15px] lg:text-base text-gray-700 leading-snug">afeworkwoldesilassie@gmail.com</p>
+                    </div>
+                  </div>
+                </motion.div>
 
                 {/* Location */}
-                <Card className="border-0 shadow-sm bg-white hover:shadow-lg transition-shadow duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <MapPin className="w-6 h-6 text-green-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold mb-2 text-gray-900">Location</h3>
-                        <p className="text-gray-600">Arada Subcity, Eribekentu Bridge</p>
-                        <p className="text-gray-600">Woreda 08, Building H.No, 1st Floor #102</p>
-                        <p className="text-gray-600">Addis Ababa, Ethiopia</p>
-                      </div>
+                <motion.div 
+                  className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 shadow-md hover:shadow-lg border border-gray-100 flex-1 flex flex-col transition-all duration-300"
+                  whileHover={{ 
+                    scale: 1.02,
+                    y: -4,
+                    transition: { duration: 0.3 }
+                  }}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-6 h-6 text-green-600" />
                     </div>
-                  </CardContent>
-                </Card>
+                    <div>
+                      <h3 className="text-base sm:text-[15px] md:text-base lg:text-lg font-semibold text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Location</h3>
+                      <p className="text-[13px] sm:text-[14px] md:text-[15px] lg:text-base text-gray-700 leading-snug">Arada Subcity, Eribekentu Bridge</p>
+                      <p className="text-[13px] sm:text-[14px] md:text-[15px] lg:text-base text-gray-700 leading-snug">Woreda 08, Building H.No, 1st Floor #102</p>
+                      <p className="text-[13px] sm:text-[14px] md:text-[15px] lg:text-base text-gray-700 leading-snug">Addis Ababa, Ethiopia</p>
+                    </div>
+                  </div>
+                </motion.div>
 
                 {/* Business Hours */}
-                <Card className="border-0 shadow-sm bg-white hover:shadow-lg transition-shadow duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Clock className="w-6 h-6 text-green-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold mb-2 text-gray-900">Business Hours</h3>
-                        <p className="text-gray-600">Monday - Saturday: 8:30 AM - 5:00 PM</p>
-                        <p className="text-gray-600">Sunday: Closed</p>
-                        <p className="text-sm text-green-600 mt-1">Emergency support available 24/7</p>
-                      </div>
+                <motion.div 
+                  className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 shadow-md hover:shadow-lg border border-gray-100 flex-1 flex flex-col transition-all duration-300"
+                  whileHover={{ 
+                    scale: 1.02,
+                    y: -4,
+                    transition: { duration: 0.3 }
+                  }}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <Clock className="w-6 h-6 text-green-600" />
                     </div>
-                  </CardContent>
-                </Card>
+                    <div>
+                      <h3 className="text-base sm:text-[15px] md:text-base lg:text-lg font-semibold text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Business Hours</h3>
+                      <p className="text-[13px] sm:text-[14px] md:text-[15px] lg:text-base text-gray-700 leading-snug">Monday - Saturday: 8:30 AM - 5:00 PM</p>
+                      <p className="text-[13px] sm:text-[14px] md:text-[15px] lg:text-base text-gray-700 leading-snug">Sunday: Closed</p>
+                      <p className="text-xs sm:text-[13px] md:text-sm text-green-600 mt-1 sm:mt-1.5 md:mt-2">Emergency support available 24/7</p>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
 
@@ -438,7 +457,7 @@ export function ContactPage() {
                       >
                         <div className="grid sm:grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <Label htmlFor="name" className="text-gray-700">First Name <span className="text-red-500">*</span></Label>
+                            <Label>First Name <span className="text-red-500">*</span></Label>
                             <Input
                               id="name"
                               type="text"
@@ -628,7 +647,7 @@ export function ContactPage() {
           </motion.div>
 
           {/* Department Cards - Centered */}
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {departments.map((department, index) => {
               const IconComponent = department.icon;
               return (
@@ -639,25 +658,30 @@ export function ContactPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <Card className="h-full border-0 shadow-sm bg-white hover:shadow-lg transition-all duration-300 hover:scale-105">
-                    <CardContent className="p-6">
-                      <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                        <IconComponent className="w-6 h-6 text-green-600" />
+                  <motion.div 
+                    className="bg-white rounded-2xl p-4 sm:p-6 shadow-md hover:shadow-lg border border-gray-100 h-full flex flex-col transition-all duration-300"
+                    whileHover={{ 
+                      scale: 1.02,
+                      y: -4,
+                      transition: { duration: 0.3 }
+                    }}
+                  >
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-50 rounded-xl flex items-center justify-center mb-4 flex-shrink-0">
+                      <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
+                    </div>
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">{department.title}</h3>
+                    <p className="text-sm sm:text-base text-gray-700 mb-4 flex-grow">{department.description}</p>
+                    <div className="space-y-2 mt-auto">
+                      <div className="flex items-start gap-2 text-sm">
+                        <Mail className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span className="text-sm sm:text-base text-gray-700 break-all">{department.email}</span>
                       </div>
-                      <h3 className="font-semibold text-lg mb-2 text-gray-900">{department.title}</h3>
-                      <p className="text-gray-600 mb-4 text-sm">{department.description}</p>
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-sm">
-                          <Mail className="w-4 h-4 text-green-600" />
-                          <span className="text-gray-600">{department.email}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm">
-                          <Phone className="w-4 h-4 text-green-600" />
-                          <span className="text-gray-600">{department.phone}</span>
-                        </div>
+                      <div className="flex items-center gap-2 text-sm">
+                        <Phone className="w-4 h-4 text-green-600 flex-shrink-0" />
+                        <span className="text-sm sm:text-base text-gray-700">{department.phone}</span>
                       </div>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </motion.div>
                 </motion.div>
               );
             })}

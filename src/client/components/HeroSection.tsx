@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { IMAGES, IMAGE_ALT_TEXT } from '../constants/images';
+import { BlurFade } from './ui/blur-fade';
 
 // CSS-in-JS for professional animated color effects
 const heroStyles = `
@@ -176,7 +176,7 @@ export function HeroSection() {
     {
       image: IMAGES.hero.diagnosticLab,
       title: 'Diagnostic & Laboratory Solutions',
-      subtitle: 'Comprehensive laboratory equipment including automated chemistry analyzers, hematology systems, and complete LIMS solutions for accurate diagnostic results across Ethiopian healthcare facilities.',
+      subtitle: 'State-of-the-art automated chemistry analyzers, hematology systems, and comprehensive IVD solutions delivering accurate, reliable results for Ethiopian healthcare facilities.',
       showButton: false,
       alt: IMAGE_ALT_TEXT.hero.diagnosticLab
     },
@@ -248,8 +248,8 @@ export function HeroSection() {
   const heroSolutions = [
     {
       title: "Diagnostic & Laboratory Solutions",
-      subtitle: "Complete Laboratory Ecosystems for Accurate Testing",
-      description: "Advanced chemistry analyzers, hematology systems, and comprehensive IVD solutions tailored for Ethiopian healthcare facilities with automated workflows and reliable results.",
+      subtitle: "Advanced Laboratory Equipment for Precision Diagnostics",
+      description: "State-of-the-art automated chemistry analyzers, hematology systems, and comprehensive IVD solutions delivering accurate, reliable results for Ethiopian healthcare facilities.",
       image: IMAGES.hero.diagnosticLab,
       alt: IMAGE_ALT_TEXT.hero.diagnosticLab
     },
@@ -304,12 +304,12 @@ export function HeroSection() {
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8 sm:py-12 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Image Section - Left */}
-            <motion.div 
+            <BlurFade 
               key={`image-${currentSlide}`}
-              className="relative"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
+              direction="left"
+              delay={0.2}
+              duration={0.8}
+              offset={50}
             >
               <div className="relative">
                 <ImageWithFallback
@@ -318,47 +318,28 @@ export function HeroSection() {
                   className="w-full h-auto object-contain"
                 />
               </div>
-            </motion.div>
+            </BlurFade>
 
             {/* Content Section - Right */}
-            <motion.div 
-              key={`content-${currentSlide}`}
-              className="space-y-6"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div>
-                <motion.h1 
-                  className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-gray-900 mb-1"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  style={{letterSpacing: '-0.02em'}}
-                >
+            <div className="space-y-6">
+              <BlurFade key={`title-${currentSlide}`} delay={0.25} inView>
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-gray-900 mb-1" style={{ letterSpacing: '-0.02em' }}>
                   {heroSolutions[currentSlide].title}
-                </motion.h1>
-                
-                <motion.h2 
-                  className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-green-600 font-medium leading-relaxed mb-6"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.6 }}
-                  style={{letterSpacing: '-0.02em'}}
-                >
+                </h1>
+              </BlurFade>
+
+              <BlurFade key={`subtitle-${currentSlide}`} delay={0.5} inView>
+                <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-green-600 font-medium leading-relaxed mb-6" style={{ letterSpacing: '-0.02em' }}>
                   {heroSolutions[currentSlide].subtitle}
-                </motion.h2>
-                
-                <motion.p 
-                  className="text-lg sm:text-xl lg:text-2xl text-gray-700 leading-relaxed max-w-3xl"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.8 }}
-                >
+                </h2>
+              </BlurFade>
+
+              <BlurFade key={`desc-${currentSlide}`} delay={0.75} inView>
+                <p className="text-lg sm:text-xl lg:text-2xl text-gray-700 leading-relaxed max-w-3xl">
                   {heroSolutions[currentSlide].description}
-                </motion.p>
-              </div>
-            </motion.div>
+                </p>
+              </BlurFade>
+            </div>
           </div>
 
           {/* Navigation Dots */}

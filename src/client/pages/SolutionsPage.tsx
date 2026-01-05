@@ -310,7 +310,7 @@ export function SolutionsPage() {
       />
       {/* Hero Section with Solutions Carousel */}
       <section 
-        className="pt-24 sm:pt-28 lg:pt-36 pb-16 sm:pb-20 lg:pb-24 w-full bg-gray-200 relative" 
+        className="pt-24 sm:pt-32 lg:pt-40 pb-24 sm:pb-32 lg:pb-40 w-full bg-gray-200 relative" 
         style={{backgroundColor: '#f3f4f6'}}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -404,11 +404,10 @@ export function SolutionsPage() {
                     <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-green-100 rounded-lg flex items-center justify-center">
                       {React.createElement(solutions[currentSolutionIndex].icon, { className: "w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-green-600" })}
                     </div>
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-900 leading-tight" style={{letterSpacing: '-0.02em'}}>
+                      {solutions[currentSolutionIndex].title}
+                    </h3>
                   </div>
-                  
-                  <h3 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-900 leading-tight" style={{letterSpacing: '-0.02em'}}>
-                    {solutions[currentSolutionIndex].title}
-                  </h3>
                   
                   <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
                     {solutions[currentSolutionIndex].description}
@@ -545,7 +544,7 @@ export function SolutionsPage() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6" style={{letterSpacing: '-0.02em'}}>Our Portfolio of Mindray Medical Technologies</h2>
             
             {/* Filter Tabs */}
-            <div className="flex flex-wrap justify-start gap-2 sm:gap-3 lg:gap-4 mb-8 lg:mb-12">
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-4 mb-8 lg:mb-12">
               {['All', 'Diagnostic & Laboratory Solutions', 'Diagnostic Imaging & Radiology', 'Critical Care & Operation Theatre', 'Hospital Furniture & Patient Care', 'Medical Consumables & Reagents'].map((category, index) => (
                 <button
                   key={index}

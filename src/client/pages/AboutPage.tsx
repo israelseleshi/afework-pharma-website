@@ -875,7 +875,7 @@ export function AboutPage() {
             {[
               {
                 name: "Mr. Afework Woldesilassie",
-                position: "Founder & Chief Executive Officer",
+                position: "General Manager",
                 bio: "Visionary leader with international investment acumen and deep healthcare expertise. Founded Afework Pharma in 2019 with a mission to transform Ethiopian healthcare through innovative medical technology solutions.",
                 image: IMAGES.team.afeworkWoldesilassie,
                 featured: true

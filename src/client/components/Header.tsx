@@ -77,10 +77,10 @@ export function Header() {
             <ImageWithFallback 
               src={IMAGES.logos.afeworkPharma} 
               alt={IMAGE_ALT_TEXT.logos.afeworkPharma} 
-              className="h-10 w-auto object-contain group-hover:opacity-80 transition-opacity"
+              className="h-16 w-auto object-contain group-hover:opacity-80 transition-opacity"
             />
             <div className="text-left">
-              <h1 className="text-xl font-bold text-gray-900 group-hover:text-green-600 transition-colors" style={{letterSpacing: '-0.02em', fontFamily: 'Public Sans, sans-serif'}}>Afework Pharma</h1>
+              <h1 className="text-lg font-bold text-gray-900 group-hover:text-green-600 transition-colors" style={{letterSpacing: '-0.02em', fontFamily: 'Public Sans, sans-serif'}}>Afework Pharma</h1>
               <p className="text-xs text-gray-500" style={{letterSpacing: '-0.02em', fontFamily: 'Public Sans, sans-serif'}}>Medical Solutions</p>
             </div>
           </button>
