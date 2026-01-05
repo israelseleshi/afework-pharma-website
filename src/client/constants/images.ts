@@ -7,20 +7,20 @@ export const IMAGES = {
   // Hero section images (using general medical equipment image as fallback)
   hero: {
     main: '/assets/images/medical-equipments.png',
-    diagnosticLab: '/assets/images/solutions/diagnostic-laboratory.webp',
+    diagnosticLab: '/assets/images/diagnostic-&-laboratory-solutions.png',
     imagingRadiology: '/assets/images/solutions/imaging-radiology.webp',
     criticalCare: '/assets/images/solutions/critical-care.webp',
-    hospitalFurniture: '/assets/images/solutions/hospital_furniture.png',
-    medicalConsumables: '/assets/images/solutions/medical_consumables.png'
+    hospitalFurniture: '/assets/images/products/mindray/hospital_furniture.png',
+    medicalConsumables: '/assets/images/products/mindray/medical_consumables.png'
   },
 
   // Solution category images
   solutions: {
-    diagnosticLab: '/assets/images/solutions/diagnostic-laboratory.webp',
+    diagnosticLab: '/assets/images/diagnostic-&-laboratory-solutions.png',
     imagingRadiology: '/assets/images/solutions/imaging-radiology.webp',
     criticalCare: '/assets/images/solutions/critical-care.webp',
-    hospitalFurniture: '/assets/images/solutions/hospital_furniture.png',
-    medicalConsumables: '/assets/images/solutions/medical_consumables.png'
+    hospitalFurniture: '/assets/images/products/mindray/hospital_furniture.png',
+    medicalConsumables: '/assets/images/products/mindray/medical_consumables.png'
   },
 
   // Product images - Actual Mindray product images
@@ -47,15 +47,15 @@ export const IMAGES = {
 
   // Project images (using available images as placeholders)
   projects: {
-    tigrayHealth: '/assets/images/solutions/diagnostic-laboratory.webp',
+    tigrayHealth: '/assets/images/diagnostic-&-laboratory-solutions.png',
     defenseHospital: '/assets/images/solutions/critical-care.webp',
-    laboratorySetup: '/assets/images/solutions/diagnostic-laboratory.webp'
+    laboratorySetup: '/assets/images/diagnostic-&-laboratory-solutions.png'
   },
 
   // About page images (using available images as placeholders)
   about: {
-    companyOverview: '/assets/images/solutions/diagnostic-laboratory.webp',
-    laboratoryFacility: '/assets/images/solutions/diagnostic-laboratory.webp',
+    companyOverview: '/assets/images/diagnostic-&-laboratory-solutions.png',
+    laboratoryFacility: '/assets/images/diagnostic-&-laboratory-solutions.png',
     medicalEquipment: '/assets/images/medical-equipments.png'
   },
 

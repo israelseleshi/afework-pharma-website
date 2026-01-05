@@ -60,14 +60,35 @@ export function SolutionsOverview() {
       icon: Beaker,
       title: "Diagnostic & Laboratory Solutions",
       description: "Complete laboratory ecosystems featuring automated chemistry analyzers, hematology systems, and comprehensive IVD solutions tailored for Ethiopian healthcare facilities.",
-      image: IMAGES.products.mindray.bc5150HematologyAnalyzer,
-      alt: IMAGE_ALT_TEXT.products.mindray.bc5150HematologyAnalyzer,
-      products: ["Mindray BS-240 Chemistry Analyzers", "Mindray BC-5150 Hematology Analyzer", "Digital Microscopes", "Lab Furniture", "Quality Control Systems"],
+      image: IMAGES.solutions.diagnosticLab,
+      alt: IMAGE_ALT_TEXT.hero.diagnosticLab,
+      products: [
+        "Medium to high-end fully automated clinical chemistry analyzers",
+        "Fully automated hormone (CLIA) analyzers",
+        "High-quality hematology analyzers (3-Differential, 5-differential, 6-Differential)",
+        "Fully automated Blood culture system and microbiology analyzers",
+        "Integrated Chemistry-electrolite-hormone analyzer",
+        "Integrated Hematology with slide maker, stainer and reader"
+      ],
       benefits: [
         { icon: TrendingUp, title: "Increase Patient Throughput", description: "Automated workflows boost efficiency by 60%" },
         { icon: Shield, title: "Reduce Diagnostic Errors", description: "85% reduction with reliable results" },
         { icon: Users, title: "Accelerate Staff Competency", description: "Comprehensive training programs" },
         { icon: Clock, title: "Minimize Equipment Downtime", description: "24/7 technical support available" }
+      ]
+    },
+    {
+      icon: Pill,
+      title: "Medical Consumables & Reagents",
+      description: "Quality medical consumables and reagents ensuring reliable test results and optimal patient safety standards across Ethiopian healthcare facilities.",
+      image: IMAGES.solutions.medicalConsumables,
+      alt: IMAGE_ALT_TEXT.hero.medicalConsumables,
+      products: ["Lab Reagents", "Rapid Test Kits", "Medical Disposables", "Quality Controls", "Calibration Materials"],
+      benefits: [
+        { icon: Award, title: "Ensure Test Accuracy", description: "Consistent quality standards" },
+        { icon: Shield, title: "Meet International Standards", description: "Full regulatory compliance" },
+        { icon: TrendingUp, title: "Reduce Operating Costs", description: "Bulk supply efficiency" },
+        { icon: Clock, title: "Prevent Stock-Outs", description: "Reliable supply chain" }
       ]
     },
     {
@@ -110,20 +131,6 @@ export function SolutionsOverview() {
         { icon: TrendingUp, title: "Boost Staff Productivity", description: "Ergonomic design solutions" },
         { icon: Shield, title: "Reduce Infections", description: "Easy-clean surfaces" },
         { icon: Lightbulb, title: "Maximize Space", description: "Modular design solutions" }
-      ]
-    },
-    {
-      icon: Pill,
-      title: "Medical Consumables & Reagents",
-      description: "Quality medical consumables and reagents ensuring reliable test results and optimal patient safety standards across Ethiopian healthcare facilities.",
-      image: IMAGES.solutions.medicalConsumables,
-      alt: IMAGE_ALT_TEXT.hero.medicalConsumables,
-      products: ["Lab Reagents", "Rapid Test Kits", "Medical Disposables", "Quality Controls", "Calibration Materials"],
-      benefits: [
-        { icon: Award, title: "Ensure Test Accuracy", description: "Consistent quality standards" },
-        { icon: Shield, title: "Meet International Standards", description: "Full regulatory compliance" },
-        { icon: TrendingUp, title: "Reduce Operating Costs", description: "Bulk supply efficiency" },
-        { icon: Clock, title: "Prevent Stock-Outs", description: "Reliable supply chain" }
       ]
     }
   ];

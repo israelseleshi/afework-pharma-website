@@ -140,13 +140,7 @@ export function ProjectsPage() {
         "Comprehensive on-site user training",
         "40-day project completion timeline"
       ],
-      impact: "Enhanced diagnostic capabilities across 36 health facilities in Tigray region",
-      testimonial: {
-        quote: "Afework Pharma delivered exceptional service with their turnkey supply, installation, and training across our 36 facilities. The project was completed ahead of schedule with outstanding technical support.",
-        author: "Dr. Gebrehiwot Tesfay",
-        position: "Director, Tigray Regional Health Bureau",
-        avatar: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBtYW4lMjBkb2N0b3IlMjBhZnJpY2FufGVufDF8fHx8MTc1OTgyOTMwNXww&ixlib=rb-4.1.0&q=80&w=1080"
-      }
+      impact: "Enhanced diagnostic capabilities across 36 health facilities in Tigray region"
     },
     {
       title: "FDRE Defense Referral Hospital, Bishoftu",
@@ -163,13 +157,7 @@ export function ProjectsPage() {
         "Full technical and application training",
         "Sustained reagent supply worth ETB 1.9 Million"
       ],
-      impact: "Enhanced diagnostic capabilities with reliable supply chain support",
-      testimonial: {
-        quote: "Afework Pharma provided exceptional installation and commissioning services with comprehensive training support. Their ongoing reagent supply management has been exemplary.",
-        author: "Colonel Dr. Mulugeta Assefa", 
-        position: "Chief Medical Director, FDRE Defense Hospital",
-        avatar: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBtYW4lMjBkb2N0b3IlMjBhZnJpY2FufGVufDF8fHx8MTc1OTgyOTMxMHww&ixlib=rb-4.1.0&q=80&w=1080"
-      }
+      impact: "Enhanced diagnostic capabilities with reliable supply chain support"
     }
   ];
 
@@ -383,33 +371,6 @@ export function ProjectsPage() {
                     </motion.div>
                   </motion.div>
                   
-                </motion.div>
-
-                {/* Testimonial */}
-                <motion.div 
-                  className="p-6 sm:p-8 rounded-2xl bg-slate-100"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.5 }}
-                  variants={pageLoadVariants}
-                  transition={{ delay: 0.3 }}
-                >
-                  <blockquote className="text-gray-700 italic mb-4">
-                    "{project.testimonial.quote}"
-                  </blockquote>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0 border-2 border-green-200">
-                      <ImageWithFallback 
-                        src={project.testimonial.avatar}
-                        alt={project.testimonial.author}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div>
-                      <div className="text-gray-900 text-sm sm:text-base font-semibold">{project.testimonial.author}</div>
-                      <div className="text-gray-600 text-xs sm:text-sm">{project.testimonial.position}</div>
-                    </div>
-                  </div>
                 </motion.div>
 
                 {index < featuredProjects.length - 1 && (

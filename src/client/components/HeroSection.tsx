@@ -254,8 +254,15 @@ export function HeroSection() {
       title: "Diagnostic & Laboratory Solutions",
       subtitle: "Complete Laboratory Ecosystems for Accurate Testing",
       description: "Advanced chemistry analyzers, hematology systems, and comprehensive IVD solutions tailored for Ethiopian healthcare facilities with automated workflows and reliable results.",
-      image: IMAGES.products.mindray.bc5150HematologyAnalyzer,
-      alt: IMAGE_ALT_TEXT.products.mindray.bc5150HematologyAnalyzer
+      image: IMAGES.hero.diagnosticLab,
+      alt: IMAGE_ALT_TEXT.hero.diagnosticLab
+    },
+    {
+      title: "Medical Consumables & Reagents", 
+      subtitle: "Quality Supplies for Reliable Healthcare Delivery",
+      description: "We provide high-quality medical consumables and reagents ensuring consistent results and optimal patient safety standards across Ethiopian healthcare facilities.",
+      image: IMAGES.solutions.medicalConsumables,
+      alt: IMAGE_ALT_TEXT.hero.medicalConsumables
     },
     {
       title: "Diagnostic Imaging & Radiology",
@@ -277,13 +284,6 @@ export function HeroSection() {
       description: "Our design specialists are here to help you create comfortable and functional healthcare environments with ergonomic furniture solutions tailored to your facility's needs.",
       image: IMAGES.solutions.hospitalFurniture,
       alt: IMAGE_ALT_TEXT.hero.hospitalFurniture
-    },
-    {
-      title: "Medical Consumables & Reagents", 
-      subtitle: "Quality Supplies for Reliable Healthcare Delivery",
-      description: "We provide high-quality medical consumables and reagents ensuring consistent results and optimal patient safety standards across Ethiopian healthcare facilities.",
-      image: IMAGES.solutions.medicalConsumables,
-      alt: IMAGE_ALT_TEXT.hero.medicalConsumables
     }
   ];
 
